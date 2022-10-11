@@ -17,6 +17,7 @@ const LoginScreen = () => {
 
     const userLogin = useSelector(state => state.userLogin)
     const { loading, error, userInfo } = userLogin
+    console.log('==', error);
 
     let location = useLocation();
     const redirect = location.search ? location.search.split('=')[1] : '/'
@@ -36,7 +37,7 @@ const LoginScreen = () => {
     return (
         <FormContainer>
             <h1 className='d-flex justify-content-center py-3'>Đăng nhập</h1>
-            {error && <Message variant='danger'>{error}</Message>}
+            {error && <Message variant='danger'>Vui lòng kiểm tra lại thông tin đăng nhập</Message>}
             {loading && <Loader />}
             <Form onSubmit={submitHandler} >
                 <Form.Group controlId='email'>

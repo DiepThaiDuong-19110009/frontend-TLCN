@@ -7,7 +7,8 @@ import Message from '../components/Message'
 import { listProducts, listCategory } from '../actions/productActions'
 import Slider from '../components/Slider'
 import Search from '../components/Search'
-import Banner from '../components/Banner'
+import Paginations from '../components/Pagination'
+
 
 const HomeScreen = () => {
   const [data, setData] = useState([])
@@ -51,25 +52,27 @@ const HomeScreen = () => {
     <div>
       {loading ? <Loader /> : error ? <Message variant='danger'>{error}</Message> :
         < Container >
-          <Search />
           <Row>
-            <Col className='h-100' md={8} >
-              <Slider />
-            </Col>
-            <Col md={4}>
-            <Banner/>
-            </Col>
+            <Search />
           </Row>
-          <Row className="py-5">
-            <Col sm={0} md={0} lg={4} xl={3}>
-              <h3>Danh mục sản phẩm</h3>
+          <Row>
+            <Col>
               <ListGroup as="ul">
+                <ListGroup.Item style={{ background: 'green', display: 'flex', alignItems: 'center' }}>
+                  <i style={{ fontSize: '20px', color: '#f2f2f2', marginRight: '3%' }} class="fas fa-bars"></i>
+                  <h5 className='text-light my-2'>Danh mục sản phẩm</h5>
+                </ListGroup.Item>
                 <ListGroup.Item className='hoverCate' onClick={showAllProduct} >Tất cả sản phẩm</ListGroup.Item>
                 {categories.map(category => (
                   <ListGroup.Item className='hoverCate' key={category._id} onClick={getCategoryId(category._id)} as="li">{category.name}</ListGroup.Item>
                 ))}
               </ListGroup>
             </Col>
+            <Col className='h-100' md={9} >
+              <Slider />
+            </Col>
+          </Row>
+          <Row className="py-5">
             {showAll === false ? (data.map(product => (
               <Col key={product.id} sm={0} md={0} lg={4} xl={3}>
                 <Product product={product} />
@@ -81,6 +84,9 @@ const HomeScreen = () => {
                 </Col>
               ))
             )}
+          </Row>
+          <Row>
+            <Paginations />
           </Row>
         </Container>}
     </div >

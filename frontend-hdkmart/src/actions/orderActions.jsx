@@ -1,72 +1,61 @@
-import { ORDER_CREATE_REQUEST, ORDER_CREATE_SUCCESS, ORDER_CREATE_FAIL } from "../constants/orderConstants";
+import axios from "axios";
+import { ORDER_CREATE_REQUEST, ORDER_CREATE_SUCCESS, ORDER_CREATE_FAIL, RESET_CART, GET_ORDER_REQUEST, GET_ORDER_SUCCESS, GET_ORDER_FAIL } from "../constants/orderConstants";
 
-export const createOrder = (order) => async (dispatch, getState) => {
+export const createOrders = (order) => async (dispatch, getState) => {
     try {
         dispatch({
             type: ORDER_CREATE_REQUEST
         })
 
         const {
-            userLogin: {userInfo},
+            userLogin: { userInfo },
         } = getState()
 
         const config = {
             headers: {
                 'Content-Type': 'application/json',
-                // Authorization: `Bearer ${userInfo.token}`
+                Authorization: `Bearer ${userInfo.token}`,
             }
         }
 
-        const { data } = await axios.post('http://localhost:5000/api/signin', { email, password }, config)
+        const { data } = await axios.post('http://localhost:5000/api/order', order, config)
 
         dispatch({
             type: ORDER_CREATE_SUCCESS,
-            payload: data.user
+            payload: data,
         })
+        console.log('==',data)
 
-        localStorage.setItem('userInfo', JSON.stringify(data.user))
     } catch (error) {
         dispatch({
             type: ORDER_CREATE_FAIL,
             payload: error.response && error.response.data.error ? error.response.data.error : error.error,
         })
+        console.log('==',error)
     }
 }
 
-export const logout = () => (dispatch) => {
-    localStorage.removeItem('userInfo')
-    dispatch({ type: USER_LOGOUT })
+export const resetCart = () => (dispatch) => {
+    localStorage.removeItem('cartItems')
+    dispatch({ type: RESET_CART })
 }
 
-export const register = (username, email, password) => async (dispatch) => {
+export const getOrder = () => async (dispatch) => {
     try {
         dispatch({
-            type: USER_REGISTER_REQUEST
+            type: GET_ORDER_REQUEST
         })
 
-        const config = {
-            headers: {
-                'Content-Type': 'application/json',
-                "Accept": "application/json"
-            }
-        }
-
-        const { data } = await axios.post('http://localhost:5000/api/signup', { username, email, password }, config)
+        const { data } = await axios.get('http://localhost:5000/api/order')
 
         dispatch({
-            type: USER_REGISTER_SUCCESS,
-            payload: data
+            type: GET_ORDER_SUCCESS,
+            payload: data,
         })
 
-        dispatch({
-            type: USER_LOGIN_SUCCESS,
-            payload: data
-        })
-
-        localStorage.setItem('userInfo', JSON.stringify(data))
     } catch (error) {
         dispatch({
-            type: USER_REGISTER_FAIL,
+            type: GET_ORDER_FAIL,
             payload: error.response && error.response.data.error ? error.response.data.error : error.error,
         })
     }

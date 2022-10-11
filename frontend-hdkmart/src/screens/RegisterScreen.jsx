@@ -8,7 +8,7 @@ import FormContainer from '../components/FormContainer'
 import { register } from '../actions/userActions'
 
 const RegisterScreen = () => {
-    const [username, setUsername] = useState('')
+    const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
@@ -20,6 +20,7 @@ const RegisterScreen = () => {
 
     const userRegister = useSelector(state => state.userRegister)
     const { loading, error, userInfo } = userRegister
+    console.log('==', error);
 
     let location = useLocation();
     const redirect = location.search ? location.search.split('=')[1] : '/'
@@ -27,6 +28,7 @@ const RegisterScreen = () => {
     useEffect(() => {
         if (userInfo) {
             navigate(redirect)
+            window.location.reload()
         }
     }, [navigate, userInfo, redirect])
 
@@ -35,7 +37,7 @@ const RegisterScreen = () => {
         if (password !== confirmPassword) {
             setMessage('Mật khẩu không trùng khớp')
         } else {
-            dispatch(register(username, email, password))
+            dispatch(register(name, email, password))
         }
     }
 
@@ -43,12 +45,12 @@ const RegisterScreen = () => {
         <FormContainer>
             <h1 className='d-flex justify-content-center py-3'>Đăng ký</h1>
             {message && <Message variant='danger'>{message}</Message>}
-            {error && <Message variant='danger'>{error}</Message>}
+            {error && <Message variant='danger'>Tài khoản đã tồn tại</Message>}
             {loading && <Loader />}
             <Form onSubmit={submitHandler}>
                 <Form.Group controlId='username'>
                     <Form.Label>Tên người dùng</Form.Label>
-                    <Form.Control type='name' placeholder='Nhập tên người dùng' value={username} onChange={(e) => setUsername(e.target.value)}></Form.Control>
+                    <Form.Control type='name' placeholder='Nhập tên người dùng' value={name} onChange={(e) => setName(e.target.value)}></Form.Control>
                 </Form.Group>
                 <Form.Group controlId='email' className='py-3'>
                     <Form.Label>Email</Form.Label>

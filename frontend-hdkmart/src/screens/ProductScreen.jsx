@@ -34,7 +34,7 @@ const ProductScreen = () => {
             {loading ? <Loader /> : error ? <Message variant='danger'>{error}</Message> :
                 <Row>
                     <Col md={6}>
-                        <Image src={product.image} alt={product.name} fluid />
+                        <Image src={product.photo} alt={product.name} fluid />
                     </Col>
                     <Col md={3}>
                         <ListGroup variant='flush'>
@@ -57,7 +57,7 @@ const ProductScreen = () => {
                             <ListGroup variant='flush'>
                                 <ListGroup.Item>
                                     <Row>
-                                        <Col>Price:</Col>
+                                        <Col>Giá:</Col>
                                         <Col>
                                             <strong>{product.price} VNĐ</strong>
                                         </Col>
@@ -65,7 +65,7 @@ const ProductScreen = () => {
                                 </ListGroup.Item>
                                 <ListGroup.Item>
                                     <Row>
-                                        <Col>Status:</Col>
+                                        <Col>Trạng thái:</Col>
                                         <Col>
                                             {product.quantity > 0 ? 'Còn hàng' : 'Hết hàng'}
                                         </Col>

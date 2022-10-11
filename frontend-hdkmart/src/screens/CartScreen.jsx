@@ -58,7 +58,7 @@ const CartScreen = () => {
                   </Col>
                   <Col md={2}>{item.price}</Col>
                   <Col md={2}>
-                    <Form.Control as='select' value={item.qty} onChange={(e) => dispatch(addToCart(item.product, Number(e.target.value)))}>
+                    <Form.Control as='select' value={item.count} onChange={(e) => dispatch(addToCart(item.product, Number(e.target.value)))}>
                       {
                         [...Array(item.quantity).keys()].map(x => (
                           <option key={x + 1} value={x + 1}>{x + 1}</option>
@@ -80,8 +80,8 @@ const CartScreen = () => {
         <Card>
           <ListGroup variant='flush'>
             <ListGroup.Item>
-              <h2>Tổng sản phẩm: ({cartItems.reduce((acc, item) => acc + item.qty, 0)}) Sản phẩm</h2>
-              Tổng tiền: {cartItems.reduce((acc, item) => acc + item.qty * item.price, 0)} VNĐ
+              <h2>Tổng sản phẩm: ({cartItems.reduce((acc, item) => acc + item.count, 0)}) Sản phẩm</h2>
+              Tổng tiền: {cartItems.reduce((acc, item) => acc + item.count * item.price, 0)} VNĐ
             </ListGroup.Item>
             <ListGroup.Item className="d-flex justify-content-center py-3">
               <Button type='button' variant="success" className='btn-block' disabled={cartItems.length === 0} onClick={checkoutHandler}>

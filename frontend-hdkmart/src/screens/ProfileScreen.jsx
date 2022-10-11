@@ -5,12 +5,13 @@ import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 import { getUserDetails } from '../actions/userActions'
+import MyOrder from '../components/MyOrder'
 
 const ProfileScreen = () => {
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-    const [confirmPassword, setConfirmPassword] = useState('')
+    const [phone, setPhone] = useState('')
+    const [address, setAddress] = useState('')
     const [message, setMessage] = useState(null)
 
     const dispatch = useDispatch()
@@ -19,11 +20,11 @@ const ProfileScreen = () => {
 
     const userDetails = useSelector(state => state.userDetails)
     const { loading, error, user } = userDetails
-    console.log('==', user);
+    // console.log('==', user);
 
     const userLogin = useSelector(state => state.userLogin)
     const { userInfo } = userLogin
-    console.log('==', userInfo.user);
+    // console.log('==', userInfo.user);
 
     useEffect(() => {
         if (!userInfo) {
@@ -36,16 +37,12 @@ const ProfileScreen = () => {
 
     const submitHandler = (e) => {
         e.preventDefault()
-        if (password !== confirmPassword) {
-            setMessage('Mật khẩu không trùng khớp')
-        } else {
-            // Dispatch update profile
-        }
+
     }
 
     return (
         <Row>
-            <Col md={3}>
+            <Col md={6}>
                 <h2>Thông tin người dùng</h2>
                 {message && <Message variant='danger'>{message}</Message>}
                 {error && <Message variant='danger'>{error}</Message>}
@@ -57,20 +54,22 @@ const ProfileScreen = () => {
                     </Form.Group>
                     <Form.Group controlId='email'>
                         <Form.Label>Email</Form.Label>
-                        <Form.Control type='email' placeholder='Nhập email' value={email} onChange={(e) => setEmail(e.target.value)}></Form.Control>
+                        <Form.Control disabled type='email' placeholder='Nhập email' value={email} onChange={(e) => setEmail(e.target.value)}></Form.Control>
                     </Form.Group>
                     <Form.Group controlId='password'>
-                        <Form.Label>Mật khẩu</Form.Label>
-                        <Form.Control type='password' placeholder='Nhập mật khẩu' value={password} onChange={(e) => setPassword(e.target.value)}></Form.Control>
+                        <Form.Label>Số điện thoại</Form.Label>
+                        <Form.Control type='password' placeholder='Nhập số điện thoại' value={phone} onChange={(e) => setPhone(e.target.value)}></Form.Control>
                     </Form.Group>
                     <Form.Group controlId='confirmPassword'>
-                        <Form.Label>Nhập lại mật khẩu</Form.Label>
-                        <Form.Control type='password' placeholder='Nhập lại mật khẩu' value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}></Form.Control>
+                        <Form.Label>Địa chỉ</Form.Label>
+                        <Form.Control type='password' placeholder='Nhập địa chỉ giao hàng' value={address} onChange={(e) => setAddress(e.target.value)}></Form.Control>
                     </Form.Group>
                     <Button type='submit' variant='primary'>Cập nhật</Button>
                 </Form>
             </Col>
-            <Col md={9}>Đơn hàng của tôi</Col>
+            <Col md={6}>
+                <MyOrder/>
+            </Col>
         </Row>
     )
 }

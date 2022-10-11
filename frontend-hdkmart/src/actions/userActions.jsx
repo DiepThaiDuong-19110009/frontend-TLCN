@@ -3,7 +3,7 @@ import {
     USER_LOGIN_FAIL, USER_LOGIN_REQUEST, USER_LOGIN_SUCCESS,
     USER_LOGOUT,
     USER_REGISTER_FAIL, USER_REGISTER_REQUEST, USER_REGISTER_SUCCESS,
-    USER_CHANGEPASSWORD_REQUEST, USER_CHANGEPASSWORD_SUCCESS, USER_CHANGEPASSWORD_FAIL,
+    USER_CHANGEPASSWORD_REQUEST, USER_CHANGEPASSWORD_SUCCESS, USER_CHANGEPASSWORD_FAIL, USER_FORGOTPASSWORD_REQUEST, USER_FORGOTPASSWORD_SUCCESS, USER_FORGOTPASSWORD_FAIL,
 } from "../constants/userConstants";
 
 import axios from 'axios'
@@ -45,7 +45,7 @@ export const logout = () => (dispatch) => {
 }
 
 // Register
-export const register = (username, email, password) => async (dispatch) => {
+export const register = (name, email, password) => async (dispatch) => {
     try {
         dispatch({
             type: USER_REGISTER_REQUEST
@@ -58,15 +58,10 @@ export const register = (username, email, password) => async (dispatch) => {
             }
         }
 
-        const { data } = await axios.post('http://localhost:5000/api/signup', { username, email, password }, config)
+        const { data } = await axios.post('http://localhost:5000/api/signup', { name, email, password }, config)
 
         dispatch({
             type: USER_REGISTER_SUCCESS,
-            payload: data
-        })
-
-        dispatch({
-            type: USER_LOGIN_SUCCESS,
             payload: data
         })
 
@@ -91,7 +86,6 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
         const config = {
             headers: {
                 'Content-Type': 'application/json',
-                "Accept": "application/json",
                 Authorization: `Bearer ${userInfo.token}`
             }
         }
@@ -115,7 +109,7 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
 export const changePassword = (email, oldPassword, newPassword) => async (dispatch) => {
     try {
         dispatch({
-            type: USER_REGISTER_REQUEST
+            type: USER_CHANGEPASSWORD_REQUEST
         })
 
         const config = {
@@ -125,23 +119,47 @@ export const changePassword = (email, oldPassword, newPassword) => async (dispat
             }
         }
 
-        const { data } = await axios.put('http://localhost:5000/api/signup', { email, oldPassword, newPassword }, config)
+        const { data } = await axios.post('http://localhost:5000/api/change-password', { email, oldPassword, newPassword }, config)
 
         dispatch({
-            type: USER_REGISTER_SUCCESS,
+            type: USER_CHANGEPASSWORD_SUCCESS,
             payload: data
         })
-
-        dispatch({
-            type: USER_LOGIN_SUCCESS,
-            payload: data
-        })
-
-        localStorage.setItem('userInfo', JSON.stringify(data))
+        
     } catch (error) {
         dispatch({
-            type: USER_REGISTER_FAIL,
-            payload: error.response && error.response.data.message ? error.response.data.error : error.message,
+            type: USER_CHANGEPASSWORD_FAIL,
+            payload: error.response && error.response.data.error ? error.response.data.error : error.response.data.message,
+        })
+        console.log('==', error.response);
+    }
+}
+
+// Forgot Password
+export const forgotPassword = (email) => async (dispatch) => {
+    try {
+        dispatch({
+            type: USER_FORGOTPASSWORD_REQUEST
+        })
+
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                "Accept": "application/json"
+            }
+        }
+
+        const { data } = await axios.post('http://localhost:5000/api/forgot-password', { email }, config)
+
+        dispatch({
+            type: USER_FORGOTPASSWORD_SUCCESS,
+            payload: data
+        })
+        
+    } catch (error) {
+        dispatch({
+            type: USER_FORGOTPASSWORD_FAIL,
+            payload: error.response && error.response.data.message ? error.response.data.message : error.message,
         })
     }
 }

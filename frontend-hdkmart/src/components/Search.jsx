@@ -27,25 +27,35 @@ const Search = () => {
     const handleSubmit = () => {
         //console.log('==', selectedOptions);
         products.find(prod => {
-            if(prod.name == selectedOptions){
+            if (prod.name === selectedOptions) {
                 navigate(`/product/${prod._id}`)
             }
         })
     }
 
     return (
-        <Row style={{ border: '1px solid #ccc', borderRadius: '10px' }} className='d-flex justify-content-between p-3 mb-5'>
-            <Col xl={10} lg={10} md={10} sm={9}>
-                <Autocomplete options={myOptions} onChange={(event, value) => setSelectedOptions(value)}
-                    renderInput={(params) => (
-                        <TextField {...params} variant="standard" label="Tìm kiếm sản phẩm" />
-                    )}
-                />
-            </Col>
-            <Col xl={2} lg={2} md={2} sm={3}>
-                <Button className='w-100 h-100' onClick={handleSubmit} variant="success">Tìm kiếm</Button>
-            </Col>
-        </Row>
+        <div>
+            <h3>Tìm kiếm sản phẩm</h3>
+            <div className='d-flex align-items-center mb-5 py-0 px-3 shadow-sm p-3 mb-5 bg-white rounded' style={{ background: '#ffffff', borderRadius: '10px', border: 'solid 1px #3CB371' }}>
+                <div className='w-100'>
+                    <Autocomplete disablePortal options={myOptions} onChange={(event, value) => setSelectedOptions(value)}
+                        renderInput={(params) => (
+                            <TextField
+                                {...params}
+                                InputProps={{ ...params.InputProps, disableUnderline: true }}
+                                placeholder='Nhập tên sản phẩm cần tìm, ví dụ: Cà chua'
+
+                            />
+                        )}
+                    />
+                </div>
+                <div>
+                    <Button onClick={handleSubmit} style={{ background: 'transparent', border: 'none' }}>
+                        <i style={{ color: 'green' }} class="fas fa-search py-2"></i>
+                    </Button>
+                </div>
+            </div>
+        </div>
     )
 }
 
