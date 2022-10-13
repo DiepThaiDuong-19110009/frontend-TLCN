@@ -1,5 +1,5 @@
 import { React, useEffect, useState } from 'react'
-import { Row, Col, Container, ListGroup } from 'react-bootstrap'
+import { Row, Col, Container, ListGroup, Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Product from '../components/Product'
 import Loader from '../components/Loader'
@@ -7,12 +7,12 @@ import Message from '../components/Message'
 import { listProducts, listCategory } from '../actions/productActions'
 import Slider from '../components/Slider'
 import Search from '../components/Search'
-import Paginations from '../components/Pagination'
 
 
 const HomeScreen = () => {
   const [data, setData] = useState([])
   const [showAll, setShowAll] = useState(true)
+  const [loadMore, setLoadMore] = useState(4)
 
   const dispatch = useDispatch()
 
@@ -48,6 +48,15 @@ const HomeScreen = () => {
     setShowAll(true)
   }
 
+  //Load more
+  const loadMoreOnClick = () => {
+    setLoadMore(loadMore => loadMore + 4)
+  }
+
+  const collapseOnClick = () => {
+    setLoadMore(loadMore => loadMore = 4)
+  }
+
   return (
     <div>
       {loading ? <Loader /> : error ? <Message variant='danger'>{error}</Message> :
@@ -73,12 +82,12 @@ const HomeScreen = () => {
             </Col>
           </Row>
           <Row className="py-5">
-            {showAll === false ? (data.map(product => (
+            {showAll === false ? (data.slice(0, loadMore).map(product => (
               <Col key={product.id} sm={0} md={0} lg={4} xl={3}>
                 <Product product={product} />
               </Col>
             ))) : (
-              products.map(product => (
+              products.slice(0, loadMore).map(product => (
                 <Col key={product.id} sm={0} md={0} lg={4} xl={3}>
                   <Product product={product} />
                 </Col>
@@ -86,9 +95,11 @@ const HomeScreen = () => {
             )}
           </Row>
           <Row>
-            <Paginations />
+            {
+              (loadMore >= ((showAll === false) ? data.length : products.length)) ? <Button onClick={collapseOnClick}>Thu gọn</Button> : <Button onClick={loadMoreOnClick}>Xem thêm</Button>
+            }
           </Row>
-        </Container>}
+        </Container>} 
     </div >
   )
 }

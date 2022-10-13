@@ -17,10 +17,16 @@ const LoginScreen = () => {
 
     const userLogin = useSelector(state => state.userLogin)
     const { loading, error, userInfo } = userLogin
-    console.log('==', error);
 
     let location = useLocation();
     const redirect = location.search ? location.search.split('=')[1] : '/'
+
+    // Check showpassword
+    const [passwordShown, setPasswordShown] = useState(false);
+    const togglePasswordVisiblity = () => {
+        setPasswordShown(passwordShown ? false : true);
+    };
+
 
     useEffect(() => {
         if (userInfo) {
@@ -46,7 +52,19 @@ const LoginScreen = () => {
                 </Form.Group>
                 <Form.Group controlId='password' className='py-3'>
                     <Form.Label>Mật khẩu</Form.Label>
-                    <Form.Control type='password' placeholder='Nhập mật khẩu' value={password} onChange={(e) => setPassword(e.target.value)}></Form.Control>
+                    <Form.Control type={passwordShown ? "text" : "password"} placeholder='Nhập mật khẩu' value={password} onChange={(e) => setPassword(e.target.value)}></Form.Control>
+                </Form.Group>
+                <Form.Group>
+                    <Form>
+                        <div key='default-checkbox' className="mb-3">
+                            <Form.Check
+                                type='checkbox'
+                                id='default-checkbox'
+                                label='Hiển thị mật khẩu'
+                                onClick={togglePasswordVisiblity}
+                            />
+                        </div>
+                    </Form>
                 </Form.Group>
                 <Form.Group className='d-flex justify-content-center py-3'>
                     <Link to='/forgotpassword'>Quên mật khẩu?</Link>

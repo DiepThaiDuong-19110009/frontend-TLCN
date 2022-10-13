@@ -14,10 +14,6 @@ const PlaceOrderScreen = () => {
     const cart = useSelector(state => state.cart)
     const { cartItems, shippingAddress } = cart
 
-    const formatPrice = (n) => {
-        return n.toFixed(1).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
-    }
-
     // Calculate price
     cart.itemsPrice = cart.cartItems.reduce((acc, item) => acc + item.price * item.count, 0)
     cart.shippingPrice = cart.itemsPrice < 500000 ? 0 : 10000
@@ -116,25 +112,25 @@ const PlaceOrderScreen = () => {
                             <ListGroup.Item>
                                 <Row>
                                     <Col>Tổng tiền hàng</Col>
-                                    <Col>{formatPrice(cart.itemsPrice)} VNĐ</Col>
+                                    <Col>{(cart.itemsPrice).toLocaleString('vi', {style : 'currency', currency : 'VND'})}</Col>
                                 </Row>
                             </ListGroup.Item>
                             <ListGroup.Item>
                                 <Row>
                                     <Col>Chi phí giao hàng</Col>
-                                    <Col>{formatPrice(cart.shippingPrice)} VNĐ</Col>
+                                    <Col>{(cart.shippingPrice).toLocaleString('vi', {style : 'currency', currency : 'VND'})}</Col>
                                 </Row>
                             </ListGroup.Item>
                             <ListGroup.Item>
                                 <Row>
                                     <Col>Thuế (5%)</Col>
-                                    <Col>{formatPrice(cart.taxPrice)} VNĐ</Col>
+                                    <Col>{(cart.taxPrice).toLocaleString('vi', {style : 'currency', currency : 'VND'})}</Col>
                                 </Row>
                             </ListGroup.Item>
                             <ListGroup.Item>
                                 <Row>
                                     <Col>Tổng thanh toán</Col>
-                                    <Col>{formatPrice(cart.totalPrice)} VNĐ</Col>
+                                    <Col>{(cart.totalPrice).toLocaleString('vi', {style : 'currency', currency : 'VND'})}</Col>
                                 </Row>
                             </ListGroup.Item>
                             {/* <ListGroup.Item>{error && <Message>{error}</Message>}</ListGroup.Item> */}

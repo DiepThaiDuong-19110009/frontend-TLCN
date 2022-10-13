@@ -53,11 +53,11 @@ const CartScreen = () => {
                   <Col md={2}>
                     <Image src={item.image} alt={item.name} fluid rounded />
                   </Col>
-                  <Col md={3}>
+                  <Col md={3} className='d-flex align-items-center'>
                     <Link to={`/product/${item.product}`}>{item.name}</Link>
                   </Col>
-                  <Col md={2}>{item.price}</Col>
-                  <Col md={2}>
+                  <Col md={2} className='d-flex align-items-center'>{(item.price).toLocaleString('vi', {style : 'currency', currency : 'VND'})}</Col>
+                  <Col md={2} className='d-flex align-items-center'>
                     <Form.Control as='select' value={item.count} onChange={(e) => dispatch(addToCart(item.product, Number(e.target.value)))}>
                       {
                         [...Array(item.quantity).keys()].map(x => (
@@ -66,7 +66,7 @@ const CartScreen = () => {
                       }
                     </Form.Control>
                   </Col>
-                  <Col md={2}>
+                  <Col md={2} className='d-flex align-items-center'>
                     <Button type='button' variant='light' onClick={() => removeFromCartHandler(item.product)}>
                       <i className='fas fa-trash'></i>
                     </Button>
@@ -81,7 +81,7 @@ const CartScreen = () => {
           <ListGroup variant='flush'>
             <ListGroup.Item>
               <h2>Tổng sản phẩm: ({cartItems.reduce((acc, item) => acc + item.count, 0)}) Sản phẩm</h2>
-              Tổng tiền: {cartItems.reduce((acc, item) => acc + item.count * item.price, 0)} VNĐ
+              Tổng tiền: {cartItems.reduce((acc, item) => acc + item.count * item.price, 0).toLocaleString('vi', {style : 'currency', currency : 'VND'})}
             </ListGroup.Item>
             <ListGroup.Item className="d-flex justify-content-center py-3">
               <Button type='button' variant="success" className='btn-block' disabled={cartItems.length === 0} onClick={checkoutHandler}>

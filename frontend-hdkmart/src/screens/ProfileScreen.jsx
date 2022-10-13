@@ -4,7 +4,7 @@ import { Row, Col, Button, Form } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
-import { getUserDetails } from '../actions/userActions'
+import { getUserDetails, updateUserProfile } from '../actions/userActions'
 import MyOrder from '../components/MyOrder'
 
 const ProfileScreen = () => {
@@ -20,24 +20,31 @@ const ProfileScreen = () => {
 
     const userDetails = useSelector(state => state.userDetails)
     const { loading, error, user } = userDetails
-    // console.log('==', user);
 
     const userLogin = useSelector(state => state.userLogin)
     const { userInfo } = userLogin
-    // console.log('==', userInfo.user);
+
+    const userUpdateProfile = useSelector(state => state.userUpdateProfile )
+    const { success } = userUpdateProfile
 
     useEffect(() => {
-        if (!userInfo) {
-            navigate('/user/:userId')
+        if(!userInfo){
+            navigate('/login')
         } else {
-            setName(userInfo.user.name)
-            setEmail(userInfo.user.email)
+            if(!user.name) {
+                dispatch(getUserDetails(userInfo.user._id))
+            } else {
+                setName(user.name)
+                setEmail(userInfo.user.email)
+            }
         }
-    }, [dispatch, navigate, userInfo])
+        //eslint-disable-next-line 
+    }, [dispatch, userInfo])
 
     const submitHandler = (e) => {
         e.preventDefault()
-
+        dispatch(updateUserProfile(user._id, {name, email}))
+        window.location.reload()
     }
 
     return (
@@ -46,6 +53,7 @@ const ProfileScreen = () => {
                 <h2>Thông tin người dùng</h2>
                 {message && <Message variant='danger'>{message}</Message>}
                 {error && <Message variant='danger'>{error}</Message>}
+                {success && <Message variant='success'>Cập nhật thành công</Message>}
                 {loading && <Loader />}
                 <Form onSubmit={submitHandler}>
                     <Form.Group controlId='username'>
@@ -58,17 +66,19 @@ const ProfileScreen = () => {
                     </Form.Group>
                     <Form.Group controlId='password'>
                         <Form.Label>Số điện thoại</Form.Label>
-                        <Form.Control type='password' placeholder='Nhập số điện thoại' value={phone} onChange={(e) => setPhone(e.target.value)}></Form.Control>
+                        <Form.Control type='number' placeholder='Nhập số điện thoại' value={phone} onChange={(e) => setPhone(e.target.value)}></Form.Control>
                     </Form.Group>
                     <Form.Group controlId='confirmPassword'>
                         <Form.Label>Địa chỉ</Form.Label>
-                        <Form.Control type='password' placeholder='Nhập địa chỉ giao hàng' value={address} onChange={(e) => setAddress(e.target.value)}></Form.Control>
+                        <Form.Control type='text' placeholder='Nhập địa chỉ giao hàng' value={address} onChange={(e) => setAddress(e.target.value)}></Form.Control>
                     </Form.Group>
-                    <Button type='submit' variant='primary'>Cập nhật</Button>
+                    <Form.Group className='d-flex justify-content-center py-4'>
+                        <Button type='submit' variant='primary'>Cập nhật</Button>
+                    </Form.Group>
                 </Form>
             </Col>
             <Col md={6}>
-                <MyOrder/>
+                <MyOrder />
             </Col>
         </Row>
     )
