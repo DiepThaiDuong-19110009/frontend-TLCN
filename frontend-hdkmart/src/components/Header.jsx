@@ -11,6 +11,7 @@ const Header = () => {
 
     const userLogin = useSelector(state => state.userLogin)
     const { userInfo } = userLogin
+    // console.log('==', userInfo)
 
     const logoutHandler = () => {
         dispatch(logout())
@@ -47,8 +48,8 @@ const Header = () => {
                 <Container>
                     <LinkContainer to='/'>
                         <Navbar.Brand className='text-success'>
-                            <strong style={{fontSize: '25px'}}>HDKMart</strong><br/>
-                            <span style={{fontSize: '15px', fontStyle: 'italic'}}>Vì một sức khỏe cộng đồng</span>    
+                            <strong style={{ fontSize: '25px' }}>HDKMart</strong><br />
+                            <span style={{ fontSize: '15px', fontStyle: 'italic' }}>Vì một sức khỏe cộng đồng</span>
                         </Navbar.Brand>
                     </LinkContainer>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -74,6 +75,24 @@ const Header = () => {
                                     <i className='fas fa-user'></i> Đăng nhập
                                 </Nav.Link>
                             </LinkContainer>}
+
+                            {/* Check admin */}
+                            {userInfo && userInfo.user.isAdmin && (
+                                <NavDropdown title='Admin' id='adminmenu'>
+                                    <LinkContainer to='/admin/userlist'>
+                                        <NavDropdown.Item>Quản lý người dùng</NavDropdown.Item>
+                                    </LinkContainer>
+                                    <LinkContainer to='/admin/categorylist'>
+                                        <NavDropdown.Item>Quản lý danh mục</NavDropdown.Item>
+                                    </LinkContainer>
+                                    <LinkContainer to='/admin/productlist'>
+                                        <NavDropdown.Item>Quản lý sản phẩm</NavDropdown.Item>
+                                    </LinkContainer>
+                                    <LinkContainer to='/admin/orderlist'>
+                                        <NavDropdown.Item>Quản lý đơn hàng</NavDropdown.Item>
+                                    </LinkContainer>
+                                </NavDropdown>
+                            )}
                         </Nav>
                     </Navbar.Collapse>
                 </Container>

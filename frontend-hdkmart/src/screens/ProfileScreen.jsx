@@ -20,6 +20,7 @@ const ProfileScreen = () => {
 
     const userDetails = useSelector(state => state.userDetails)
     const { loading, error, user } = userDetails
+    console.log('==', user)
 
     const userLogin = useSelector(state => state.userLogin)
     const { userInfo } = userLogin
@@ -35,11 +36,11 @@ const ProfileScreen = () => {
                 dispatch(getUserDetails(userInfo.user._id))
             } else {
                 setName(user.name)
-                setEmail(userInfo.user.email)
+                setEmail(user.email)
             }
         }
         //eslint-disable-next-line 
-    }, [dispatch, userInfo])
+    }, [dispatch, userInfo, user])
 
     const submitHandler = (e) => {
         e.preventDefault()

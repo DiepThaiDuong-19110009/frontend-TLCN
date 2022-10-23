@@ -1,5 +1,5 @@
 import { React, useState, useEffect } from 'react'
-import { Link, useParams, useNavigate  } from 'react-router-dom'
+import { Link, useParams, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { Row, Col, Image, ListGroup, Card, Button, Form } from 'react-bootstrap'
 import Rating from '../components/Rating'
@@ -17,7 +17,8 @@ const ProductScreen = () => {
 
     const productDetails = useSelector(state => state.productDetails)
     const { loading, error, product } = productDetails
-    console.log('==',product);
+    // setImg(...product.images)
+    // console.log('==', product.images);
 
     useEffect(() => {
         dispatch(listProductDetails(productId))
@@ -33,16 +34,16 @@ const ProductScreen = () => {
             <Link to='/' className='btn btn-light my-3'>Quay lại</Link>
             {loading ? <Loader /> : error ? <Message variant='danger'>{error}</Message> :
                 <Row>
-                    <Col md={6}>
+                    <Col md={5}>
                         <Image src={product.photo} alt={product.name} fluid />
                     </Col>
-                    <Col md={3}>
+                    <Col md={4}>
                         <ListGroup variant='flush'>
                             <ListGroup.Item>
                                 <h3>{product.name}</h3>
                             </ListGroup.Item>
                             <ListGroup.Item>
-                                <Rating value={product.review} text={`${product.review} đánh giá`} />
+                                <Rating value={product.sold} text={`${product.quantity} đánh giá`} />
                             </ListGroup.Item>
                             <ListGroup.Item>
                                 Giá: {product.price} VNĐ

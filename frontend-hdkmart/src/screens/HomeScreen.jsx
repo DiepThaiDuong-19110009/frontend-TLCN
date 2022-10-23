@@ -1,5 +1,5 @@
 import { React, useEffect, useState } from 'react'
-import { Row, Col, Container, ListGroup, Button } from 'react-bootstrap'
+import { Row, Col, Container, ListGroup, Button, Dropdown, DropdownButton} from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Product from '../components/Product'
 import Loader from '../components/Loader'
@@ -18,9 +18,11 @@ const HomeScreen = () => {
 
   const productList = useSelector(state => state.productList)
   const { loading, error, products } = productList
+  // console.log('==', products);
 
   const categoryList = useSelector(state => state.categoryList)
   const { categories } = categoryList
+  // console.log('==', categories);
 
   useEffect(() => {
     dispatch(listProducts())
@@ -38,6 +40,8 @@ const HomeScreen = () => {
   }
 
   const getCategoryId = (id) => e => {
+    setLoadMore(loadMore => loadMore = 4)
+    window.location.href = '#productlist'
     arrProductGetCateId.length = 0
     getProductByCategotyId(products, id)
     setData(arrProductGetCateId)
@@ -45,6 +49,7 @@ const HomeScreen = () => {
   }
 
   const showAllProduct = () => {
+    window.location.href = '#productlist'
     setShowAll(true)
   }
 
@@ -66,7 +71,7 @@ const HomeScreen = () => {
           </Row>
           <Row>
             <Col>
-              <ListGroup as="ul">
+              <ListGroup as="ul" className='mb-3'>
                 <ListGroup.Item style={{ background: 'green', display: 'flex', alignItems: 'center' }}>
                   <i style={{ fontSize: '20px', color: '#f2f2f2', marginRight: '3%' }} class="fas fa-bars"></i>
                   <h5 className='text-light my-2'>Danh mục sản phẩm</h5>
@@ -81,7 +86,21 @@ const HomeScreen = () => {
               <Slider />
             </Col>
           </Row>
-          <Row className="py-5">
+          <Row id='productlist' style={{ border: 'solid 2px #f2f2f2', borderRadius: '10px' }} className="py-3 px-3 my-5">
+            <Row>
+              <Col sm={0} md={0} lg={8} xl={8}>
+                <h5 className='mb-4 mt-3'>Danh sách sản phẩm</h5>
+              </Col>
+              <Col sm={0} md={0} lg={4} xl={4} className='d-flex justify-content-center align-item'>
+                <p className='mb-4 mt-3'>Sắp xếp</p>
+                {/* <DropdownButton id="dropdown-item-button" title="Dropdown button">
+                  <Dropdown.ItemText>Dropdown item text</Dropdown.ItemText>
+                  <Dropdown.Item as="button">Action</Dropdown.Item>
+                  <Dropdown.Item as="button">Another action</Dropdown.Item>
+                  <Dropdown.Item as="button">Something else</Dropdown.Item>
+                </DropdownButton> */}
+              </Col>
+            </Row>
             {showAll === false ? (data.slice(0, loadMore).map(product => (
               <Col key={product.id} sm={0} md={0} lg={4} xl={3}>
                 <Product product={product} />
@@ -93,13 +112,21 @@ const HomeScreen = () => {
                 </Col>
               ))
             )}
+            <Row>
+              {
+                (loadMore >= ((showAll === false) ? data.length : products.length))
+                  ?
+                  <Col className='d-flex justify-content-center'>
+                    <Button className='w-25' variant="outline-primary" onClick={collapseOnClick}>Thu gọn</Button>
+                  </Col>
+                  :
+                  <Col className='d-flex justify-content-center'>
+                    <Button className='w-25' variant="outline-primary" onClick={loadMoreOnClick}>Xem thêm sản phẩm</Button>
+                  </Col>
+              }
+            </Row>
           </Row>
-          <Row>
-            {
-              (loadMore >= ((showAll === false) ? data.length : products.length)) ? <Button onClick={collapseOnClick}>Thu gọn</Button> : <Button onClick={loadMoreOnClick}>Xem thêm</Button>
-            }
-          </Row>
-        </Container>} 
+        </Container>}
     </div >
   )
 }

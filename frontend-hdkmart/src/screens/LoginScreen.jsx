@@ -43,7 +43,7 @@ const LoginScreen = () => {
     return (
         <FormContainer>
             <h1 className='d-flex justify-content-center py-3'>Đăng nhập</h1>
-            {error && <Message variant='danger'>Vui lòng kiểm tra lại thông tin đăng nhập</Message>}
+            {error && <Message variant='danger'>{error}</Message>}
             {loading && <Loader />}
             <Form onSubmit={submitHandler} >
                 <Form.Group controlId='email'>

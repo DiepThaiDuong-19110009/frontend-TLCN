@@ -1,5 +1,8 @@
-import { PRODUCT_LIST_REQUEST, PRODUCT_LIST_SUCCESS, PRODUCT_LIST_FAIL } from '../constants/productConstants'
-import { PRODUCT_DETAILS_REQUEST, PRODUCT_DETAILS_SUCCESS, PRODUCT_DETAILS_FAIL } from '../constants/productConstants'
+import { PRODUCT_LIST_REQUEST, PRODUCT_LIST_SUCCESS, PRODUCT_LIST_FAIL, PRODUCT_CREATE_REQUEST, PRODUCT_CREATE_SUCCESS, PRODUCT_CREATE_FAIL, PRODUCT_CREATE_RESET, PRODUCT_UPDATE_REQUEST, PRODUCT_UPDATE_SUCCESS, PRODUCT_UPDATE_FAIL } from '../constants/productConstants'
+import {
+    PRODUCT_DETAILS_REQUEST, PRODUCT_DETAILS_SUCCESS, PRODUCT_DETAILS_FAIL,
+    PRODUCT_DELETE_REQUEST, PRODUCT_DELETE_SUCCESS, PRODUCT_DELETE_FAIL
+} from '../constants/productConstants'
 import { PRODUCT_CATEGORY_REQUEST, PRODUCT_CATEGORY_SUCCESS, PRODUCT_CATEGORY_FAIL } from '../constants/productConstants'
 
 export const categoryListReducer = (state = { categories: [] }, action) => {
@@ -28,7 +31,7 @@ export const productListReducer = (state = { products: [] }, action) => {
     }
 }
 
-export const productDetailsReducer = (state = { product: { review: [] } }, action) => {
+export const productDetailsReducer = (state = { product: {} }, action) => {
     switch (action.type) {
         case PRODUCT_DETAILS_REQUEST:
             return { loading: true, ...state }
@@ -36,6 +39,51 @@ export const productDetailsReducer = (state = { product: { review: [] } }, actio
             return { loading: false, product: action.payload }
         case PRODUCT_DETAILS_FAIL:
             return { loading: false, error: action.payload }
+        default:
+            return state
+    }
+}
+
+//Admin
+//Admin - Product
+export const productDeleteReducer = (state = {}, action) => {
+    switch (action.type) {
+        case PRODUCT_DELETE_REQUEST:
+            return { loading: true }
+        case PRODUCT_DELETE_SUCCESS:
+            return { loading: false, success: true }
+        case PRODUCT_DETAILS_FAIL:
+            return { loading: false, error: action.payload }
+        default:
+            return state
+    }
+}
+
+export const productCreateReducer = (state = {}, action) => {
+    switch (action.type) {
+        case PRODUCT_CREATE_REQUEST:
+            return { loading: true }
+        case PRODUCT_CREATE_SUCCESS:
+            return { loading: false, success: true, product: action.payload }
+        case PRODUCT_CREATE_FAIL:
+            return { loading: false, error: action.payload }
+        case PRODUCT_CREATE_RESET:
+            return {}
+        default:
+            return state
+    }
+}
+
+export const productUpdateReducer = (state = { product: {} }, action) => {
+    switch (action.type) {
+        case PRODUCT_UPDATE_REQUEST:
+            return { loading: true }
+        case PRODUCT_UPDATE_SUCCESS:
+            return { loading: false, success: true, product: action.payload }
+        case PRODUCT_UPDATE_FAIL:
+            return { loading: false, error: action.payload }
+        case PRODUCT_UPDATE_FAIL:
+            return { product: {} }
         default:
             return state
     }

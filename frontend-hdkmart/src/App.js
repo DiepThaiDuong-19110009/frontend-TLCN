@@ -17,6 +17,13 @@ import OrderSuccessScreen from './screens/OrderSuccessScreen';
 import ChangePassword from './screens/ChangePassword';
 import ForgotPassword from './screens/ForgotPassword';
 
+// Admin
+import UserListScreen from './screens/admin/UserListScreen';
+import UserEditScreen from './screens/admin/UserEditScreen';
+import ProductListScreen from './screens/admin/ProductListScreen';
+import ProductEditScreen from './screens/admin/ProductEditScreen';
+import CategoryListScreen from './screens/admin/CategoryListSceen';
+
 const App = () => {
   return (
     <BrowserRouter>
@@ -37,6 +44,13 @@ const App = () => {
             <Route path='/payment' element={<PaymentScreen />} />
             <Route path='/placeorder' element={<PlaceOrderScreen />} />
             <Route path='/ordersuccess' element={<OrderSuccessScreen />} />
+
+            {/* Admin */}
+            <Route path='/admin/userlist' element={<UserListScreen />} />
+            <Route path='/admin/user/:id/edit' element={<UserEditScreen />} />
+            <Route path='/admin/productlist' element={<ProductListScreen />} />
+            <Route path='/admin/product/:id/edit' element={<ProductEditScreen />} />
+            <Route path='/admin/categorylist' element={<CategoryListScreen />} />
           </Routes>
         </Container>
       </main>
