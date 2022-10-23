@@ -10,6 +10,7 @@ import { login } from '../actions/userActions'
 const LoginScreen = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [message, setMessage] = useState('')
 
     const dispatch = useDispatch()
 
@@ -27,7 +28,6 @@ const LoginScreen = () => {
         setPasswordShown(passwordShown ? false : true);
     };
 
-
     useEffect(() => {
         if (userInfo) {
             navigate(redirect)
@@ -37,13 +37,19 @@ const LoginScreen = () => {
 
     const submitHandler = (e) => {
         e.preventDefault()
-        dispatch(login(email, password))
+        if(email === '' || password ===''){
+            setMessage("Vui lòng điền đủ thông tin")
+        } else if (error) {
+            setMessage("Email hoặc mật khẩu chưa chính xác")
+        } else {
+            dispatch(login(email, password))
+        }
     }
 
     return (
         <FormContainer>
             <h1 className='d-flex justify-content-center py-3'>Đăng nhập</h1>
-            {error && <Message variant='danger'>{error}</Message>}
+            {error && <Message variant='danger'>{message}</Message>}
             {loading && <Loader />}
             <Form onSubmit={submitHandler} >
                 <Form.Group controlId='email'>

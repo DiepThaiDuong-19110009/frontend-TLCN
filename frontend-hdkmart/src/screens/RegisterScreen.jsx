@@ -11,7 +11,6 @@ const RegisterScreen = () => {
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [confirmPassword, setConfirmPassword] = useState('')
     const [message, setMessage] = useState(null)
 
     const dispatch = useDispatch()
@@ -21,8 +20,8 @@ const RegisterScreen = () => {
     const userRegister = useSelector(state => state.userRegister)
     const { loading, error, userInfo } = userRegister
 
-    let location = useLocation();
-    const redirect = location.search ? location.search.split('=')[1] : '/'
+    // let location = useLocation();
+    // const redirect = location.search ? location.search.split('=')[1] : '/'
 
     // Check showpassword
     const [passwordShown, setPasswordShown] = useState(false);
@@ -33,15 +32,18 @@ const RegisterScreen = () => {
 
     useEffect(() => {
         if (userInfo) {
-            navigate(redirect)
+            navigate('/')
             window.location.reload()
         }
-    }, [navigate, userInfo, redirect])
+    }, [navigate, userInfo])
 
     const submitHandler = (e) => {
         e.preventDefault()
-        if (password !== confirmPassword) {
-            setMessage('Mật khẩu không trùng khớp')
+        if (name === "" || email === '' || password === '') {
+            setMessage("Vui lòng điền đủ thông tin")
+        } else if (error) {
+            setMessage("Tài khoản đã tồn tại")
+            setEmail('')
         } else {
             dispatch(register(name, email, password))
         }
@@ -51,7 +53,6 @@ const RegisterScreen = () => {
         <FormContainer>
             <h1 className='d-flex justify-content-center py-3'>Đăng ký</h1>
             {message && <Message variant='danger'>{message}</Message>}
-            {error && <Message variant='danger'>Tài khoản đã tồn tại</Message>}
             {loading && <Loader />}
             <Form onSubmit={submitHandler}>
                 <Form.Group controlId='username'>
@@ -62,13 +63,9 @@ const RegisterScreen = () => {
                     <Form.Label>Email</Form.Label>
                     <Form.Control type='email' placeholder='Nhập email' value={email} onChange={(e) => setEmail(e.target.value)}></Form.Control>
                 </Form.Group>
-                <Form.Group controlId='password'>
+                <Form.Group controlId='password' className='pb-3'>
                     <Form.Label>Mật khẩu</Form.Label>
                     <Form.Control type={passwordShown ? "text" : "password"} placeholder='Nhập mật khẩu' value={password} onChange={(e) => setPassword(e.target.value)}></Form.Control>
-                </Form.Group>
-                <Form.Group controlId='confirmPassword' className='py-3'>
-                    <Form.Label>Nhập lại mật khẩu</Form.Label>
-                    <Form.Control type={passwordShown ? "text" : "password"} placeholder='Nhập lại mật khẩu' value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}></Form.Control>
                 </Form.Group>
                 <Form.Group>
                     <Form>
@@ -90,7 +87,7 @@ const RegisterScreen = () => {
             <Row>
                 <Col className='d-flex justify-content-center py-3'>
                     Bạn đã có tài khoản?{' '}
-                    <Link to={redirect ? `/login?redirect=${redirect}` : '/login'}>Đăng nhập</Link>
+                    <Link to='/'>Đăng nhập</Link>
                 </Col>
             </Row>
         </FormContainer>
