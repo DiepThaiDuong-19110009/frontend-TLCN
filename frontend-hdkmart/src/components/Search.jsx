@@ -3,7 +3,7 @@ import TextField from '@material-ui/core/TextField';
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import { Row, Col, Button } from 'react-bootstrap'
+import { Button } from 'react-bootstrap'
 
 const Search = () => {
 
@@ -44,7 +44,6 @@ const Search = () => {
                                 {...params}
                                 InputProps={{ ...params.InputProps, disableUnderline: true }}
                                 placeholder='Nhập tên sản phẩm cần tìm, ví dụ: Cà chua'
-
                             />
                         )}
                     />

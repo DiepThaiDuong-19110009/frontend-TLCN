@@ -14,11 +14,11 @@ const Product = ({ product }) => {
                     <Rating value={product.sold} text={`${product.quantity} đánh giá`} />
                 </Card.Text>
                 <Link style={{ color: 'black' }} to={`/product/${product._id}`}>
-                    <Card.Title as='h5'>
+                    <Card.Title as='h6'>
                         <p>{product.name}</p>
                     </Card.Title>
                 </Link>
-                <Card.Text as='h5' className='text-danger'>
+                <Card.Text as='h7' className='text-danger'>
                     Giá: {product.price} VNĐ / kg
                 </Card.Text>
             </Card.Body>

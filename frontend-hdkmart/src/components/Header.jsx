@@ -22,28 +22,8 @@ const Header = () => {
     const cart = useSelector(state => state.cart)
     const { cartItems } = cart
 
-
-    const [sticky, setSticky] = useState("");
-
-    // on render, set listener
-    useEffect(() => {
-        window.addEventListener("scroll", isSticky);
-        return () => {
-            window.removeEventListener("scroll", isSticky);
-        };
-    }, []);
-
-    const isSticky = () => {
-        /* Method that will fix header after a specific scrollable */
-        const scrollTop = window.scrollY;
-        const stickyClass = scrollTop >= 50 ? "is-sticky" : "";
-        setSticky(stickyClass);
-    };
-
-    const classes = `header-section ${sticky}`;
-
     return (
-        <header className={classes}>
+        <header>
             <Navbar className='py-2 shadow-sm bg-white rounded' bg="light" variant='dark' expand="lg" collapseOnSelect>
                 <Container>
                     <LinkContainer to='/'>
