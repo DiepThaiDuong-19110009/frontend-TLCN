@@ -5,7 +5,7 @@ import { Table, Button, Row, Col} from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../../components/Loader'
 import Message from '../../components/Message'
-import { listCategory } from '../../actions/productActions'
+import { createCategory, deleteCategory, listCategory } from '../../actions/productActions'
 
 const CategoryListScreen = () => {
     const dispatch = useDispatch()
@@ -37,14 +37,16 @@ const CategoryListScreen = () => {
     }, [dispatch, navigate, userInfo])
 
     const createCategoryHandler =()=>{
-        
+        dispatch(createCategory())
+        window.location.reload()
     }
 
     //Delete user
     const deleteHandler = (categoryId) => {
-        // if (window.confirm('Bạn có chắc chắn muốn xóa người dùng này không?')) {
-        //     dispatch(deleteUser(userId))
-        // }
+        if (window.confirm('Bạn có chắc chắn muốn xóa người dùng này không?')) {
+            dispatch(deleteCategory(categoryId))
+            window.location.reload()
+        }
     }
 
     return (
@@ -77,7 +79,7 @@ const CategoryListScreen = () => {
                                     <td>{categories.name}</td>
                                     <td className='text-center'>{categories.createdAt}</td>
                                     <td className='d-flex justify-content-around'>
-                                        <LinkContainer to={`/admin/user/${categories._id}/edit`}>
+                                        <LinkContainer to={`/admin/category/${categories._id}/edit`}>
                                             <Button variant='secondary' className='btn-sm'>
                                                 <i className='fas fa-edit'></i>
                                             </Button>

@@ -1,18 +1,22 @@
 import { combineReducers, legacy_createStore as createStore, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
-import { productListReducer, productDetailsReducer, categoryListReducer, 
-    productDeleteReducer, productCreateReducer, productUpdateReducer } from './reducers/productReducers'
+import {
+    productListReducer, productDetailsReducer, categoryListReducer, cateogryDetailsReducer,
+    productDeleteReducer, productCreateReducer, productUpdateReducer,
+    categoryDeleteReducer, categoryCreateReducer, categoryUpdateReducer
+} from './reducers/productReducers'
 import { cartReducer } from './reducers/cartReducers'
 import {
     userLoginReducer, userRegisterReducer, userDetailsReducer,
-    userUpdateProfileReducer, userChangePasswordReducer, userForgotPasswordReducer, 
+    userUpdateProfileReducer, userChangePasswordReducer, userForgotPasswordReducer,
     userListReducer, userDeleteReducer, userUpdateReducer
 } from './reducers/userReducers'
 import { orderCreateReducer, getOrderReducer } from './reducers/orderReducers'
 
 const reducer = combineReducers({
     categoryList: categoryListReducer,
+    categoryDetails: cateogryDetailsReducer,
     productList: productListReducer,
     productDetails: productDetailsReducer,
     cart: cartReducer,
@@ -31,6 +35,9 @@ const reducer = combineReducers({
     productDelete: productDeleteReducer,
     productCreate: productCreateReducer,
     productUpdate: productUpdateReducer,
+    categoryDelete: categoryDeleteReducer,
+    categoryCreate: categoryCreateReducer,
+    categoryUpdate: categoryUpdateReducer,
 })
 
 const cartItemsFromStorage = localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem('cartItems')) : []
