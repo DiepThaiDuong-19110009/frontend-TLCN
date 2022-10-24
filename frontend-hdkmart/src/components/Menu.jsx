@@ -32,7 +32,7 @@ function Menu() {
                         <Nav className="me-auto my-2 my-lg-0" style={{ maxHeight: '100px' }} navbarScroll>
                             <Nav.Link className='px-4' href="/">Trang chủ</Nav.Link>
                             <Nav.Link className='px-4' href="/product">Sản phẩm</Nav.Link>
-                            <Nav.Link className='px-4' href="/order">Đơn hàng</Nav.Link>
+                            <Nav.Link className='px-4' href="/myorder">Đơn hàng</Nav.Link>
                             <Nav.Link className='px-4' href="/blog">Bài viết</Nav.Link>
                             <Nav.Link className='px-4' href="/contact">Liên hệ</Nav.Link>
                             <Nav.Link className='px-4' href="/support">Hỗ trợ khách hàng</Nav.Link>

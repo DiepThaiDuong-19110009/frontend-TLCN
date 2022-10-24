@@ -76,7 +76,7 @@ const ProductEditScreen = () => {
 
     return (
         <>
-            <Link to='/admin/productlist' className='btn btn-light my-3'>Quay lại</Link>
+            <Link to='/admin' className='btn btn-light my-3'>Quay lại</Link>
             <FormContainer>
                 <h1 className='d-flex justify-content-center py-3'>Chỉnh sửa thông tin sản phẩm</h1>
                 {loadingUpdate ? <Loader /> : errorUpdate ? <Message variant='danger'>{error}</Message> :

@@ -1,4 +1,4 @@
-import { React, useEffect, useState } from 'react'
+import { React } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { LinkContainer } from 'react-router-bootstrap'
@@ -42,6 +42,11 @@ const Header = () => {
                             </LinkContainer>
                             {userInfo ? (
                                 <NavDropdown title={`Xin chào, ${userInfo.user.name}`} id='nav-dropdown'>
+                                    {userInfo && userInfo.user.isAdmin && (
+                                        <LinkContainer to='/admin'>
+                                            <NavDropdown.Item>Quản lý hệ thống</NavDropdown.Item>
+                                        </LinkContainer>
+                                    )}
                                     <LinkContainer to='/profile'>
                                         <NavDropdown.Item>Thông tin</NavDropdown.Item>
                                     </LinkContainer>
@@ -55,24 +60,6 @@ const Header = () => {
                                     <i className='fas fa-user'></i> Đăng nhập
                                 </Nav.Link>
                             </LinkContainer>}
-
-                            {/* Check admin */}
-                            {userInfo && userInfo.user.isAdmin && (
-                                <NavDropdown title='Admin' id='adminmenu'>
-                                    <LinkContainer to='/admin/userlist'>
-                                        <NavDropdown.Item>Quản lý người dùng</NavDropdown.Item>
-                                    </LinkContainer>
-                                    <LinkContainer to='/admin/categorylist'>
-                                        <NavDropdown.Item>Quản lý danh mục</NavDropdown.Item>
-                                    </LinkContainer>
-                                    <LinkContainer to='/admin/productlist'>
-                                        <NavDropdown.Item>Quản lý sản phẩm</NavDropdown.Item>
-                                    </LinkContainer>
-                                    <LinkContainer to='/admin/orderlist'>
-                                        <NavDropdown.Item>Quản lý đơn hàng</NavDropdown.Item>
-                                    </LinkContainer>
-                                </NavDropdown>
-                            )}
                         </Nav>
                     </Navbar.Collapse>
                 </Container>

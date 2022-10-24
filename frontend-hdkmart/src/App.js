@@ -26,6 +26,9 @@ import ProductListScreen from './screens/admin/ProductListScreen';
 import ProductEditScreen from './screens/admin/ProductEditScreen';
 import CategoryListScreen from './screens/admin/CategoryListSceen';
 import CategoryEditScreen from './screens/admin/CategoryEditScreen';
+import AdminScreen from './screens/admin/AdminScreen';
+import OrderListScreen from './screens/admin/OrderListScreen';
+import MyOrderScreen from './screens/MyOrderScreen';
 
 const App = () => {
   return (
@@ -49,14 +52,18 @@ const App = () => {
             <Route path='/payment' element={<PaymentScreen />} />
             <Route path='/placeorder' element={<PlaceOrderScreen />} />
             <Route path='/ordersuccess' element={<OrderSuccessScreen />} />
+            <Route path='/myorder' element={<MyOrderScreen />} />
+
 
             {/* Admin */}
+            <Route path='/admin' element={<AdminScreen />} />
             <Route path='/admin/userlist' element={<UserListScreen />} />
             <Route path='/admin/user/:id/edit' element={<UserEditScreen />} />
             <Route path='/admin/productlist' element={<ProductListScreen />} />
             <Route path='/admin/product/:id/edit' element={<ProductEditScreen />} />
             <Route path='/admin/categorylist' element={<CategoryListScreen />} />
             <Route path='/admin/category/:id/edit' element={<CategoryEditScreen />} />
+            <Route path='/admin/orderlist' element={<OrderListScreen />} />
           </Routes>
         </Container>
       </main>
