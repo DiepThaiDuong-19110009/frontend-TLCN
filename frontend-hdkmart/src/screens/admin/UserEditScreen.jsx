@@ -29,7 +29,7 @@ const UserEditScreen = () => {
     useEffect(() => {
         if (successUpdate) {
             dispatch({ type: USER_UPDATE_RESET })
-            navigate('/admin/userlist')
+            navigate('/admin/')
             window.location.reload()
         } else {
             if (!user.name || user._id !== userId) {

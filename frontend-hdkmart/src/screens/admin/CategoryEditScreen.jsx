@@ -25,7 +25,7 @@ const CategoryEditScreen = () => {
     useEffect(() => {
         if (successUpdate) {
             dispatch({ type: CATEGORY_UPDATE_RESET })
-            navigate('/admin/categorylist')
+            navigate('/admin')
             window.location.reload()
         } else {
             if (!category.name || category._id !== categoryId) {

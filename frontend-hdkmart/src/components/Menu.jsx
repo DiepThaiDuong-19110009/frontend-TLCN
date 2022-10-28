@@ -7,6 +7,9 @@ import Navbar from 'react-bootstrap/Navbar';
 function Menu() {
     const [sticky, setSticky] = useState("");
 
+    const userLogin = useSelector(state => state.userLogin)
+    const { userInfo } = userLogin
+
     // on render, set listener
     useEffect(() => {
         window.addEventListener("scroll", isSticky);
@@ -32,7 +35,9 @@ function Menu() {
                         <Nav className="me-auto my-2 my-lg-0" style={{ maxHeight: '100px' }} navbarScroll>
                             <Nav.Link className='px-4' href="/">Trang chủ</Nav.Link>
                             <Nav.Link className='px-4' href="/product">Sản phẩm</Nav.Link>
-                            <Nav.Link className='px-4' href="/myorder">Đơn hàng</Nav.Link>
+                            {userInfo &&
+                                <Nav.Link className='px-4' href="/myorder">Đơn hàng</Nav.Link>
+                            }
                             <Nav.Link className='px-4' href="/blog">Bài viết</Nav.Link>
                             <Nav.Link className='px-4' href="/contact">Liên hệ</Nav.Link>
                             <Nav.Link className='px-4' href="/support">Hỗ trợ khách hàng</Nav.Link>

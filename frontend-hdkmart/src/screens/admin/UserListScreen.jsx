@@ -74,7 +74,7 @@ const UserListScreen = () => {
                                                 <i className='fas fa-edit'></i>
                                             </Button>
                                         </LinkContainer>
-                                        <Button variant='danger' className='btn-sm' onClick={() => deleteHandler(user._id)}>
+                                        <Button disabled={user.isAdmin ? "true" : ""} variant='danger' className='btn-sm' onClick={() => deleteHandler(user._id)}>
                                             <i className='fas fa-trash'></i>
                                         </Button>
                                     </td>

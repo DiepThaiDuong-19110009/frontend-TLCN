@@ -9,7 +9,7 @@ import UserListScreen from './UserListScreen';
 
 function AdminScreen() {
   return (
-    <Tab.Container id="left-tabs-example" defaultActiveKey="first">
+    <Tab.Container id="left-tabs-example" defaultActiveKey="cate">
       <Row>
         <Col sm={3}>
           <Nav variant="pills" className="flex-column">
@@ -24,6 +24,9 @@ function AdminScreen() {
             </Nav.Item>
             <Nav.Item>
               <Nav.Link eventKey="order">Quản lý đơn hàng</Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Nav.Link eventKey="statistic">Thống kê</Nav.Link>
             </Nav.Item>
           </Nav>
         </Col>

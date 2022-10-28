@@ -1,7 +1,7 @@
 import { React, useEffect } from 'react'
 import { LinkContainer } from 'react-router-bootstrap'
 import { useNavigate } from 'react-router-dom'
-import { Table, Button, Row, Col} from 'react-bootstrap'
+import { Table, Button, Row, Col } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../../components/Loader'
 import Message from '../../components/Message'
@@ -16,9 +16,6 @@ const CategoryListScreen = () => {
 
     const userLogin = useSelector(state => state.userLogin)
     const { userInfo } = userLogin
-
-    // const userDelete = useSelector(state => state.userDelete)
-    // const { success: successDelete } = userDelete
 
     const navigate = useNavigate();
 
@@ -36,14 +33,14 @@ const CategoryListScreen = () => {
         //eslint-disable-next-line 
     }, [dispatch, navigate, userInfo])
 
-    const createCategoryHandler =()=>{
+    const createCategoryHandler = () => {
         dispatch(createCategory())
         window.location.reload()
     }
 
     //Delete user
     const deleteHandler = (categoryId) => {
-        if (window.confirm('Bạn có chắc chắn muốn xóa người dùng này không?')) {
+        if (window.confirm('Bạn có chắc chắn muốn xóa danh mục sản phẩm này không?')) {
             dispatch(deleteCategory(categoryId))
             window.location.reload()
         }
@@ -52,8 +49,13 @@ const CategoryListScreen = () => {
     return (
         <>
             <Row className='align-items-center'>
+                <Row>
+                    <Col>
+                        <h1>Danh sách danh mục sản phẩm</h1>
+                    </Col>
+                </Row>
                 <Col>
-                    <h1>Danh sách danh mục sản phẩm</h1>
+                    <h6>Tổng số lượng: {categories.length} danh mục</h6>
                 </Col>
                 <Col className='d-flex justify-content-end'>
                     <Button className='my-3' onClick={createCategoryHandler}>
@@ -66,25 +68,25 @@ const CategoryListScreen = () => {
                     <Table striped bordered hover responsive className='table-sm'>
                         <thead>
                             <tr>
-                                <th className='text-center'>ID</th>
+                                <th className='text-center'>#</th>
                                 <th className='text-center'>Tên danh mục sản phẩm</th>
                                 <th className='text-center'>Ngày tạo</th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                            {categories.reverse().map(categories => (
-                                <tr key={categories._id}>
-                                    <td className='text-center'>{categories._id}</td>
-                                    <td>{categories.name}</td>
-                                    <td className='text-center'>{categories.createdAt}</td>
+                            {categories.reverse().map(category => (
+                                <tr key={category._id}>
+                                    <td className='text-center'>{categories.length}</td>
+                                    <td>{category.name}</td>
+                                    <td className='text-center'>{category.createdAt}</td>
                                     <td className='d-flex justify-content-around'>
-                                        <LinkContainer to={`/admin/category/${categories._id}/edit`}>
+                                        <LinkContainer to={`/admin/category/${category._id}/edit`}>
                                             <Button variant='secondary' className='btn-sm'>
                                                 <i className='fas fa-edit'></i>
                                             </Button>
                                         </LinkContainer>
-                                        <Button variant='danger' className='btn-sm' onClick={() => deleteHandler(categories._id)}>
+                                        <Button variant='danger' className='btn-sm' onClick={() => deleteHandler(category._id)}>
                                             <i className='fas fa-trash'></i>
                                         </Button>
                                     </td>

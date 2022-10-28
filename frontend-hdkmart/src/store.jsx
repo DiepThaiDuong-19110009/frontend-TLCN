@@ -4,7 +4,8 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 import {
     productListReducer, productDetailsReducer, categoryListReducer, cateogryDetailsReducer,
     productDeleteReducer, productCreateReducer, productUpdateReducer,
-    categoryDeleteReducer, categoryCreateReducer, categoryUpdateReducer
+    categoryDeleteReducer, categoryCreateReducer, categoryUpdateReducer,
+    commentCreateReducer
 } from './reducers/productReducers'
 import { cartReducer } from './reducers/cartReducers'
 import {
@@ -12,13 +13,14 @@ import {
     userUpdateProfileReducer, userChangePasswordReducer, userForgotPasswordReducer,
     userListReducer, userDeleteReducer, userUpdateReducer
 } from './reducers/userReducers'
-import { orderCreateReducer, getOrderReducer } from './reducers/orderReducers'
+import { orderCreateReducer, getOrderReducer, orderDeleteReducer, orderUpdateReducer, orderDetailsReducer } from './reducers/orderReducers'
 
 const reducer = combineReducers({
     categoryList: categoryListReducer,
     categoryDetails: cateogryDetailsReducer,
     productList: productListReducer,
     productDetails: productDetailsReducer,
+    commentCreate: commentCreateReducer,
     cart: cartReducer,
     userLogin: userLoginReducer,
     userRegister: userRegisterReducer,
@@ -28,6 +30,7 @@ const reducer = combineReducers({
     userForgotPassword: userForgotPasswordReducer,
     orderCreate: orderCreateReducer,
     orderList: getOrderReducer,
+    orderDetails: orderDetailsReducer,
     // Admin
     userList: userListReducer,
     userDelete: userDeleteReducer,
@@ -38,6 +41,8 @@ const reducer = combineReducers({
     categoryDelete: categoryDeleteReducer,
     categoryCreate: categoryCreateReducer,
     categoryUpdate: categoryUpdateReducer,
+    orderDelete: orderDeleteReducer,
+    orderUpdate: orderUpdateReducer,
 })
 
 const cartItemsFromStorage = localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem('cartItems')) : []

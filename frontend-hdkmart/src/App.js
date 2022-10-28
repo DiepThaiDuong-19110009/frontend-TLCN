@@ -29,6 +29,8 @@ import CategoryEditScreen from './screens/admin/CategoryEditScreen';
 import AdminScreen from './screens/admin/AdminScreen';
 import OrderListScreen from './screens/admin/OrderListScreen';
 import MyOrderScreen from './screens/MyOrderScreen';
+import OrderEditScreen from './screens/admin/OrderEditScreen';
+import ScrollTop from './components/ScrollTop';
 
 const App = () => {
   return (
@@ -64,9 +66,11 @@ const App = () => {
             <Route path='/admin/categorylist' element={<CategoryListScreen />} />
             <Route path='/admin/category/:id/edit' element={<CategoryEditScreen />} />
             <Route path='/admin/orderlist' element={<OrderListScreen />} />
+            <Route path='/admin/order/:id/edit' element={<OrderEditScreen />} />
           </Routes>
         </Container>
       </main>
+      {/* <ScrollTop /> */}
       <Footer />
     </BrowserRouter>
   );

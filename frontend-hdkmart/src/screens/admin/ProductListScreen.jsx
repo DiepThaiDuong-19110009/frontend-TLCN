@@ -1,6 +1,6 @@
-import { React, useEffect } from 'react'
+import { React, useEffect, useState } from 'react'
 import { LinkContainer } from 'react-router-bootstrap'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { Table, Button, Row, Col } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../../components/Loader'
@@ -10,6 +10,10 @@ import { PRODUCT_CREATE_RESET } from '../../constants/productConstants'
 
 const ProductListScreen = () => {
     const dispatch = useDispatch()
+    const [filter, setFilter] = useState('')
+
+    const categoryList = useSelector(state => state.categoryList)
+    const { categories } = categoryList
 
     const productList = useSelector(state => state.productList)
     const { loading, error, products } = productList
@@ -31,9 +35,10 @@ const ProductListScreen = () => {
         if (!userInfo.user.isAdmin) {
             navigate('/login')
         }
-        if (successCreate) {
-            navigate(`/admin/productlist`)
-        } else {
+        // if (successCreate) {
+        //     navigate(`/admin/productlist`)
+        // }
+         else {
             dispatch(listProducts())
         }
         //eslint-disable-next-line 
@@ -51,11 +56,48 @@ const ProductListScreen = () => {
         }
     }
 
+    //filter Product
+    let idCategory = ''
+    const getIdCategory = () => {
+        categories.forEach(cate => {
+            if (cate.name === filter) {
+                idCategory = cate._id
+            }
+        })
+    }
+    getIdCategory()
+
+    const arrFilterProduct = []
+    const checkFilter = () => {
+        products.forEach(product => {
+            if (product.category._id === idCategory) {
+                arrFilterProduct.push(product)
+            } else if(!idCategory) {
+                arrFilterProduct.push(product)
+            }
+        })
+    }
+    checkFilter()
+
     return (
         <>
             <Row className='align-items-center'>
+                <Row>
+                    <Col>
+                        <h1>Danh sách sản phẩm</h1>
+                    </Col>
+                </Row>
                 <Col>
-                    <h1>Danh sách sản phẩm</h1>
+                    <h6>Tổng số lượng: {arrFilterProduct.length} sản phẩm</h6>
+                </Col>
+                <Col className='d-flex justify-content-end align-items-center'>
+                    <p className='my-0 mx-3'>Lọc sản phẩm</p>
+                    <select value={filter} onChange={(e) => setFilter(e.target.value)}>
+                        <option>Tất cả</option>
+                        {categories.map(cate => (
+                            <option>{cate.name}</option>
+                        ))}
+                    </select>
                 </Col>
                 <Col className='d-flex justify-content-end'>
                     <Button className='my-3' onClick={createProductHandler}>
@@ -85,7 +127,7 @@ const ProductListScreen = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {products.reverse().map(product => (
+                            {arrFilterProduct.reverse().map(product => (
                                 <tr key={product._id}>
                                     <td className='text-center'>{product._id}</td>
                                     <td className='text-center'><img style={{ width: '50px' }} src={product.photo} alt={product.name} /></td>

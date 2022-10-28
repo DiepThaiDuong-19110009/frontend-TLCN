@@ -37,6 +37,8 @@ const ProfileScreen = () => {
             } else {
                 setName(user.name)
                 setEmail(user.email)
+                setPhone(user.phone)
+                setAddress(user.address)
             }
         }
         //eslint-disable-next-line 
@@ -44,7 +46,7 @@ const ProfileScreen = () => {
 
     const submitHandler = (e) => {
         e.preventDefault()
-        dispatch(updateUserProfile(user._id, {name, email}))
+        dispatch(updateUserProfile(user._id, {name, email, phone, address}))
         window.location.reload()
     }
 

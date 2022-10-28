@@ -15,7 +15,10 @@ import {
     CATEGORY_UPDATE_FAIL,
     CATEGORY_DETAILS_REQUEST,
     CATEGORY_DETAILS_SUCCESS,
-    CATEGORY_DETAILS_FAIL
+    CATEGORY_DETAILS_FAIL,
+    PRODUCT_COMMENT_REQUEST,
+    PRODUCT_COMMENT_SUCCESS,
+    PRODUCT_COMMENT_FAIL
 } from '../constants/productConstants'
 import { PRODUCT_LIST_REQUEST, PRODUCT_LIST_SUCCESS, PRODUCT_LIST_FAIL } from '../constants/productConstants'
 import { PRODUCT_DETAILS_REQUEST, PRODUCT_DETAILS_SUCCESS, PRODUCT_DETAILS_FAIL } from '../constants/productConstants'
@@ -183,7 +186,7 @@ export const updateProduct = (product) => async (dispatch, getState) => {
     }
 }
 
-// Admin Product
+// Admin Category
 export const deleteCategory = (id) => async (dispatch, getState) => {
     try {
         dispatch({
@@ -266,6 +269,35 @@ export const updateCategory = (category) => async (dispatch, getState) => {
     } catch (error) {
         dispatch({
             type: CATEGORY_UPDATE_FAIL,
+            payload: error.response && error.response.data.message ? error.response.data.message : error.message,
+        })
+    }
+}
+
+export const createCommentProduct = (id, commentProduct) => async (dispatch, getState) => {
+    try {
+        dispatch({
+            type: PRODUCT_COMMENT_REQUEST
+        })
+
+        const { userLogin: { userInfo } } = getState()
+
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        }
+        const { data } = await axios.put(`http://localhost:5000/api/comment/${id}`, commentProduct, config)
+
+        dispatch({
+            type: PRODUCT_COMMENT_SUCCESS,
+            payload: data
+        })
+
+    } catch (error) {
+        dispatch({
+            type: PRODUCT_COMMENT_FAIL,
             payload: error.response && error.response.data.message ? error.response.data.message : error.message,
         })
     }
