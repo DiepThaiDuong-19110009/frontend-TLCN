@@ -90,14 +90,15 @@ const OrderListScreen = () => {
           <Col>
             <h1 className='pb-4'>Danh sách đơn hàng</h1>
           </Col>
+          <Col className='d-flex justify-content-end align-items-center'>
+            <Button variant="outline-secondary" onClick={loadpage} className='d-flex justify-content-center align-items-center'>
+              <i className="fas fa-redo-alt"></i>
+              <p className='my-0 mx-3'>Tải lại</p>
+            </Button>
+          </Col>
         </Row>
         <Col>
           <h6>Tổng số lượng: {arrFilterOrder.length} đơn hàng ({filter})</h6>
-        </Col>
-        <Col className='d-flex justify-content-end align-items-center'>
-          <Button onClick={loadpage} className='d-flex justify-content-center align-items-center'>
-            <p className='my-0 mx-3'>Tải lại</p>
-          </Button>
         </Col>
         <Col className='d-flex justify-content-end align-items-center'>
           <p className='my-0 mx-3'>Lọc đơn hàng</p>

@@ -1,7 +1,7 @@
 import { React, useEffect, useState } from 'react'
 import { LinkContainer } from 'react-router-bootstrap'
 import { useNavigate } from 'react-router-dom'
-import { Table, Button, Row, Col } from 'react-bootstrap'
+import { Table, Button, Row, Col, Modal } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../../components/Loader'
 import Message from '../../components/Message'
@@ -38,7 +38,7 @@ const ProductListScreen = () => {
         // if (successCreate) {
         //     navigate(`/admin/productlist`)
         // }
-         else {
+        else {
             dispatch(listProducts())
         }
         //eslint-disable-next-line 
@@ -49,11 +49,10 @@ const ProductListScreen = () => {
         dispatch(createProduct())
     }
 
-    //Delete user
-    const deleteHandler = (productId) => {
-        if (window.confirm('Bạn có chắc chắn muốn xóa sản phẩm này không?')) {
-            dispatch(deleteProduct(productId))
-        }
+    //Delete product
+    const deleteHandler = (idDelete) => {
+        dispatch(deleteProduct(idDelete))
+        setShow(false)
     }
 
     //filter Product
@@ -72,12 +71,28 @@ const ProductListScreen = () => {
         products.forEach(product => {
             if (product.category._id === idCategory) {
                 arrFilterProduct.push(product)
-            } else if(!idCategory) {
+            } else if (!idCategory) {
                 arrFilterProduct.push(product)
             }
         })
     }
     checkFilter()
+
+    // load page
+    const loadpage = () => {
+        window.location.reload(false)
+    }
+
+    // Alert
+    const [idDelete, setIdDelete] = useState('')
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = (id) => {
+        setShow(true);
+        setIdDelete(id)
+    }
+
+    // console.log('==', idDelete);
 
     return (
         <>
@@ -85,6 +100,12 @@ const ProductListScreen = () => {
                 <Row>
                     <Col>
                         <h1>Danh sách sản phẩm</h1>
+                    </Col>
+                    <Col className='d-flex justify-content-end align-items-center'>
+                        <Button variant="outline-secondary" onClick={loadpage} className='d-flex justify-content-center align-items-center'>
+                            <i className="fas fa-redo-alt"></i>
+                            <p className='my-0 mx-3'>Tải lại</p>
+                        </Button>
                     </Col>
                 </Row>
                 <Col>
@@ -100,7 +121,7 @@ const ProductListScreen = () => {
                     </select>
                 </Col>
                 <Col className='d-flex justify-content-end'>
-                    <Button style={{background: 'green', border: 'none'}} className='my-3' onClick={createProductHandler}>
+                    <Button style={{ background: 'green', border: 'none' }} className='my-3' onClick={createProductHandler}>
                         <i className='fas fa-plus'></i> Thêm sản phẩm
                     </Button>
                 </Col>
@@ -146,7 +167,7 @@ const ProductListScreen = () => {
                                                 <i className='fas fa-edit'></i>
                                             </Button>
                                         </LinkContainer>
-                                        <Button variant='danger' className='btn-sm' onClick={() => deleteHandler(product._id)}>
+                                        <Button variant='danger' className='btn-sm' onClick={() => handleShow(product._id)}>
                                             <i className='fas fa-trash'></i>
                                         </Button>
                                     </td>
@@ -155,6 +176,25 @@ const ProductListScreen = () => {
                         </tbody>
                     </Table>
                 )}
+            <Modal
+                show={show}
+                onHide={handleClose}
+                backdrop="static"
+                keyboard={false}
+            >
+                <Modal.Header closeButton>
+                    <Modal.Title>Xóa sản phẩm</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    Bạn có chắc chắn muốn xóa sản phẩm này không?
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose}>
+                        Hủy
+                    </Button>
+                    <Button variant="danger" onClick={() => deleteHandler(idDelete)}>Xóa sản phẩm</Button>
+                </Modal.Footer>
+            </Modal>
         </>
     )
 }

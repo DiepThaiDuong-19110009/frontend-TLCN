@@ -1,7 +1,7 @@
-import { React, useEffect } from 'react'
+import { React, useEffect, useState } from 'react'
 import { LinkContainer } from 'react-router-bootstrap'
 import { useNavigate } from 'react-router-dom'
-import { Table, Button, Row, Col } from 'react-bootstrap'
+import { Table, Button, Row, Col, Modal } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../../components/Loader'
 import Message from '../../components/Message'
@@ -9,10 +9,11 @@ import { listUsers, deleteUser } from '../../actions/userActions'
 
 const UserListScreen = () => {
     const dispatch = useDispatch()
+    const [filter, setFilter] = useState('Tất cả')
 
     const userList = useSelector(state => state.userList)
     const { loading, error, users } = userList
-    // console.log('==', users)
+    console.log('==', users)
 
     const userLogin = useSelector(state => state.userLogin)
     const { userInfo } = userLogin
@@ -33,9 +34,47 @@ const UserListScreen = () => {
 
     //Delete user
     const deleteHandler = (userId) => {
-        if (window.confirm('Bạn có chắc chắn muốn xóa người dùng này không?')) {
-            dispatch(deleteUser(userId))
+        dispatch(deleteUser(userId))
+        setShow(false)
+    }
+
+    // Filter User
+    const arrFilterUser = []
+    const FilterUser = (check) => {
+        if (check === 'Admin') {
+            users.find(x => {
+                if (x.isAdmin === true) {
+                    arrFilterUser.push(x)
+                }
+            })
+        } else if (check === 'User') {
+            users.find(y => {
+                if (y.isAdmin === false) {
+                    arrFilterUser.push(y)
+                }
+            })
+        } else if (check === 'Tất cả') {
+            users?.forEach((user) =>
+                arrFilterUser.push(user)
+            )
         }
+    }
+
+    FilterUser(filter)
+    // console.log('==', filter)
+
+    // load page
+    const loadpage = () => {
+        window.location.reload(false)
+    }
+
+    // Alert
+    const [idDelete, setIdDelete] = useState('')
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = (id) => {
+        setShow(true);
+        setIdDelete(id)
     }
 
     return (
@@ -45,9 +84,23 @@ const UserListScreen = () => {
                     <Col>
                         <h1>Danh sách người dùng</h1>
                     </Col>
+                    <Col className='d-flex justify-content-end align-items-center'>
+                        <Button variant="outline-secondary" onClick={loadpage} className='d-flex justify-content-center align-items-center'>
+                            <i className="fas fa-redo-alt"></i>
+                            <p className='my-0 mx-3'>Tải lại</p>
+                        </Button>
+                    </Col>
                 </Row>
                 <Col>
-                    <h6 className='py-3'>Tổng số lượng: {users?.length} người dùng</h6>
+                    <h6 className='py-3'>Tổng số lượng: {arrFilterUser.length} người dùng ({filter})</h6>
+                </Col>
+                <Col className='d-flex justify-content-end align-items-center'>
+                    <p className='my-0 mx-3'>Lọc người dùng</p>
+                    <select value={filter} onChange={(e) => setFilter(e.target.value)}>
+                        <option>Tất cả</option>
+                        <option>Admin</option>
+                        <option>User</option>
+                    </select>
                 </Col>
             </Row>
             {loading ? <Loader /> : error ? <Message variant='danger'>{error}</Message> :
@@ -64,7 +117,7 @@ const UserListScreen = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {users.reverse().map((user, index) => (
+                            {arrFilterUser.reverse().map((user, index) => (
                                 <tr key={user._id}>
                                     <td className='text-center'>{index + 1}</td>
                                     <td>{user.name}</td>
@@ -83,7 +136,7 @@ const UserListScreen = () => {
                                                 <i className='fas fa-edit'></i>
                                             </Button>
                                         </LinkContainer>
-                                        <Button disabled={user.isAdmin ? "true" : ""} variant='danger' className='btn-sm' onClick={() => deleteHandler(user._id)}>
+                                        <Button disabled={user.isAdmin ? "true" : ""} variant='danger' className='btn-sm' onClick={() => handleShow(user._id)}>
                                             <i className='fas fa-trash'></i>
                                         </Button>
                                     </td>
@@ -92,6 +145,25 @@ const UserListScreen = () => {
                         </tbody>
                     </Table>
                 )}
+            <Modal
+                show={show}
+                onHide={handleClose}
+                backdrop="static"
+                keyboard={false}
+            >
+                <Modal.Header closeButton>
+                    <Modal.Title>Xóa người dùng</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    Bạn có chắc chắn muốn xóa người dùng này không?
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose}>
+                        Hủy
+                    </Button>
+                    <Button variant="danger" onClick={() => deleteHandler(idDelete)}>Xóa người dùng</Button>
+                </Modal.Footer>
+            </Modal>
         </>
     )
 }
