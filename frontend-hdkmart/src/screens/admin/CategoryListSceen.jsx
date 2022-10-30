@@ -58,14 +58,14 @@ const CategoryListScreen = () => {
                     <h6>Tổng số lượng: {categories.length} danh mục</h6>
                 </Col>
                 <Col className='d-flex justify-content-end'>
-                    <Button className='my-3' onClick={createCategoryHandler}>
+                    <Button style={{background: 'green', border: 'none'}} className='my-3' onClick={createCategoryHandler}>
                         <i className='fas fa-plus'></i> Thêm danh mục
                     </Button>
                 </Col>
             </Row>
             {loading ? <Loader /> : error ? <Message variant='danger'>{error}</Message> :
                 (
-                    <Table striped bordered hover responsive className='table-sm'>
+                    <Table bordered responsive className='table-sm'>
                         <thead>
                             <tr>
                                 <th className='text-center'>#</th>
@@ -75,11 +75,11 @@ const CategoryListScreen = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {categories.reverse().map(category => (
+                            {categories.reverse().map((category, index) => (
                                 <tr key={category._id}>
-                                    <td className='text-center'>{categories.length}</td>
+                                    <td className='text-center'>{index + 1}</td>
                                     <td>{category.name}</td>
-                                    <td className='text-center'>{category.createdAt}</td>
+                                    <td className='text-center'>{category.createdAt.slice(0, 10)}</td>
                                     <td className='d-flex justify-content-around'>
                                         <LinkContainer to={`/admin/category/${category._id}/edit`}>
                                             <Button variant='secondary' className='btn-sm'>

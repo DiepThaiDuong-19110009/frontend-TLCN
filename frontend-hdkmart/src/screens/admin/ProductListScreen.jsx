@@ -81,14 +81,14 @@ const ProductListScreen = () => {
 
     return (
         <>
-            <Row className='align-items-center'>
+            <Row className='align-items-center' id="productAdmin">
                 <Row>
                     <Col>
                         <h1>Danh sách sản phẩm</h1>
                     </Col>
                 </Row>
                 <Col>
-                    <h6>Tổng số lượng: {arrFilterProduct.length} sản phẩm</h6>
+                    <h6>Tổng số lượng: {arrFilterProduct.length} sản phẩm ({filter})</h6>
                 </Col>
                 <Col className='d-flex justify-content-end align-items-center'>
                     <p className='my-0 mx-3'>Lọc sản phẩm</p>
@@ -100,7 +100,7 @@ const ProductListScreen = () => {
                     </select>
                 </Col>
                 <Col className='d-flex justify-content-end'>
-                    <Button className='my-3' onClick={createProductHandler}>
+                    <Button style={{background: 'green', border: 'none'}} className='my-3' onClick={createProductHandler}>
                         <i className='fas fa-plus'></i> Thêm sản phẩm
                     </Button>
                 </Col>
@@ -111,12 +111,13 @@ const ProductListScreen = () => {
             {errorCreate && <Message variant='danger'>{errorCreate}</Message>}
             {loading ? <Loader /> : error ? <Message variant='danger'>{error}</Message> :
                 (
-                    <Table striped bordered hover responsive className='table-sm'>
+                    <Table bordered responsive className='table-sm'>
                         <thead>
                             <tr>
-                                <th className='text-center'>ID</th>
+                                <th className='text-center'>#</th>
                                 <th className='text-center'>Hình ảnh</th>
                                 <th className='text-center'>Tên sản phẩm</th>
+                                <th className='text-center'>Nhà cung cấp</th>
                                 <th className='text-center'>Mô tả</th>
                                 <th className='text-center'>Giá (Đơn vị VNĐ)</th>
                                 <th className='text-center'>Danh mục</th>
@@ -127,11 +128,12 @@ const ProductListScreen = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {arrFilterProduct.reverse().map(product => (
+                            {arrFilterProduct.reverse().map((product, index) => (
                                 <tr key={product._id}>
-                                    <td className='text-center'>{product._id}</td>
+                                    <td className='text-center'>{index + 1}</td>
                                     <td className='text-center'><img style={{ width: '50px' }} src={product.photo} alt={product.name} /></td>
                                     <td className='text-center'>{product.name}</td>
+                                    <td className='text-center'>{product.supplier}</td>
                                     <td style={{ maxWidth: '500px' }}>{product.description}</td>
                                     <td className='text-center'>{product.price}</td>
                                     <td className='text-center'>{product.category.name}</td>

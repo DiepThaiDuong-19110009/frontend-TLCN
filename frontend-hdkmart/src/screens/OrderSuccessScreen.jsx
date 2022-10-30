@@ -1,11 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
 import Alert from 'react-bootstrap/Alert';
+import { Container } from 'react-bootstrap';
 
 const OrderSuccessScreen = () => {
 
     return (
-        <>
+        <Container>
             <Alert variant="success">
                 <Alert.Heading>Đặt hàng thành công</Alert.Heading>
                 <p>
@@ -19,7 +20,7 @@ const OrderSuccessScreen = () => {
                     </Link>
                 </div>
             </Alert>
-        </>
+        </Container>
     );
 }
 

@@ -11,6 +11,7 @@ import { PRODUCT_UPDATE_RESET } from '../../constants/productConstants'
 const ProductEditScreen = () => {
     const [photo, setPhoto] = useState('')
     const [name, setName] = useState('')
+    const [supplier, setSupllier] = useState('')
     const [description, setDescription] = useState('')
     const [price, setPrice] = useState(0)
     const [nameCategory, setNameCategory] = useState('')
@@ -28,7 +29,7 @@ const ProductEditScreen = () => {
     // console.log('==', categories)
 
     const productDetails = useSelector(state => state.productDetails)
-    const { loading, error, product } = productDetails
+    const { error, product } = productDetails
     // console.log('==', product)
 
     const productUpdate = useSelector(state => state.productUpdate)
@@ -53,6 +54,7 @@ const ProductEditScreen = () => {
             dispatch({ type: PRODUCT_UPDATE_RESET })
             navigate('/admin')
             window.location.reload()
+            window.location.href='#productAdmin'
         } else {
             if (!product.name || product._id !== productId) {
                 dispatch(listProductDetails(productId))
@@ -60,6 +62,7 @@ const ProductEditScreen = () => {
             } else {
                 setPhoto(product.photo)
                 setName(product.name)
+                setSupllier(product.supplier)
                 setDescription(product.description)
                 setPrice(product.price)
                 setNameCategory(product.category.name)
@@ -71,7 +74,7 @@ const ProductEditScreen = () => {
 
     const submitHandler = (e) => {
         e.preventDefault()
-        dispatch(updateProduct({ _id: productId, photo, name, description, price, category, quantity, sold }))
+        dispatch(updateProduct({ _id: productId, photo, name, supplier, description, price, category, quantity, sold }))
     }
 
     return (
@@ -92,6 +95,10 @@ const ProductEditScreen = () => {
                             <Form.Group controlId='productname'>
                                 <Form.Label>Tên sản phẩm</Form.Label>
                                 <Form.Control className='mb-3' type='name' placeholder='Nhập tên sản phẩm' value={name} onChange={(e) => setName(e.target.value)}></Form.Control>
+                            </Form.Group>
+                            <Form.Group controlId='productsupplier'>
+                                <Form.Label>Nhà cung cấp</Form.Label>
+                                <Form.Control className='mb-3' type='name' placeholder='Nhập tên nhà cung cấp' value={supplier} onChange={(e) => setSupllier(e.target.value)}></Form.Control>
                             </Form.Group>
                             <Form.Group controlId='productdescription'>
                                 <Form.Label>Mô tả sản phẩm</Form.Label>

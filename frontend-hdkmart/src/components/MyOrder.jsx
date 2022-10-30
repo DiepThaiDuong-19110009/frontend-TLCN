@@ -1,7 +1,7 @@
 import { React, useEffect, useState } from 'react'
-import { ListGroup } from 'react-bootstrap'
+import { Button, ListGroup, Accordion, Row, Col, Container } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
-import { getOrder } from '../actions/orderActions'
+import { getOrder, updateOrder } from '../actions/orderActions'
 import Dropdown from 'react-bootstrap/Dropdown';
 import Table from 'react-bootstrap/Table';
 
@@ -28,25 +28,43 @@ const MyOrder = () => {
         dispatch(getOrder())
     }, [dispatch])
 
+    // cancle Order
+    const cancleOrder = (id) => {
+        if (window.confirm('Bạn có chắc chắn muốn hủy đơn hàng này không?')) {
+            dispatch(updateOrder({ _id: id, status: 'Đã hủy' }))
+            window.location.reload()
+        }
+    }
+
 
     return (
-        <div>
+        <Container>
             <h1>Lịch sử đơn hàng</h1>
             <ListGroup>
                 {arrOrder.reverse().map(item => (
-                    <ListGroup.Item>
-                        {`Ngày đặt hàng: ${item.createdAt}`}
-                        <Dropdown className='my-3'>
-                            <Dropdown.Toggle variant="success" id="dropdown-basic">
-                                Chi tiết đơn hàng
-                            </Dropdown.Toggle>
-
-                            <Dropdown.Menu>
-                                <Dropdown.Item>
+                    <Row className='pt-4'>
+                        <Row>
+                            <Col>
+                                <p>Ngày đặt hàng: {item.createdAt.slice(0, 10)}</p>
+                            </Col>
+                            <Col className='d-flex justify-content-end'>
+                                {
+                                    item.status === "Chờ xác nhận" && <Button onClick={() => cancleOrder(item._id)} variant="danger">Hủy đơn hàng</Button>
+                                }
+                            </Col>
+                        </Row>
+                        <Row className='pb-3'>
+                            <p>Địa chỉ giao hàng: <span style={{ color: 'red' }}>{item.address}</span></p>
+                            <p>Trạng thái đơn hàng: <strong style={{ color: '#00cc00' }}>{item.status}</strong></p>
+                            <h5>Tổng tiền thanh toán: {(item.total).toLocaleString('vi', { style: 'currency', currency: 'VND' })}</h5>
+                        </Row>
+                        <Accordion className='pb-5' defaultActiveKey="0">
+                            <Accordion.Item eventKey="1">
+                                <Accordion.Header>Chi tiết đơn hàng</Accordion.Header>
+                                <Accordion.Body>
                                     <Table>
                                         <thead>
                                             <tr>
-                                                <th>id</th>
                                                 <th>Tên sản phẩm</th>
                                                 <th>Số lượng</th>
                                                 <th>Thành tiền</th>
@@ -55,25 +73,20 @@ const MyOrder = () => {
                                         <tbody>
                                             {item.products.map(productItem => (
                                                 <tr>
-                                                    <td>{productItem._id}</td>
                                                     <td>{productItem.name}</td>
                                                     <td>{productItem.count}</td>
-                                                    <td>{`${(productItem.count * productItem.price).toLocaleString('vi', {style : 'currency', currency : 'VND'})}`}</td>
+                                                    <td>{`${(productItem.count * productItem.price).toLocaleString('vi', { style: 'currency', currency: 'VND' })}`}</td>
                                                 </tr>
                                             ))}
                                         </tbody>
                                     </Table>
-                                </Dropdown.Item>
-                                <Dropdown.Item style={{color: 'green'}}>Địa chỉ: {item.address}</Dropdown.Item>
-                                <Dropdown.Item>Tên người nhận: {item.user.name}</Dropdown.Item>
-                            </Dropdown.Menu>
-                        </Dropdown>
-                        <p style={{color: 'red'}}>Trạng thái đơn hàng: {item.status}</p>
-                        <h5>Tổng tiền thanh toán: {(item.total).toLocaleString('vi', {style : 'currency', currency : 'VND'})}</h5>
-                    </ListGroup.Item>
+                                </Accordion.Body>
+                            </Accordion.Item>
+                        </Accordion>
+                    </Row>
                 ))}
             </ListGroup>
-        </div>
+        </Container>
     )
 }
 

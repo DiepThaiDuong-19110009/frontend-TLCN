@@ -31,14 +31,14 @@ import OrderListScreen from './screens/admin/OrderListScreen';
 import MyOrderScreen from './screens/MyOrderScreen';
 import OrderEditScreen from './screens/admin/OrderEditScreen';
 import ScrollTop from './components/ScrollTop';
+import EventScreen from './screens/EventScreen';
 
 const App = () => {
   return (
     <BrowserRouter>
       <Header />
       <Menu />
-      <main className='py-3'>
-        <Container>
+      <main className='py-0'>
           <Routes>
             <Route path='/' element={<HomeScreen />} />
             <Route path='/product' element={<ProductScreen />} />
@@ -55,6 +55,7 @@ const App = () => {
             <Route path='/placeorder' element={<PlaceOrderScreen />} />
             <Route path='/ordersuccess' element={<OrderSuccessScreen />} />
             <Route path='/myorder' element={<MyOrderScreen />} />
+            <Route path='/event' element={<EventScreen />} />
 
 
             {/* Admin */}
@@ -68,9 +69,8 @@ const App = () => {
             <Route path='/admin/orderlist' element={<OrderListScreen />} />
             <Route path='/admin/order/:id/edit' element={<OrderEditScreen />} />
           </Routes>
-        </Container>
       </main>
-      {/* <ScrollTop /> */}
+      <ScrollTop />
       <Footer />
     </BrowserRouter>
   );

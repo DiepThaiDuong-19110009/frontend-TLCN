@@ -51,27 +51,27 @@ const ProfileScreen = () => {
     }
 
     return (
-        <Row>
+        <Row className='d-flex justify-content-center'>
             <Col md={6}>
-                <h2>Thông tin người dùng</h2>
+                <h2 className='d-flex justify-content-center'>Thông tin người dùng</h2>
                 {message && <Message variant='danger'>{message}</Message>}
                 {error && <Message variant='danger'>{error}</Message>}
                 {success && <Message variant='success'>Cập nhật thành công</Message>}
                 {loading && <Loader />}
                 <Form onSubmit={submitHandler}>
-                    <Form.Group controlId='username'>
+                    <Form.Group className='pb-3' controlId='username'>
                         <Form.Label>Tên người dùng</Form.Label>
                         <Form.Control type='name' placeholder='Nhập tên người dùng' value={name} onChange={(e) => setName(e.target.value)}></Form.Control>
                     </Form.Group>
-                    <Form.Group controlId='email'>
+                    <Form.Group className='pb-3' controlId='email'>
                         <Form.Label>Email</Form.Label>
                         <Form.Control disabled type='email' placeholder='Nhập email' value={email} onChange={(e) => setEmail(e.target.value)}></Form.Control>
                     </Form.Group>
-                    <Form.Group controlId='password'>
+                    <Form.Group className='pb-3' controlId='password'>
                         <Form.Label>Số điện thoại</Form.Label>
                         <Form.Control type='number' placeholder='Nhập số điện thoại' value={phone} onChange={(e) => setPhone(e.target.value)}></Form.Control>
                     </Form.Group>
-                    <Form.Group controlId='confirmPassword'>
+                    <Form.Group className='pb-3' controlId='confirmPassword'>
                         <Form.Label>Địa chỉ</Form.Label>
                         <Form.Control type='text' placeholder='Nhập địa chỉ giao hàng' value={address} onChange={(e) => setAddress(e.target.value)}></Form.Control>
                     </Form.Group>
@@ -80,9 +80,9 @@ const ProfileScreen = () => {
                     </Form.Group>
                 </Form>
             </Col>
-            <Col md={6}>
+            {/* <Col md={6}>
                 <MyOrder />
-            </Col>
+            </Col> */}
         </Row>
     )
 }

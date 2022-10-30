@@ -11,18 +11,21 @@ const Product = ({ product }) => {
             </Link>
             <Card.Body>
                 <Card.Text as='p'>
-                    <Rating value={product.sold} text={`${product.quantity} đánh giá`} />
+                    <Rating value={product.rating} text={`${product.reviews?.length} đánh giá`} />
                 </Card.Text>
                 <Link style={{ color: 'black' }} to={`/product/${product._id}`}>
                     <Card.Title as='h6'>
                         <p>{product.name}</p>
                     </Card.Title>
                 </Link>
+                <Card.Text as='h7' className='text-primary'>
+                    Nhãn hiệu: {product.supplier}
+                </Card.Text><br />
                 <Card.Text as='h7' className='text-danger'>
                     Giá: {product.price} VNĐ / kg
                 </Card.Text>
             </Card.Body>
-        </Card>
+        </Card >
     )
 }
 

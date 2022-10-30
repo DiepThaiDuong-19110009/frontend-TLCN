@@ -86,13 +86,15 @@ const ProductScreen = () => {
               <Slider />
             </Col>
           </Row>
-          <Row id='productlist' style={{ border: 'solid 2px #f2f2f2', borderRadius: '10px' }} className="py-3 px-3 my-5">
+          <Row>
+            <Col sm={0} md={0} lg={8} xl={8}>
+              <h5 className='mt-5 mb-4'>Danh sách sản phẩm</h5>
+            </Col>
+          </Row>
+          <Row id='productlist' style={{ border: 'solid 2px #f2f2f2', borderRadius: '10px' }} className="py-3 px-3">
             <Row>
-              <Col sm={0} md={0} lg={8} xl={8}>
-                <h5 className='mb-4 mt-3'>Danh sách sản phẩm</h5>
-              </Col>
               <Col sm={0} md={0} lg={4} xl={4} className='d-flex justify-content-center align-item'>
-                <p className='mb-4 mt-3'>Sắp xếp</p>
+                {/* <p className='mb-4 mt-3'>Sắp xếp</p> */}
                 {/* <DropdownButton id="dropdown-item-button" title="Dropdown button">
                   <Dropdown.ItemText>Dropdown item text</Dropdown.ItemText>
                   <Dropdown.Item as="button">Action</Dropdown.Item>

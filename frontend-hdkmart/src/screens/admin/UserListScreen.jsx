@@ -1,7 +1,7 @@
 import { React, useEffect } from 'react'
 import { LinkContainer } from 'react-router-bootstrap'
 import { useNavigate } from 'react-router-dom'
-import { Table, Button } from 'react-bootstrap'
+import { Table, Button, Row, Col } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../../components/Loader'
 import Message from '../../components/Message'
@@ -40,13 +40,22 @@ const UserListScreen = () => {
 
     return (
         <>
-            <h1>Danh sách người dùng</h1>
+            <Row className='align-items-center'>
+                <Row>
+                    <Col>
+                        <h1>Danh sách người dùng</h1>
+                    </Col>
+                </Row>
+                <Col>
+                    <h6 className='py-3'>Tổng số lượng: {users?.length} người dùng</h6>
+                </Col>
+            </Row>
             {loading ? <Loader /> : error ? <Message variant='danger'>{error}</Message> :
                 (
-                    <Table striped bordered hover responsive className='table-sm'>
+                    <Table bordered responsive className='table-sm'>
                         <thead>
                             <tr>
-                                <th className='text-center'>ID</th>
+                                <th className='text-center'>#</th>
                                 <th className='text-center'>Tên người dùng</th>
                                 <th className='text-center'>Email</th>
                                 <th className='text-center'>Admin</th>
@@ -55,9 +64,9 @@ const UserListScreen = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {users.reverse().map(user => (
+                            {users.reverse().map((user, index) => (
                                 <tr key={user._id}>
-                                    <td className='text-center'>{user._id}</td>
+                                    <td className='text-center'>{index + 1}</td>
                                     <td>{user.name}</td>
                                     <td><a href={`mailto: ${user.email}`}>{user.email}</a></td>
                                     <td className='text-center'>
@@ -67,7 +76,7 @@ const UserListScreen = () => {
                                             <i className='fas fa-times' style={{ color: 'red' }}></i>
                                         )}
                                     </td>
-                                    <td className='text-center'>{user.createdAt}</td>
+                                    <td className='text-center'>{user.createdAt.slice(0, 10)}</td>
                                     <td className='d-flex justify-content-around'>
                                         <LinkContainer to={`/admin/user/${user._id}/edit`}>
                                             <Button variant='secondary' className='btn-sm'>

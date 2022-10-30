@@ -1,13 +1,14 @@
-import { React, useEffect } from 'react'
+import { React, useEffect, useState } from 'react'
 import { LinkContainer } from 'react-router-bootstrap'
 import { useNavigate } from 'react-router-dom'
 import { Table, Button, Row, Col, Dropdown, DropdownButton } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../../components/Loader'
 import Message from '../../components/Message'
-import { deleteOrder, getOrder } from '../../actions/orderActions'
+import { deleteOrder, getOrder, updateOrder } from '../../actions/orderActions'
 
 const OrderListScreen = () => {
+  const [filter, setFilter] = useState('Tất cả')
   const dispatch = useDispatch()
 
   const { loading, error, orders } = useSelector(state => state.orderList)
@@ -50,21 +51,74 @@ const OrderListScreen = () => {
     }
   }
 
+  // Load Status
+  const LoadStatus = () => {
+    orders.forEach(item => {
+      if (item.status === "PROCESSING") {
+        dispatch(updateOrder({ _id: item._id, status: 'Chờ xác nhận' }))
+      }
+    })
+  }
+
+  LoadStatus()
+
+  // Filter Status
+  const arrFilterOrder = []
+  const FilterStatus = (status) => {
+    orders.filter(x => {
+      if (x.status === status) {
+        arrFilterOrder.push(x)
+      } else if (status === 'Tất cả') {
+        arrFilterOrder.push(x)
+      }
+    })
+  }
+
+  FilterStatus(filter)
+  // console.log('==', filter)
+  // console.log('==', arrFilterOrder)
+
+  // load page
+  const loadpage = () => {
+    window.location.reload(false)
+  }
+
   return (
     <>
-      <Row className='align-items-center'>
+      <Row className='align-items-center pb-4'>
+        <Row>
+          <Col>
+            <h1 className='pb-4'>Danh sách đơn hàng</h1>
+          </Col>
+        </Row>
         <Col>
-          <h1>Danh sách các đơn hàng</h1>
+          <h6>Tổng số lượng: {arrFilterOrder.length} đơn hàng ({filter})</h6>
+        </Col>
+        <Col className='d-flex justify-content-end align-items-center'>
+          <Button onClick={loadpage} className='d-flex justify-content-center align-items-center'>
+            <p className='my-0 mx-3'>Tải lại</p>
+          </Button>
+        </Col>
+        <Col className='d-flex justify-content-end align-items-center'>
+          <p className='my-0 mx-3'>Lọc đơn hàng</p>
+          <select value={filter} onChange={(e) => setFilter(e.target.value)}>
+            <option>Tất cả</option>
+            <option>Chờ xác nhận</option>
+            <option>Đã xác nhận</option>
+            <option>Đang giao hàng</option>
+            <option>Giao hàng thành công</option>
+            <option>Đã hủy</option>
+          </select>
         </Col>
       </Row>
       {loading ? <Loader /> : error ? <Message variant='danger'>{error}</Message> :
         (
-          <Table striped bordered hover responsive className='table-sm'>
+          <Table bordered responsive className='table-sm'>
             <thead>
               <tr>
                 <th className='text-center'>#</th>
-                <th className='text-center'>Tên người đặt hàng</th>
-                <th className='text-center'>Danh sách sản phẩm</th>
+                <th className='text-center'>Người đặt hàng</th>
+                <th className='text-center'>Giỏ hàng</th>
                 <th className='text-center'>Ngày đặt</th>
                 <th className='text-center'>Địa chỉ giao hàng</th>
                 <th className='text-center'>Trạng thái</th>
@@ -73,13 +127,13 @@ const OrderListScreen = () => {
               </tr>
             </thead>
             <tbody>
-              {orders.reverse().map(order => (
+              {arrFilterOrder.reverse().map((order, index) => (
                 <tr key={order._id}>
-                  <td className='text-center'>{orders.length}</td>
+                  <td className='text-center'>{index + 1}</td>
                   <td className='text-center'>{order.user.name}</td>
                   <td className='text-center'>
                     <DropdownButton id="dropdown-basic-button" title="Chi tiết">
-                      {order.products.map(product => (
+                      {order.products.map((product, index) => (
                         <Dropdown.Item>
                           <Table>
                             <thead>
@@ -91,21 +145,23 @@ const OrderListScreen = () => {
                               </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                  <td>{order.products.length}</td>
-                                  <td>{product.name}</td>
-                                  <td>{product.count}</td>
-                                  <td>{`${(product.count * product.price).toLocaleString('vi', { style: 'currency', currency: 'VND' })}`}</td>
-                                </tr>
+                              <tr>
+                                <td>{index + 1}</td>
+                                <td>{product.name}</td>
+                                <td>{product.count}</td>
+                                <td>{`${(product.count * product.price).toLocaleString('vi', { style: 'currency', currency: 'VND' })}`}</td>
+                              </tr>
                             </tbody>
                           </Table>
                         </Dropdown.Item>
                       ))}
                     </DropdownButton>
                   </td>
-                  <td className='text-center'>{order.createdAt}</td>
+                  <td className='text-center'>{order.createdAt.slice(0, 10)}</td>
                   <td className='text-center'>{order.address}</td>
-                  <td className='text-center'>{order.status}</td>
+                  {
+                    order.status === 'PROCESSING' ? <td className='text-center'>Chờ xác nhận</td> : <td className='text-center'>{order.status}</td>
+                  }
                   <td className='text-center'>{order.total}</td>
                   <td className='d-flex justify-content-around'>
                     <LinkContainer to={`/admin/order/${order._id}/edit`}>
@@ -122,6 +178,7 @@ const OrderListScreen = () => {
             </tbody>
           </Table>
         )}
+      {arrFilterOrder.length === 0 ? <p className='text-center'>Không có đơn hàng nào ở trạng thái ({filter})</p> : <p></p>}
     </>
   )
 }

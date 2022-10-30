@@ -24,14 +24,14 @@ export const createOrders = (order) => async (dispatch, getState) => {
             type: ORDER_CREATE_SUCCESS,
             payload: data,
         })
-        console.log('==',data)
+        console.log('==', data)
 
     } catch (error) {
         dispatch({
             type: ORDER_CREATE_FAIL,
             payload: error.response && error.response.data.error ? error.response.data.error : error.error,
         })
-        console.log('==',error)
+        console.log('==', error)
     }
 }
 

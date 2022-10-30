@@ -1,5 +1,5 @@
 import { React, useEffect } from 'react'
-import { Button, Row, Col, ListGroup, Image, Card } from 'react-bootstrap'
+import { Button, Row, Col, ListGroup, Image, Card, Container } from 'react-bootstrap'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
@@ -22,7 +22,7 @@ const PlaceOrderScreen = () => {
 
     // Order
     const createOrder = useSelector(state => state.orderCreate)
-    const { order, success, error } = createOrder
+    const { success } = createOrder
 
     useEffect(() => {
         if (success) {
@@ -36,21 +36,25 @@ const PlaceOrderScreen = () => {
     let count = 0;
     cartItems.forEach(element => {
         count += element.count
-     })
+    })
+
+    const order = {
+        products: cartItems,
+        amount: count,
+        address: shippingAddress.address + ', ' + shippingAddress.city + ', ' + shippingAddress.country,
+        status: 'PROCESSING',
+        total: cart.totalPrice,
+        user: userInfo.user
+    }
+
+    // console.log('==>>>>>>>>>>>>>>>>>>', order)
 
     const placeOrderHandler = () => {
-        dispatch(createOrders({
-            products: cartItems,
-            amount: count,
-            address: shippingAddress.address + ', ' + shippingAddress.city + ', ' + shippingAddress.country,
-            status: "Not processed",
-            total: cart.totalPrice,
-            user: userInfo.user
-        }))
+        dispatch(createOrders(order))
     }
 
     return (
-        <>
+        <Container>
             <CheckoutSteps step1 step2 step3 step4 />
             <Row>
                 <Col md={8}>
@@ -112,25 +116,25 @@ const PlaceOrderScreen = () => {
                             <ListGroup.Item>
                                 <Row>
                                     <Col>Tổng tiền hàng</Col>
-                                    <Col>{(cart.itemsPrice).toLocaleString('vi', {style : 'currency', currency : 'VND'})}</Col>
+                                    <Col>{(cart.itemsPrice).toLocaleString('vi', { style: 'currency', currency: 'VND' })}</Col>
                                 </Row>
                             </ListGroup.Item>
                             <ListGroup.Item>
                                 <Row>
                                     <Col>Chi phí giao hàng</Col>
-                                    <Col>{(cart.shippingPrice).toLocaleString('vi', {style : 'currency', currency : 'VND'})}</Col>
+                                    <Col>{(cart.shippingPrice).toLocaleString('vi', { style: 'currency', currency: 'VND' })}</Col>
                                 </Row>
                             </ListGroup.Item>
                             <ListGroup.Item>
                                 <Row>
                                     <Col>Thuế (5%)</Col>
-                                    <Col>{(cart.taxPrice).toLocaleString('vi', {style : 'currency', currency : 'VND'})}</Col>
+                                    <Col>{(cart.taxPrice).toLocaleString('vi', { style: 'currency', currency: 'VND' })}</Col>
                                 </Row>
                             </ListGroup.Item>
                             <ListGroup.Item>
                                 <Row>
                                     <Col>Tổng thanh toán</Col>
-                                    <Col>{(cart.totalPrice).toLocaleString('vi', {style : 'currency', currency : 'VND'})}</Col>
+                                    <Col>{(cart.totalPrice).toLocaleString('vi', { style: 'currency', currency: 'VND' })}</Col>
                                 </Row>
                             </ListGroup.Item>
                             {/* <ListGroup.Item>{error && <Message>{error}</Message>}</ListGroup.Item> */}
@@ -141,7 +145,7 @@ const PlaceOrderScreen = () => {
                     </Card>
                 </Col>
             </Row>
-        </>
+        </Container>
     )
 }
 

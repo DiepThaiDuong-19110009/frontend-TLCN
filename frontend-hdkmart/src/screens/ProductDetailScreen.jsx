@@ -1,7 +1,7 @@
 import { React, useState, useEffect } from 'react'
 import { Link, useParams, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { Row, Col, Image, ListGroup, Card, Button, Form } from 'react-bootstrap'
+import { Row, Col, Image, ListGroup, Card, Button, Form, Container } from 'react-bootstrap'
 import Rating from '../components/Rating'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
@@ -34,21 +34,10 @@ const ProductDetailScreen = () => {
         navigate(`/cart/${productId}?qty=${qty}`)
     }
 
-    // Tính trung bình đánh giá
-    const a = []
-    const getRating = () => {
-        product.reviews?.forEach(review => {
-            a.push(review.rating)
-        })
-    }
-    getRating()
-    const sum = a.reduce((rating, a) => rating + a, 0)
-    const avg = sum / a.length;
-
     // submit Comment
     const submitComment = () => {
         const commentProduct = { user: userInfo.user._id, rating, comment }
-        console.log('==', commentProduct)
+        // console.log('==', commentProduct)
         if (userInfo) {
             dispatch(createCommentProduct(productId, commentProduct))
             window.location.reload()
@@ -60,7 +49,7 @@ const ProductDetailScreen = () => {
         window.location.href = '#comment'
     }
     return (
-        <>
+        <Container>
             <Link to='/' className='btn btn-light my-3'>Quay lại</Link>
             {loading ? <Loader /> : error ? <Message variant='danger'>{error}</Message> :
                 <Row>
@@ -73,7 +62,7 @@ const ProductDetailScreen = () => {
                                 <h3>{product.name}</h3>
                             </ListGroup.Item>
                             <ListGroup.Item className='d-flex justify-content-between align-items-center'>
-                                <Rating value={avg} text={`${product.reviews?.length} đánh giá`} />
+                                <Rating value={product.rating} text={`${product.reviews?.length} đánh giá`} />
                                 <p className='my-0' style={{ cursor: 'pointer' }} onClick={viewComment}>Xem đánh giá</p>
                             </ListGroup.Item>
                             <ListGroup.Item>
@@ -172,7 +161,7 @@ const ProductDetailScreen = () => {
                     }
                 </Row>
             </Row>
-        </>
+        </Container>
     )
 }
 

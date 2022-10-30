@@ -9,16 +9,16 @@ import { listOrderDetails, updateOrder } from '../../actions/orderActions'
 import { ORDER_UPDATE_RESET } from '../../constants/orderConstants'
 
 const OrderEditScreen = () => {
-    const [status, setStatus] = useState('')
+    const [status, setStatus] = useState('Chờ xác nhận')
 
     const orderId = useParams().id
-    console.log('==', orderId)
+    // console.log('==', orderId)
 
     const dispatch = useDispatch()
 
     const navigate = useNavigate();
 
-    const { loading, error, order } = useSelector(state => state.orderDetails)
+    const { error, order } = useSelector(state => state.orderDetails)
     console.log('==', order)
 
     const { loading: loadingUpdate, error: errorUpdate, success: successUpdate } = useSelector(state => state.orderUpdate)
@@ -53,9 +53,11 @@ const OrderEditScreen = () => {
                             <Form.Group controlId='productname'>
                                 <Form.Label>Trạng thái đơn hàng</Form.Label>
                                 <Form.Select className='mb-3' size="sm" value={status} onChange={(e) => setStatus(e.target.value)}>
-                                    <option>Đang xác nhận</option>
+                                    <option>Chờ xác nhận</option>
+                                    <option>Đã xác nhận</option>
                                     <option>Đang giao hàng</option>
                                     <option>Giao hàng thành công</option>
+                                    <option>Đã hủy</option>
                                 </Form.Select>
                             </Form.Group>
                             <Form.Group className='d-flex justify-content-center py-3'>
