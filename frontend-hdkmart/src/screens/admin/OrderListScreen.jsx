@@ -1,7 +1,6 @@
 import { React, useEffect, useState } from 'react'
-import { LinkContainer } from 'react-router-bootstrap'
 import { useNavigate } from 'react-router-dom'
-import { Table, Button, Row, Col, Dropdown, DropdownButton } from 'react-bootstrap'
+import { Table, Button, Row, Col, Dropdown, DropdownButton, Accordion } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../../components/Loader'
 import Message from '../../components/Message'
@@ -84,11 +83,11 @@ const OrderListScreen = () => {
   }
 
   return (
-    <>
+    <div style={{ overflowY: 'scroll', height: '100vh', width: '100%', fontSize: '14px' }} className='py-5 px-5'>
       <Row className='align-items-center pb-4'>
         <Row>
           <Col>
-            <h1 className='pb-4'>Danh sách đơn hàng</h1>
+            <h3 className='pb-4'>Danh sách đơn hàng</h3>
           </Col>
           <Col className='d-flex justify-content-end align-items-center'>
             <Button variant="outline-secondary" onClick={loadpage} className='d-flex justify-content-center align-items-center'>
@@ -124,39 +123,44 @@ const OrderListScreen = () => {
                 <th className='text-center'>Địa chỉ giao hàng</th>
                 <th className='text-center'>Trạng thái</th>
                 <th className='text-center'>Tổng thanh toán</th>
-                <th></th>
+                <th className='text-center'>Hành động</th>
               </tr>
             </thead>
             <tbody>
               {arrFilterOrder.reverse().map((order, index) => (
                 <tr key={order._id}>
-                  <td className='text-center'>{index + 1}</td>
+                  <td className='text-center'>
+                    <strong>{index + 1}</strong>
+                  </td>
                   <td className='text-center'>{order.user.name}</td>
                   <td className='text-center'>
-                    <DropdownButton id="dropdown-basic-button" title="Chi tiết">
-                      {order.products.map((product, index) => (
-                        <Dropdown.Item>
-                          <Table>
-                            <thead>
-                              <tr>
-                                <th>#</th>
-                                <th>Tên sản phẩm</th>
-                                <th>Số lượng</th>
-                                <th>Thành tiền</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr>
-                                <td>{index + 1}</td>
-                                <td>{product.name}</td>
-                                <td>{product.count}</td>
-                                <td>{`${(product.count * product.price).toLocaleString('vi', { style: 'currency', currency: 'VND' })}`}</td>
-                              </tr>
-                            </tbody>
-                          </Table>
-                        </Dropdown.Item>
-                      ))}
-                    </DropdownButton>
+                    <Accordion className='py-0 px-0' defaultActiveKey="1">
+                      <Accordion.Item eventKey="0">
+                        <Accordion.Header className='py-0 px-0'>Xem chi tiết</Accordion.Header>
+                        <Accordion.Body>
+                          {order.products.map((product, index) => (
+                            <Table>
+                              <thead>
+                                <tr>
+                                  <th>#</th>
+                                  <th>Tên sản phẩm</th>
+                                  <th>Số lượng</th>
+                                  <th>Thành tiền</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td>{index + 1}</td>
+                                  <td>{product.name}</td>
+                                  <td>{product.count}</td>
+                                  <td>{`${(product.count * product.price).toLocaleString('vi', { style: 'currency', currency: 'VND' })}`}</td>
+                                </tr>
+                              </tbody>
+                            </Table>
+                          ))}
+                        </Accordion.Body>
+                      </Accordion.Item>
+                    </Accordion>
                   </td>
                   <td className='text-center'>{order.createdAt.slice(0, 10)}</td>
                   <td className='text-center'>{order.address}</td>
@@ -165,14 +169,20 @@ const OrderListScreen = () => {
                   }
                   <td className='text-center'>{order.total}</td>
                   <td className='d-flex justify-content-around'>
-                    <LinkContainer to={`/admin/order/${order._id}/edit`}>
-                      <Button variant='secondary' className='btn-sm'>
-                        <i className='fas fa-edit'></i>
-                      </Button>
-                    </LinkContainer>
-                    <Button variant='danger' className='btn-sm' onClick={() => deleteHandler(order._id)}>
-                      <i className='fas fa-trash'></i>
-                    </Button>
+                    <DropdownButton variant="outline-primary" id="dropdown-basic-button" title="Hành động">
+                      <Dropdown.Item className='d-flex justify-content-between align-items-center' href={`/admin/order/${order._id}/edit`}>
+                        <Button variant='secondary' className='btn-sm'>
+                          <i className='fas fa-edit'></i>
+                        </Button>
+                        <p className='my-0'>Chỉnh sửa</p>
+                      </Dropdown.Item>
+                      {/* <Dropdown.Item onClick={() => handleShow(order._id)} className='d-flex justify-content-between align-items-center'>
+                        <Button variant='danger' className='btn-sm'>
+                          <i className='fas fa-trash'></i>
+                        </Button>
+                        <p className='my-0'>Xóa</p>
+                      </Dropdown.Item> */}
+                    </DropdownButton>
                   </td>
                 </tr>
               ))}
@@ -180,7 +190,7 @@ const OrderListScreen = () => {
           </Table>
         )}
       {arrFilterOrder.length === 0 ? <p className='text-center'>Không có đơn hàng nào ở trạng thái ({filter})</p> : <p></p>}
-    </>
+    </div>
   )
 }
 

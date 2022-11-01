@@ -43,7 +43,7 @@ const Header = () => {
                             {userInfo ? (
                                 <NavDropdown title={`Xin chào, ${userInfo.user.name}`} id='nav-dropdown'>
                                     {userInfo && userInfo.user.isAdmin && (
-                                        <LinkContainer to='/admin'>
+                                        <LinkContainer to='/admin/userlist'>
                                             <NavDropdown.Item>Quản lý hệ thống</NavDropdown.Item>
                                         </LinkContainer>
                                     )}

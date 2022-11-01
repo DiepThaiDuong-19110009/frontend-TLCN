@@ -1,7 +1,6 @@
 import { React, useEffect, useState } from 'react'
-import { LinkContainer } from 'react-router-bootstrap'
 import { useNavigate } from 'react-router-dom'
-import { Table, Button, Row, Col, Modal } from 'react-bootstrap'
+import { Table, Button, Row, Col, Modal, DropdownButton, Dropdown } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../../components/Loader'
 import Message from '../../components/Message'
@@ -26,13 +25,9 @@ const CategoryListScreen = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        //dispatch({ type: PRODUCT_CREATE_RESET })
         if (!userInfo.user.isAdmin) {
             navigate('/login')
         }
-        // if (successCreate) {
-        //     navigate(`/admin/productlist`)
-        // } 
         else {
             dispatch(listCategory())
         }
@@ -65,11 +60,11 @@ const CategoryListScreen = () => {
     }
 
     return (
-        <>
+        <div style={{ overflowY: 'scroll', height: '100vh', width: '100%', fontSize: '14px' }} className='py-5 px-5'>
             <Row className='align-items-center'>
                 <Row>
                     <Col>
-                        <h1>Danh sách danh mục sản phẩm</h1>
+                        <h3>Danh sách danh mục sản phẩm</h3>
                     </Col>
                     <Col className='d-flex justify-content-end align-items-center'>
                         <Button variant="outline-secondary" onClick={loadpage} className='d-flex justify-content-center align-items-center'>
@@ -95,24 +90,34 @@ const CategoryListScreen = () => {
                                 <th className='text-center'>#</th>
                                 <th className='text-center'>Tên danh mục sản phẩm</th>
                                 <th className='text-center'>Ngày tạo</th>
-                                <th></th>
+                                <th className='text-center'>Hành động</th>
                             </tr>
                         </thead>
                         <tbody>
                             {categories.reverse().map((category, index) => (
                                 <tr key={category._id}>
-                                    <td className='text-center'>{index + 1}</td>
+                                    <td className='text-center'>
+                                        <strong>
+                                            {index + 1}
+                                        </strong>
+                                    </td>
                                     <td>{category.name}</td>
                                     <td className='text-center'>{category.createdAt.slice(0, 10)}</td>
                                     <td className='d-flex justify-content-around'>
-                                        <LinkContainer to={`/admin/category/${category._id}/edit`}>
-                                            <Button variant='secondary' className='btn-sm'>
-                                                <i className='fas fa-edit'></i>
-                                            </Button>
-                                        </LinkContainer>
-                                        <Button variant='danger' className='btn-sm' onClick={() => handleShow(category._id)}>
-                                            <i className='fas fa-trash'></i>
-                                        </Button>
+                                        <DropdownButton variant="outline-primary" id="dropdown-basic-button" title="Hành động">
+                                            <Dropdown.Item className='d-flex justify-content-between align-items-center' href={`/admin/category/${category._id}/edit`}>
+                                                <Button variant='secondary' className='btn-sm'>
+                                                    <i className='fas fa-edit'></i>
+                                                </Button>
+                                                <p className='my-0'>Chỉnh sửa</p>
+                                            </Dropdown.Item>
+                                            <Dropdown.Item onClick={() => handleShow(category._id)} className='d-flex justify-content-between align-items-center'>
+                                                <Button variant='danger' className='btn-sm'>
+                                                    <i className='fas fa-trash'></i>
+                                                </Button>
+                                                <p className='my-0'>Xóa</p>
+                                            </Dropdown.Item>
+                                        </DropdownButton>
                                     </td>
                                 </tr>
                             ))}
@@ -138,7 +143,7 @@ const CategoryListScreen = () => {
                     <Button variant="danger" onClick={() => deleteHandler(idDelete)}>Xóa danh mục</Button>
                 </Modal.Footer>
             </Modal>
-        </>
+        </div>
     )
 }
 

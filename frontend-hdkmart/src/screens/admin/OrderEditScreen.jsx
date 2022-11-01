@@ -26,7 +26,7 @@ const OrderEditScreen = () => {
     useEffect(() => {
         if (successUpdate) {
             dispatch({ type: ORDER_UPDATE_RESET })
-            navigate('/admin')
+            navigate('/admin/orderlist')
             window.location.reload()
         } else {
             if (order._id !== orderId) {
@@ -43,8 +43,8 @@ const OrderEditScreen = () => {
     }
 
     return (
-        <>
-            <Link to='/admin' className='btn btn-light my-3'>Quay lại</Link>
+        <div style={{ overflowY: 'scroll', height: '100vh', width: '100%', fontSize: '14px' }} className='py-5 px-5'>
+            <Link to='/admin/orderlist' className='btn btn-light my-3'>Quay lại</Link>
             <FormContainer>
                 <h1 className='d-flex justify-content-center py-3'>Chỉnh sửa trạng thái đơn hàng</h1>
                 {loadingUpdate ? <Loader /> : errorUpdate ? <Message variant='danger'>{error}</Message> :
@@ -66,7 +66,7 @@ const OrderEditScreen = () => {
                         </Form>
                     )}
             </FormContainer>
-        </>
+        </div>
     )
 }
 

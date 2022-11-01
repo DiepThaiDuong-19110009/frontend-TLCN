@@ -50,7 +50,7 @@ const ProductDetailScreen = () => {
     }
     return (
         <Container>
-            <Link to='/' className='btn btn-light my-3'>Quay lại</Link>
+            <Link to='/product' className='btn btn-light my-3'>Quay lại</Link>
             {loading ? <Loader /> : error ? <Message variant='danger'>{error}</Message> :
                 <Row>
                     <Col md={5}>

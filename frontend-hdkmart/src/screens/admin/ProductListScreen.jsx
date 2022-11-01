@@ -1,7 +1,6 @@
 import { React, useEffect, useState } from 'react'
-import { LinkContainer } from 'react-router-bootstrap'
 import { useNavigate } from 'react-router-dom'
-import { Table, Button, Row, Col, Modal } from 'react-bootstrap'
+import { Table, Button, Row, Col, Modal, DropdownButton, Dropdown, Accordion } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../../components/Loader'
 import Message from '../../components/Message'
@@ -10,7 +9,7 @@ import { PRODUCT_CREATE_RESET } from '../../constants/productConstants'
 
 const ProductListScreen = () => {
     const dispatch = useDispatch()
-    const [filter, setFilter] = useState('')
+    const [filter, setFilter] = useState('Tất cả')
 
     const categoryList = useSelector(state => state.categoryList)
     const { categories } = categoryList
@@ -35,9 +34,6 @@ const ProductListScreen = () => {
         if (!userInfo.user.isAdmin) {
             navigate('/login')
         }
-        // if (successCreate) {
-        //     navigate(`/admin/productlist`)
-        // }
         else {
             dispatch(listProducts())
         }
@@ -95,11 +91,11 @@ const ProductListScreen = () => {
     // console.log('==', idDelete);
 
     return (
-        <>
-            <Row className='align-items-center' id="productAdmin">
+        <div style={{ overflowY: 'scroll', height: '100vh', width: '100%', fontSize: '14px' }} className='py-5 px-5'>
+            <Row className='align-items-center py-0' id="productAdmin" >
                 <Row>
                     <Col>
-                        <h1>Danh sách sản phẩm</h1>
+                        <h3>Danh sách sản phẩm</h3>
                     </Col>
                     <Col className='d-flex justify-content-end align-items-center'>
                         <Button variant="outline-secondary" onClick={loadpage} className='d-flex justify-content-center align-items-center'>
@@ -132,7 +128,7 @@ const ProductListScreen = () => {
             {errorCreate && <Message variant='danger'>{errorCreate}</Message>}
             {loading ? <Loader /> : error ? <Message variant='danger'>{error}</Message> :
                 (
-                    <Table bordered responsive className='table-sm'>
+                    <Table bordered responsive>
                         <thead>
                             <tr>
                                 <th className='text-center'>#</th>
@@ -145,31 +141,48 @@ const ProductListScreen = () => {
                                 <th className='text-center'>Số lượng</th>
                                 <th className='text-center'>Đã bán</th>
                                 {/* <th className='text-center'>Ngày tạo</th> */}
-                                <th></th>
+                                <th className='text-center'>Hành động</th>
                             </tr>
                         </thead>
                         <tbody>
                             {arrFilterProduct.reverse().map((product, index) => (
                                 <tr key={product._id}>
-                                    <td className='text-center'>{index + 1}</td>
+                                    <td className='text-center'>
+                                        <strong>{index + 1}</strong>
+                                    </td>
                                     <td className='text-center'><img style={{ width: '50px' }} src={product.photo} alt={product.name} /></td>
                                     <td className='text-center'>{product.name}</td>
-                                    <td className='text-center'>{product.supplier}</td>
-                                    <td style={{ maxWidth: '500px' }}>{product.description}</td>
+                                    <td className='text-center'>abc</td>
+                                    <td>
+                                        <Accordion className='py-0 px-0' defaultActiveKey="1">
+                                            <Accordion.Item eventKey="0">
+                                                <Accordion.Header className='py-0 px-0'>Xem chi tiết</Accordion.Header>
+                                                <Accordion.Body>
+                                                    {product.description}
+                                                </Accordion.Body>
+                                            </Accordion.Item>
+                                        </Accordion>
+                                    </td>
                                     <td className='text-center'>{product.price}</td>
                                     <td className='text-center'>{product.category.name}</td>
                                     <td className='text-center'>{product.quantity}</td>
                                     <td className='text-center'>{product.sold}</td>
                                     {/* <td className='text-center'>{product.createdAt}</td> */}
                                     <td className='d-flex justify-content-around'>
-                                        <LinkContainer to={`/admin/product/${product._id}/edit`}>
-                                            <Button variant='secondary' className='btn-sm'>
-                                                <i className='fas fa-edit'></i>
-                                            </Button>
-                                        </LinkContainer>
-                                        <Button variant='danger' className='btn-sm' onClick={() => handleShow(product._id)}>
-                                            <i className='fas fa-trash'></i>
-                                        </Button>
+                                        <DropdownButton style={{ fontSize: '14px' }} variant="outline-primary" id="dropdown-basic-button" title="Hành động">
+                                            <Dropdown.Item className='d-flex justify-content-between align-items-center' href={`/admin/product/${product._id}/edit`}>
+                                                <Button variant='secondary' className='btn-sm'>
+                                                    <i className='fas fa-edit'></i>
+                                                </Button>
+                                                <p className='my-0'>Chỉnh sửa</p>
+                                            </Dropdown.Item>
+                                            <Dropdown.Item onClick={() => handleShow(product._id)} className='d-flex justify-content-between align-items-center'>
+                                                <Button variant='danger' className='btn-sm'>
+                                                    <i className='fas fa-trash'></i>
+                                                </Button>
+                                                <p className='my-0'>Xóa</p>
+                                            </Dropdown.Item>
+                                        </DropdownButton>
                                     </td>
                                 </tr>
                             ))}
@@ -195,7 +208,7 @@ const ProductListScreen = () => {
                     <Button variant="danger" onClick={() => deleteHandler(idDelete)}>Xóa sản phẩm</Button>
                 </Modal.Footer>
             </Modal>
-        </>
+        </div>
     )
 }
 
