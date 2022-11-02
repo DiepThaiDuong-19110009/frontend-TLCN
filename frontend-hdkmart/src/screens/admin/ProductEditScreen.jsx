@@ -52,9 +52,8 @@ const ProductEditScreen = () => {
     useEffect(() => {
         if (successUpdate) {
             dispatch({ type: PRODUCT_UPDATE_RESET })
-            navigate('/admin')
+            navigate('/admin/productlist')
             window.location.reload()
-            window.location.href='#productAdmin'
         } else {
             if (!product.name || product._id !== productId) {
                 dispatch(listProductDetails(productId))

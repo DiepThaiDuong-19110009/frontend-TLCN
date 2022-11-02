@@ -16,19 +16,6 @@ const OrderListScreen = () => {
   const userLogin = useSelector(state => state.userLogin)
   const { userInfo } = userLogin
 
-  // let arrOrder = []
-  // const getOrderById = () => {
-  //     orders.forEach(item => {
-  //         if (item.user._id === userInfo.user._id) {
-  //             arrOrder.push(item)
-  //         }
-  //     });
-  // }
-  //     getOrderById()
-
-  // const userDelete = useSelector(state => state.userDelete)
-  // const { success: successDelete } = userDelete
-
   const navigate = useNavigate();
 
   useEffect(() => {
