@@ -10,19 +10,10 @@ const StatisticScreen = () => {
     const dispatch = useDispatch()
 
     const { income } = useSelector(state => state.incomeList)
-    // console.log('==', income)
-
     const { categories } = useSelector(state => state.categoryList)
-    // console.log('==', categories)
-
     const { products } = useSelector(state => state.productList)
-    // console.log('==', categories)
-
     const { users } = useSelector(state => state.userList)
-    // console.log('==', categories)
-
     const { orders } = useSelector(state => state.orderList)
-    // console.log('==', categories)
 
     useEffect(() => {
         dispatch(getIncome())
@@ -33,29 +24,44 @@ const StatisticScreen = () => {
         //eslint-disable-next-line 
     }, [dispatch, getIncome])
 
-    // const data = [
-    //     { label: 'January', sales: 21, leads: 41 },
-    //     { label: 'February', sales: 35, leads: 79 },
-    //     { label: 'March', sales: 75, leads: 57 },
-    //     { label: 'April', sales: 51, leads: 47 },
-    //     { label: 'May', sales: 41, leads: 63 },
-    //     { label: 'June', sales: 47, leads: 71 }
-    // ];
-
     return (
         <div style={{ overflowY: 'scroll', height: '100vh', width: '100%', fontSize: '14px' }} className='py-5 px-5'>
             <div className="col-md-12">
                 <h3 className='pb-3'>Thống kê</h3>
             </div>
 
-            <div className='d-flex justify-content-between flex-wrap'>
-                <h4>Tổng danh mục: {categories.length}</h4>
-                <h4>Tổng sản phẩm: {products.length}</h4>
-                <h4>Tổng người dùng: {users?.length}</h4>
-                <h4>Tổng đơn hàng: {orders.length}</h4>
+            <div className='d-flex justify-content-between flex-wrap py-5' style={{ width: '100%' }}>
+                <div style={{ padding: '10px', width: '23%', background: '#dd4c37', borderRadius: '10px'}} className='d-flex justify-content-between align-items-center'>
+                    <div style={{color: 'white', padding: '3%'}}>
+                        <h1>{categories.length}</h1>
+                        <h5>Danh mục</h5>
+                    </div>
+                    <i className="fas fa-list-ul" style={{ fontSize: '60px', color: '#ba4031', paddingRight:'15px' }}></i>
+                </div>
+                <div style={{ padding: '10px', width: '23%', background: '#f39c11', borderRadius: '10px'}} className='d-flex justify-content-between align-items-center'>
+                    <div style={{color: 'white', padding: '3%'}}>
+                        <h1>{products.length}</h1>
+                        <h5>Sản phẩm</h5>
+                    </div>
+                    <i className="fas fa-boxes" style={{ fontSize: '60px', color: '#cf870f', paddingRight:'15px' }}></i>
+                </div>
+                <div style={{ padding: '10px', width: '23%', background: '#3d9970', borderRadius: '10px'}} className='d-flex justify-content-between align-items-center'>
+                    <div style={{color: 'white', padding: '3%'}}>
+                        <h1>{users?.length}</h1>
+                        <h5>Người dùng</h5>
+                    </div>
+                    <i className="fas fa-users" style={{ fontSize: '60px', color: '#338260', paddingRight:'15px' }}></i>
+                </div>
+                <div style={{ padding: '10px', width: '23%', background: '#0073b6', borderRadius: '10px'}} className='d-flex justify-content-between align-items-center'>
+                    <div style={{color: 'white', padding: '3%'}}>
+                        <h1>{orders.length}</h1>
+                        <h5>Đơn hàng</h5>
+                    </div>
+                    <i className="fas fa-cart-arrow-down" style={{ fontSize: '60px', color: '#00629d', paddingRight:'15px' }}></i>
+                </div>
             </div>
 
-            <div className="section">
+            <div className="section pt-5">
                 <h5 className="section-title">Doanh thu bán hàng theo tháng</h5>
                 <div className="section-content">
                     <ResponsiveContainer width="100%" height={500} p>
