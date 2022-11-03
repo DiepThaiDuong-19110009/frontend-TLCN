@@ -37,16 +37,16 @@ const Footer = () => {
             Sản phẩm nổi bật
           </h4>
           <p>
-            <a href="#!" className="text-success">Hải sản</a>
+            <a style={{ textDecoration: 'none' }} href="#!" className="text-success">Hải sản</a>
           </p>
           <p>
-            <a href="#!" className="text-success">Rau, củ</a>
+            <a style={{ textDecoration: 'none' }} href="#!" className="text-success">Rau, củ</a>
           </p>
           <p>
-            <a href="#!" className="text-success">Trái cây</a>
+            <a style={{ textDecoration: 'none' }} href="#!" className="text-success">Trái cây</a>
           </p>
           <p>
-            <a href="#!" className="text-success">Thịt</a>
+            <a style={{ textDecoration: 'none' }} href="#!" className="text-success">Thịt</a>
           </p>
         </Col>
         <Col>
@@ -54,16 +54,16 @@ const Footer = () => {
             Cam kết của chúng tôi
           </h4>
           <p>
-            <a href="#!" class="text-success">An toàn</a>
+            <a style={{ textDecoration: 'none' }} href="#!" class="text-success">An toàn</a>
           </p>
           <p>
-            <a href="#!" class="text-success">Nhanh chóng</a>
+            <a style={{ textDecoration: 'none' }} href="#!" class="text-success">Nhanh chóng</a>
           </p>
           <p>
-            <a href="#!" class="text-success">Chất lượng</a>
+            <a style={{ textDecoration: 'none' }} href="#!" class="text-success">Chất lượng</a>
           </p>
           <p>
-            <a href="#!" class="text-success">Nhiệt tình</a>
+            <a style={{ textDecoration: 'none' }} href="#!" class="text-success">Nhiệt tình</a>
           </p>
         </Col>
         <Col>
@@ -80,7 +80,7 @@ const Footer = () => {
       <Row>
         <Col className='d-flex justify-content-center py-3'>
           © 2022 Copyright:
-          <a href="#"> HDKMart</a>
+          <a style={{ textDecoration: 'none', marginLeft: '5px', color: 'green' }} href="#"> HDKMart</a>
         </Col>
       </Row>
     </Container>

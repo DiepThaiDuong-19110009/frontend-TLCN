@@ -13,7 +13,7 @@ const Product = ({ product }) => {
                 <Card.Text as='p'>
                     <Rating value={product.rating} text={`${product.reviews?.length} đánh giá`} />
                 </Card.Text>
-                <Link style={{ color: 'black' }} to={`/product/${product._id}`}>
+                <Link style={{ color: 'black', textDecoration: 'none' }} to={`/product/${product._id}`}>
                     <Card.Title as='h6'>
                         <p>{product.name}</p>
                     </Card.Title>
