@@ -47,7 +47,7 @@ const ForgotPassword = () => {
             </Col>
             <Row>
                 <Link to='/login' className='px-3 mx-0 d-flex justify-content-center align-items-center' style={{ textDecoration: 'none', color: 'green', marginLeft: '5px' }}>
-                    Quay lại
+                    <strong>Quay lại</strong>
                 </Link>
             </Row>
         </Row>
