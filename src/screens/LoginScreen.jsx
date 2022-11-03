@@ -46,7 +46,7 @@ const LoginScreen = () => {
     }
 
     return (
-        <Row className='px-3 mx-0 d-flex justify-content-center align-item-center'>
+        <Row className='px-3 mx-0 d-flex justify-content-center align-items-center'>
             <Col xl={4} md={5} sm={7} style={{ background: '#f5f5f5', margin: '20px', padding: '0 40px', borderRadius: '20px' }} className='shadow rounded'>
                 <h3 className='d-flex justify-content-center pt-5 pb-3'>Đăng nhập</h3>
                 {error && <Message variant='danger'>{message}</Message>}
@@ -79,15 +79,15 @@ const LoginScreen = () => {
                     <Form.Group className='d-flex justify-content-center pt-3'>
                         <p className='textCenter'>Hoặc</p>
                     </Form.Group>
-                    <Form.Group className='d-flex justify-content-center align-items-center py-2 shadow-sm rounded' style={{ width: '100%', background: '#f2f2f2', margin: '10px 0 20px 0', borderRadius: '30px', cursor: 'pointer' }}>
+                    <Form.Group className='d-flex justify-content-center align-items-center py-2 shadow-sm rounded' style={{ width: '100%', background: 'white', margin: '10px 0 20px 0', borderRadius: '30px', cursor: 'pointer' }}>
                         <Image style={{ width: '25px', height: '25px', marginRight: '15px' }} src='https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/800px-Google_%22G%22_Logo.svg.png'></Image>
                         <p className='my-0'>Đăng nhập với Google</p>
                     </Form.Group>
                 </Form>
                 <Row>
-                    <Col className='d-flex justify-content-center py-3'>
+                    <Col className='d-flex justify-content-center py-4'>
                         Bạn chưa có tài khoản?{' '}
-                        <Link style={{ textDecoration: 'none', color: 'green', marginLeft: '5px' }} to={redirect ? `/register?redirect=${redirect}` : '/register'}>
+                        <Link style={{ textDecoration: 'none', color: 'green', marginLeft: '5px' }} to='/register'>
                             <strong>Đăng ký</strong>
                         </Link>
                     </Col>
