@@ -51,9 +51,9 @@ const ProfileScreen = () => {
     }
 
     return (
-        <Row className='d-flex justify-content-center'>
+        <Row className='d-flex justify-content-center mx-0 py-5'>
             <Col md={6}>
-                <h2 className='d-flex justify-content-center'>Thông tin người dùng</h2>
+                <h3 className='d-flex justify-content-center'>Thông tin người dùng</h3>
                 {message && <Message variant='danger'>{message}</Message>}
                 {error && <Message variant='danger'>{error}</Message>}
                 {success && <Message variant='success'>Cập nhật thành công</Message>}
@@ -76,7 +76,7 @@ const ProfileScreen = () => {
                         <Form.Control type='text' placeholder='Nhập địa chỉ giao hàng' value={address} onChange={(e) => setAddress(e.target.value)}></Form.Control>
                     </Form.Group>
                     <Form.Group className='d-flex justify-content-center py-4'>
-                        <Button type='submit' variant='primary'>Cập nhật</Button>
+                        <Button type='submit' variant='success'>Cập nhật</Button>
                     </Form.Group>
                 </Form>
             </Col>

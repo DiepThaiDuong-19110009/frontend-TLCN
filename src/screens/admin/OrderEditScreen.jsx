@@ -9,7 +9,8 @@ import { listOrderDetails, updateOrder } from '../../actions/orderActions'
 import { ORDER_UPDATE_RESET } from '../../constants/orderConstants'
 
 const OrderEditScreen = () => {
-    const [status, setStatus] = useState('Chờ xác nhận')
+    const [status, setStatus] = useState('PROCESSING')
+    console.log('==', status)
 
     const orderId = useParams().id
     // console.log('==', orderId)
@@ -53,11 +54,11 @@ const OrderEditScreen = () => {
                             <Form.Group controlId='productname'>
                                 <Form.Label>Trạng thái đơn hàng</Form.Label>
                                 <Form.Select className='mb-3' size="sm" value={status} onChange={(e) => setStatus(e.target.value)}>
-                                    <option>Chờ xác nhận</option>
-                                    <option>Đã xác nhận</option>
-                                    <option>Đang giao hàng</option>
-                                    <option>Giao hàng thành công</option>
-                                    <option>Đã hủy</option>
+                                    <option>PROCESSING</option>
+                                    <option>CONFIRMED</option>
+                                    <option>DELIVERING</option>
+                                    <option>DONE</option>
+                                    <option>CANCEL</option>
                                 </Form.Select>
                             </Form.Group>
                             <Form.Group className='d-flex justify-content-center py-3'>

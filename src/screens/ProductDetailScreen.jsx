@@ -52,7 +52,12 @@ const ProductDetailScreen = () => {
     }
     return (
         <Container>
-            <Link to='/product' className='btn btn-light my-3'>Quay lại</Link>
+            <Link to='/product' style={{ textDecoration: 'none' }}>
+                <Button variant="outline-success" className='my-5 d-flex justify-content-center align-items-center'>
+                    <i className="fas fa-chevron-left"></i>
+                    <p className='my-0' style={{marginLeft: '10px'}}>Quay lại</p>
+                </Button>
+            </Link>
             {loading ? <Loader /> : error ? <Message variant='danger'>{error}</Message> :
                 <Row style={{ width: 'auto', margin: '0 auto' }} className='d-flex justify-content-evenly'>
                     <Col md={5}>

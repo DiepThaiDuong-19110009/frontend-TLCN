@@ -39,7 +39,9 @@ const MyOrder = () => {
 
     return (
         <Container>
-            <h1>Lịch sử đơn hàng</h1>
+            <Row className='pt-5 d-flex justify-content-center'>
+                <h3 className='d-flex justify-content-center'>Lịch sử đơn hàng</h3>
+            </Row>
             <ListGroup>
                 {arrOrder.reverse().map(item => (
                     <Row className='pt-4'>

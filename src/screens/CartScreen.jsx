@@ -44,14 +44,23 @@ const CartScreen = () => {
   return (
     <Container>
       <Row className='py-5 mx-0'>
-        <Row style={{background: '#f2f2f2', borderRadius: '10px'}} className='mb-5'>
+        <Row style={{ background: '#f2f2f2', borderRadius: '10px' }} className='mb-5'>
           <h3 className='p-3 d-flex justify-content-center align-items-center'>Giỏ hàng</h3>
         </Row>
         <Col md={8} className='px-0'>
           <Link to='/product'>
-            <Button>Tiếp tục mua hàng</Button>
+            <Button className='mb-5' variant="outline-success">Tiếp tục mua hàng</Button>
           </Link>
-          {cartItems.length === 0 ? <Message>Giỏ hàng trống <Link to='/'>Mua hàng</Link></Message> :
+          {cartItems.length === 0 ?
+            <Row className='pb-1 d-flex justify-content-center align-items-center'>
+              <Image style={{ width: '30%' }} src='https://anhbatay.com/assets/img/empty-cart.png' />
+              <Row className='p-1 d-flex justify-content-center align-items-center'>
+                Giỏ hàng trống
+              </Row>
+              <Row>
+                <Link style={{textDecoration: 'none', color: 'green'}} className='p-1 d-flex justify-content-center align-items-center' to='/product'>Mua hàng ngay</Link>
+              </Row>
+            </Row> :
             <ListGroup variant='flush'>
               {cartItems.map(item => (
                 <ListGroup.Item key={item.product}>

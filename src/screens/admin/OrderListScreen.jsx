@@ -46,7 +46,7 @@ const OrderListScreen = () => {
     })
   }
 
-  LoadStatus()
+  // LoadStatus()
 
   // Filter Status
   const arrFilterOrder = []
@@ -88,14 +88,14 @@ const OrderListScreen = () => {
         </Col>
         <Col className='d-flex justify-content-end align-items-center'>
           <p className='my-0 mx-3'>Lọc đơn hàng</p>
-          <select value={filter} onChange={(e) => setFilter(e.target.value)}>
+          {/* <select value={filter} onChange={(e) => setFilter(e.target.value)}>
             <option>Tất cả</option>
             <option>Chờ xác nhận</option>
             <option>Đã xác nhận</option>
             <option>Đang giao hàng</option>
             <option>Giao hàng thành công</option>
             <option>Đã hủy</option>
-          </select>
+          </select> */}
         </Col>
       </Row>
       {loading ? <Loader /> : error ? <Message variant='danger'>{error}</Message> :
@@ -151,9 +151,10 @@ const OrderListScreen = () => {
                   </td>
                   <td className='text-center'>{order.createdAt.slice(0, 10)}</td>
                   <td className='text-center'>{order.address}</td>
-                  {
+                  {/* {
                     order.status === 'PROCESSING' ? <td className='text-center'>Chờ xác nhận</td> : <td className='text-center'>{order.status}</td>
-                  }
+                  } */}
+                  <td className='text-center'>{order.status}</td>
                   <td className='text-center'>{order.total?.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</td>
                   <td className='d-flex justify-content-around'>
                     <DropdownButton variant="outline-primary" id="dropdown-basic-button" title="Hành động">
