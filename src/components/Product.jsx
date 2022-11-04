@@ -19,7 +19,7 @@ const Product = ({ product }) => {
                     </Card.Title>
                 </Link>
                 <Card.Text as='h7' className='text-primary'>
-                    Nhãn hiệu: {product.supplier}
+                    Nhãn hiệu: {product.supplier?.name}
                 </Card.Text><br />
                 <Card.Text as='h7' className='text-danger'>
                     Giá: {product.price?.toLocaleString('vi', { style: 'currency', currency: 'VND' })}

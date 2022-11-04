@@ -9,8 +9,8 @@ import { listOrderDetails, updateOrder } from '../../actions/orderActions'
 import { ORDER_UPDATE_RESET } from '../../constants/orderConstants'
 
 const OrderEditScreen = () => {
-    const [status, setStatus] = useState('PROCESSING')
-    console.log('==', status)
+    const [status, setStatus] = useState('')
+    // console.log('==', status)
 
     const orderId = useParams().id
     // console.log('==', orderId)
@@ -40,7 +40,8 @@ const OrderEditScreen = () => {
 
     const submitHandler = (e) => {
         e.preventDefault()
-        dispatch(updateOrder({ _id: orderId, status }))
+        console.log('==status', status);
+        dispatch(updateOrder(orderId, status))
     }
 
     return (

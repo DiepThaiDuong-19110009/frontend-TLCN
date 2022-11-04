@@ -24,7 +24,7 @@ export const createOrders = (order) => async (dispatch, getState) => {
             type: ORDER_CREATE_SUCCESS,
             payload: data,
         })
-        console.log('==', data)
+        // console.log('==', data)
 
     } catch (error) {
         dispatch({
@@ -109,7 +109,7 @@ export const deleteOrder = (id) => async (dispatch, getState) => {
     }
 }
 
-export const updateOrder = (order) => async (dispatch, getState) => {
+export const updateOrder = (id, status) => async (dispatch, getState) => {
     try {
         dispatch({
             type: ORDER_UPDATE_REQUEST
@@ -124,7 +124,8 @@ export const updateOrder = (order) => async (dispatch, getState) => {
             }
         }
 
-        const { data } = await axios.put(`http://localhost:5000/api/order/${order._id}`, order, config)
+        const { data } = await axios.put(`http://localhost:5000/api/order/${id}`, { status }, config)
+        console.log('==', data);
 
         dispatch({
             type: ORDER_UPDATE_SUCCESS,

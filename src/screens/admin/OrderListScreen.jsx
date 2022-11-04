@@ -38,13 +38,13 @@ const OrderListScreen = () => {
   }
 
   // Load Status
-  const LoadStatus = () => {
-    orders.forEach(item => {
-      if (item.status === "PROCESSING") {
-        dispatch(updateOrder({ _id: item._id, status: 'Chờ xác nhận' }))
-      }
-    })
-  }
+  // const LoadStatus = () => {
+  //   orders.forEach(item => {
+  //     if (item.status === "PROCESSING") {
+  //       dispatch(updateOrder({ _id: item._id, status: 'Chờ xác nhận' }))
+  //     }
+  //   })
+  // }
 
   // LoadStatus()
 

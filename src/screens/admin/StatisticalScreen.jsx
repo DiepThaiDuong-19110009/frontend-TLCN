@@ -50,7 +50,7 @@ const StatisticScreen = () => {
                 </div>
                 <div style={{ padding: '10px', marginBottom: '20px', width: '23%', background: '#f39c11', borderRadius: '10px' }} className='d-flex justify-content-between align-items-center'>
                     <div style={{ color: 'white', padding: '3%' }}>
-                        <h1>{products.length}</h1>
+                        <h1>{products?.length}</h1>
                         <h5>Sản phẩm</h5>
                     </div>
                     <i className="fas fa-box-open" style={{ fontSize: '60px', color: '#cf870f', paddingRight: '15px' }}></i>

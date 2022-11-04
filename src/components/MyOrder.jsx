@@ -29,9 +29,10 @@ const MyOrder = () => {
     }, [dispatch])
 
     // cancle Order
+    const status = 'CANCEL'
     const cancleOrder = (id) => {
         if (window.confirm('Bạn có chắc chắn muốn hủy đơn hàng này không?')) {
-            dispatch(updateOrder({ _id: id, status: 'Đã hủy' }))
+            dispatch(updateOrder(id, status))
             window.location.reload()
         }
     }
@@ -51,7 +52,7 @@ const MyOrder = () => {
                             </Col>
                             <Col className='d-flex justify-content-end'>
                                 {
-                                    item.status === "Chờ xác nhận" && <Button onClick={() => cancleOrder(item._id)} variant="danger">Hủy đơn hàng</Button>
+                                    item.status === "PROCESSING" && <Button onClick={() => cancleOrder(item._id)} variant="danger">Hủy đơn hàng</Button>
                                 }
                             </Col>
                         </Row>

@@ -64,7 +64,7 @@ const ProductListScreen = () => {
 
     const arrFilterProduct = []
     const checkFilter = () => {
-        products.forEach(product => {
+        products?.forEach(product => {
             if (product.category._id === idCategory) {
                 arrFilterProduct.push(product)
             } else if (!idCategory) {
@@ -135,13 +135,15 @@ const ProductListScreen = () => {
                                 <th className='text-center'>Hình ảnh</th>
                                 <th className='text-center'>Tên sản phẩm</th>
                                 <th className='text-center'>Nhà cung cấp</th>
+                                <th className='text-center'>Số lượng nhập</th>
+                                <th className='text-center'>Giá nhập</th>
                                 <th className='text-center'>Mô tả</th>
                                 <th className='text-center'>Giá sản phẩm</th>
                                 <th className='text-center'>Danh mục</th>
                                 <th className='text-center'>Số lượng</th>
                                 <th className='text-center'>Đã bán</th>
                                 {/* <th className='text-center'>Ngày tạo</th> */}
-                                <th className='text-center'>Hành động</th>
+                                <th className='text-center'>Thao tác</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -152,7 +154,9 @@ const ProductListScreen = () => {
                                     </td>
                                     <td className='text-center'><img style={{ width: '50px' }} src={product.photo} alt={product.name} /></td>
                                     <td className='text-center'>{product.name}</td>
-                                    <td className='text-center'>{product._id}</td>
+                                    <td className='text-center'>{product.supplier?.id?.name}</td>
+                                    <td className='text-center'>{product.supplier?.quantityImport}</td>
+                                    <td className='text-center'>{product.supplier?.price}</td>
                                     <td>
                                         <Accordion className='py-0 px-0' defaultActiveKey="1">
                                             <Accordion.Item eventKey="0">
@@ -169,7 +173,7 @@ const ProductListScreen = () => {
                                     <td className='text-center'>{product.sold}</td>
                                     {/* <td className='text-center'>{product.createdAt}</td> */}
                                     <td className='d-flex justify-content-around'>
-                                        <DropdownButton style={{ fontSize: '14px' }} variant="outline-primary" id="dropdown-basic-button" title="Hành động">
+                                        <DropdownButton style={{ fontSize: '14px' }} variant="outline-primary" id="dropdown-basic-button" title="">
                                             <Dropdown.Item className='d-flex justify-content-between align-items-center' href={`/admin/product/${product._id}/edit`}>
                                                 <Button variant='secondary' className='btn-sm'>
                                                     <i className='fas fa-edit'></i>

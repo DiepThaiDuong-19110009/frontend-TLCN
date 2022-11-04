@@ -15,6 +15,8 @@ const ProductEditScreen = () => {
     const [photo, setPhoto] = useState('')
     const [name, setName] = useState('')
     const [nameSupplier, setNameSupllier] = useState('')
+    const [importQuantity, setImportQuantity] = useState('')
+    const [importPrice, setImportPrice] = useState('')
     const [description, setDescription] = useState('')
     const [price, setPrice] = useState(0)
     const [nameCategory, setNameCategory] = useState('')
@@ -80,7 +82,9 @@ const ProductEditScreen = () => {
             } else {
                 setPhoto(product.photo)
                 setName(product.name)
-                // setNameSupllier(product.supplier._id)
+                setNameSupllier(product.supplier?.id?.name)
+                setImportQuantity(product.supplier?.quantityImport)
+                setImportPrice(product.supplier?.price)
                 setDescription(product.description)
                 setPrice(product.price)
                 setNameCategory(product.category.name)
@@ -92,7 +96,7 @@ const ProductEditScreen = () => {
 
     const submitHandler = (e) => {
         e.preventDefault()
-        dispatch(updateProduct({ _id: productId, photo, name, supplier, description, price, category, quantity, sold }))
+        dispatch(updateProduct({ _id: productId, photo, name, supplier: {id: supplier, quantityImport: importQuantity, price: importPrice}, description, price, category, quantity, sold }))
     }
 
     return (
@@ -123,6 +127,14 @@ const ProductEditScreen = () => {
                                         <option>{supplier.name}</option>
                                     ))}
                                 </Form.Select>
+                            </Form.Group>
+                            <Form.Group controlId='productamountsupplier'>
+                                <Form.Label>Số lượng nhập</Form.Label>
+                                <Form.Control className='mb-3' type='number' min="1" placeholder='Nhập giá sản phẩm' value={importQuantity} onChange={(e) => setImportQuantity(e.target.value)}></Form.Control>
+                            </Form.Group>
+                            <Form.Group controlId='productpricesupplier'>
+                                <Form.Label>Giá nhập</Form.Label>
+                                <Form.Control className='mb-3' type='number' min="1" placeholder='Nhập giá sản phẩm' value={importPrice} onChange={(e) => setImportPrice(e.target.value)}></Form.Control>
                             </Form.Group>
                             <Form.Group controlId='productdescription'>
                                 <Form.Label>Mô tả sản phẩm</Form.Label>
