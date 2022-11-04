@@ -2,16 +2,19 @@ import { React, useState, useEffect } from 'react'
 import { Link, useParams, useNavigate } from 'react-router-dom'
 import { Button, Form } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
+import 'react-medium-image-zoom/dist/styles.css'
+import Zoom from 'react-medium-image-zoom'
 import Loader from '../../components/Loader'
 import Message from '../../components/Message'
 import FormContainer from '../../components/FormContainer'
 import { listProductDetails, updateProduct, listCategory } from '../../actions/productActions'
+import { listSupplier } from '../../actions/supplierActions'
 import { PRODUCT_UPDATE_RESET } from '../../constants/productConstants'
 
 const ProductEditScreen = () => {
     const [photo, setPhoto] = useState('')
     const [name, setName] = useState('')
-    const [supplier, setSupllier] = useState('')
+    const [nameSupplier, setNameSupllier] = useState('')
     const [description, setDescription] = useState('')
     const [price, setPrice] = useState(0)
     const [nameCategory, setNameCategory] = useState('')
@@ -24,12 +27,13 @@ const ProductEditScreen = () => {
 
     const navigate = useNavigate();
 
-    const categoryList = useSelector(state => state.categoryList)
-    const { categories } = categoryList
+    const { categories } = useSelector(state => state.categoryList)
     // console.log('==', categories)
 
-    const productDetails = useSelector(state => state.productDetails)
-    const { error, product } = productDetails
+    const { suppliers } = useSelector(state => state.supplierList)
+    // console.log('==', suppliers)
+
+    const { error, product } = useSelector(state => state.productDetails)
     // console.log('==', product)
 
     const productUpdate = useSelector(state => state.productUpdate)
@@ -49,6 +53,20 @@ const ProductEditScreen = () => {
     let category = arrGetCateId[0]
     // console.log('==', category);
 
+    // Get ID Supplier
+    let arrGetSupplierId = []
+    const getSupplierId = () => {
+        suppliers.forEach(supplier => {
+            if (nameSupplier === supplier.name) {
+                arrGetSupplierId.push(supplier._id)
+            }
+        })
+    }
+
+    getSupplierId()
+    let supplier = arrGetSupplierId[0]
+    console.log('==', supplier);
+
     useEffect(() => {
         if (successUpdate) {
             dispatch({ type: PRODUCT_UPDATE_RESET })
@@ -58,10 +76,11 @@ const ProductEditScreen = () => {
             if (!product.name || product._id !== productId) {
                 dispatch(listProductDetails(productId))
                 dispatch(listCategory())
+                dispatch(listSupplier())
             } else {
                 setPhoto(product.photo)
                 setName(product.name)
-                setSupllier(product.supplier)
+                // setNameSupllier(product.supplier._id)
                 setDescription(product.description)
                 setPrice(product.price)
                 setNameCategory(product.category.name)
@@ -88,7 +107,9 @@ const ProductEditScreen = () => {
                                 <Form.Label>Hình ảnh sản phẩm</Form.Label>
                                 <Form.Control className='mb-3' type='name' placeholder='Đường dẫn file ảnh' value={photo} onChange={(e) => setPhoto(e.target.value)}></Form.Control>
                                 <div className='d-flex justify-content-center'>
-                                    <img className='shadow p-3 mb-5 bg-white rounded' style={{ width: '30%' }} src={photo} alt={name}/> 
+                                    <Zoom>
+                                        <img className='shadow p-3 mb-5 bg-white rounded' style={{ width: '40%' }} src={photo} alt={name} />
+                                    </Zoom>
                                 </div>
                             </Form.Group>
                             <Form.Group controlId='productname'>
@@ -97,7 +118,11 @@ const ProductEditScreen = () => {
                             </Form.Group>
                             <Form.Group controlId='productsupplier'>
                                 <Form.Label>Nhà cung cấp</Form.Label>
-                                <Form.Control className='mb-3' type='name' placeholder='Nhập tên nhà cung cấp' value={supplier} onChange={(e) => setSupllier(e.target.value)}></Form.Control>
+                                <Form.Select className='mb-3' size="sm" value={nameSupplier} onChange={(e) => setNameSupllier(e.target.value)}>
+                                    {suppliers.map(supplier => (
+                                        <option>{supplier.name}</option>
+                                    ))}
+                                </Form.Select>
                             </Form.Group>
                             <Form.Group controlId='productdescription'>
                                 <Form.Label>Mô tả sản phẩm</Form.Label>

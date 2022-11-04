@@ -1,5 +1,5 @@
 import { React, useEffect } from 'react'
-import { Button, Row, Col, ListGroup, Image, Card, Container } from 'react-bootstrap'
+import { Button, Row, Col, ListGroup, Image, Card, Container, Form } from 'react-bootstrap'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
@@ -12,6 +12,7 @@ const PlaceOrderScreen = () => {
     const userLogin = useSelector(state => state.userLogin)
     const { userInfo } = userLogin
     const cart = useSelector(state => state.cart)
+    // console.log('==', cart)
     const { cartItems, shippingAddress } = cart
 
     // Calculate price
@@ -57,16 +58,20 @@ const PlaceOrderScreen = () => {
         <Container>
             <CheckoutSteps step1 step2 step3 step4 />
             <Row>
+                <h3 className='d-flex justify-content-center pb-3'>Đặt hàng</h3>
+                <p className='d-flex justify-content-center pb-4'>Vui lòng kiểm tra đầy đủ thông tin trước khi tiến hành thanh toán</p>
+            </Row>
+            <Row>
                 <Col md={8}>
                     <ListGroup>
                         <ListGroup.Item>
-                            <h2>Đặt hàng</h2>
+                            <h3 className='my-3'>Thông tin người nhận</h3>
                             <p>
                                 <strong>Tên người nhận: </strong>
                                 {userInfo.user.name}
                             </p>
                             <p>
-                                <strong>Địa chỉ: </strong>
+                                <strong>Địa chỉ giao hàng: </strong>
                                 {cart.shippingAddress.address}{', '}
                                 {cart.shippingAddress.city}{', '}
                                 {cart.shippingAddress.country}
@@ -77,27 +82,28 @@ const PlaceOrderScreen = () => {
                             </p>
                         </ListGroup.Item>
                         <ListGroup.Item>
-                            <h2>Phương thức thanh toán</h2>
-                            <strong>Thanh toán bằng: </strong>
-                            {cart.paymentMethod}
+                            <h3 className='my-3'>Phương thức thanh toán</h3>
+                            <p>Thanh toán bằng: <strong>{cart.paymentMethod}</strong></p>
                         </ListGroup.Item>
 
                         <ListGroup.Item>
-                            <h2>Chi tiết đơn hàng</h2>
+                            <h3>Chi tiết đơn hàng</h3>
                             {cart.cartItems.length === 0 ? <Message>Giỏ hàng trống</Message> :
                                 (
                                     <ListGroup variant='flush'>
                                         {cart.cartItems.map((item, index) => (
                                             <ListGroup.Item key={index}>
                                                 <Row>
-                                                    <Col md={2}>
+                                                    <Col md={3}>
                                                         <Image src={item.image} alt={item.name} fluid rounded />
                                                     </Col>
                                                     <Col className='d-flex align-items-center'>
-                                                        <Link to={`/product/${item.product}`}>{item.name}</Link>
+                                                        <Link className='px-3' style={{ textDecoration: 'none', color: 'black' }} to={`/product/${item.product}`}>
+                                                            <strong>{item.name}</strong>
+                                                        </Link>
                                                     </Col>
                                                     <Col className='d-flex align-items-center' md={5}>
-                                                        {item.count} x {item.price} VNĐ = {item.count * item.price} VNĐ
+                                                        {item.count} x {item.price?.toLocaleString('vi', { style: 'currency', currency: 'VND' })} = {(item.count * item.price)?.toLocaleString('vi', { style: 'currency', currency: 'VND' })}
                                                     </Col>
                                                 </Row>
                                             </ListGroup.Item>
@@ -138,8 +144,17 @@ const PlaceOrderScreen = () => {
                                 </Row>
                             </ListGroup.Item>
                             {/* <ListGroup.Item>{error && <Message>{error}</Message>}</ListGroup.Item> */}
-                            <ListGroup.Item>
-                                <Button type='button' className='btn-block' disabled={cart.cartItems === 0} onClick={placeOrderHandler}>Thanh toán</Button>
+                            <ListGroup.Item className='d-flex justify-content-center py-4'>
+                                {
+                                    cart.paymentMethod === 'Tiền mặt' ?
+                                        <Button type='button' className='btn-block' disabled={cart.cartItems === 0} onClick={placeOrderHandler}>Thanh toán</Button> :
+                                        <form action='http://localhost:5000/api/pay' method='post'>
+                                            <button style={{ background: 'white', border: '1px solid gray', borderRadius: '10px' }} className='shadow-sm d-flex justify-content-center align-items-center p-3'>
+                                                <Image style={{ height: '50px' }} src='https://quyetdao.com/wp-content/uploads/2019/04/paypal-logo.png' alt='paypal'></Image>
+                                                <h5 className='my-0 mx-3' style={{ color: 'black' }}>Thanh toán</h5>
+                                            </button>
+                                        </form>
+                                }
                             </ListGroup.Item>
                         </ListGroup>
                     </Card>

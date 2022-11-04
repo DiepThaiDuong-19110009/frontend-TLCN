@@ -43,20 +43,24 @@ const CartScreen = () => {
 
   return (
     <Container>
-      <Row>
-        <Col md={8}>
-          <h1>Giỏ hàng</h1>
-          <Link to='/' className='btn btn-primary my-3'>Tiếp tục mua hàng</Link>
+      <Row className='py-5 mx-0'>
+        <Row style={{background: '#f2f2f2', borderRadius: '10px'}} className='mb-5'>
+          <h3 className='p-3 d-flex justify-content-center align-items-center'>Giỏ hàng</h3>
+        </Row>
+        <Col md={8} className='px-0'>
+          <Link to='/product'>
+            <Button>Tiếp tục mua hàng</Button>
+          </Link>
           {cartItems.length === 0 ? <Message>Giỏ hàng trống <Link to='/'>Mua hàng</Link></Message> :
             <ListGroup variant='flush'>
               {cartItems.map(item => (
                 <ListGroup.Item key={item.product}>
                   <Row>
-                    <Col md={2}>
+                    <Col md={3}>
                       <Image src={item.image} alt={item.name} fluid rounded />
                     </Col>
                     <Col md={3} className='d-flex align-items-center'>
-                      <Link to={`/product/${item.product}`}>{item.name}</Link>
+                      <Link style={{ textDecoration: 'none', color: 'black' }} to={`/product/${item.product}`}>{item.name}</Link>
                     </Col>
                     <Col md={2} className='d-flex align-items-center'>{(item.price).toLocaleString('vi', { style: 'currency', currency: 'VND' })}</Col>
                     <Col md={2} className='d-flex align-items-center'>
@@ -68,7 +72,7 @@ const CartScreen = () => {
                         }
                       </Form.Control>
                     </Col>
-                    <Col md={2} className='d-flex align-items-center'>
+                    <Col md={1} className='d-flex align-items-center'>
                       <Button type='button' variant='light' onClick={() => removeFromCartHandler(item.product)}>
                         <i className='fas fa-trash'></i>
                       </Button>
@@ -82,12 +86,12 @@ const CartScreen = () => {
           <Card>
             <ListGroup variant='flush'>
               <ListGroup.Item>
-                <h2>Tổng sản phẩm: ({cartItems.reduce((acc, item) => acc + item.count, 0)}) Sản phẩm</h2>
-                Tổng tiền: {cartItems.reduce((acc, item) => acc + item.count * item.price, 0).toLocaleString('vi', { style: 'currency', currency: 'VND' })}
+                <h4 className='py-3'>Tổng sản phẩm: ({cartItems.reduce((acc, item) => acc + item.count, 0)}) Sản phẩm</h4>
+                Tổng tiền: <strong style={{ color: 'red', fontSize: '20px' }}>{cartItems.reduce((acc, item) => acc + item.count * item.price, 0).toLocaleString('vi', { style: 'currency', currency: 'VND' })}</strong>
               </ListGroup.Item>
               <ListGroup.Item className="d-flex justify-content-center py-3">
-                <Button type='button' variant="success" className='btn-block' disabled={cartItems.length === 0} onClick={checkoutHandler}>
-                  Tiếp tục
+                <Button style={{ width: '100%' }} type='button' variant="success" className='btn-block' disabled={cartItems.length === 0} onClick={checkoutHandler}>
+                  Tiến hành thanh toán
                 </Button>
               </ListGroup.Item>
             </ListGroup>

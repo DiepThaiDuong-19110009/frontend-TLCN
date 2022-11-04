@@ -1,7 +1,9 @@
 import { React, useState, useEffect } from 'react'
 import { Link, useParams, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { Row, Col, Image, ListGroup, Card, Button, Form, Container } from 'react-bootstrap'
+import { Row, Col, Image, Card, Button, Form, Container } from 'react-bootstrap'
+import 'react-medium-image-zoom/dist/styles.css'
+import Zoom from 'react-medium-image-zoom'
 import Rating from '../components/Rating'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
@@ -52,73 +54,66 @@ const ProductDetailScreen = () => {
         <Container>
             <Link to='/product' className='btn btn-light my-3'>Quay lại</Link>
             {loading ? <Loader /> : error ? <Message variant='danger'>{error}</Message> :
-                <Row>
+                <Row style={{ width: 'auto', margin: '0 auto' }} className='d-flex justify-content-evenly'>
                     <Col md={5}>
-                        <Image src={product.photo} alt={product.name} fluid />
+                        <Zoom>
+                            <Image
+                                alt="That Wanaka Tree, New Zealand by Laura Smetsers"
+                                src={product.photo}
+                                width="500"
+                                fluid
+                                style={{ background: '#f3f3f3' }}
+                            />
+                        </Zoom>
                     </Col>
-                    <Col md={4}>
-                        <ListGroup variant='flush'>
-                            <ListGroup.Item>
-                                <h3>{product.name}</h3>
-                            </ListGroup.Item>
-                            <ListGroup.Item className='d-flex justify-content-between align-items-center'>
-                                <Rating value={product.rating} text={`${product.reviews?.length} đánh giá`} />
-                                <p className='my-0' style={{ cursor: 'pointer' }} onClick={viewComment}>Xem đánh giá</p>
-                            </ListGroup.Item>
-                            <ListGroup.Item>
-                                Giá: {product.price} VNĐ
-                            </ListGroup.Item>
-                            <ListGroup.Item>
-                                Mô tả sản phẩm: {product.description}
-                            </ListGroup.Item>
-                        </ListGroup>
-                    </Col>
-                    <Col md={3}>
-                        <Card>
-                            <ListGroup variant='flush'>
-                                <ListGroup.Item>
-                                    <Row>
-                                        <Col>Giá:</Col>
-                                        <Col>
-                                            <strong>{product.price} VNĐ</strong>
-                                        </Col>
-                                    </Row>
-                                </ListGroup.Item>
-                                <ListGroup.Item>
-                                    <Row>
-                                        <Col>Trạng thái:</Col>
-                                        <Col>
-                                            {product.quantity > 0 ? 'Còn hàng' : 'Hết hàng'}
-                                        </Col>
-                                    </Row>
-                                </ListGroup.Item>
-
-                                {product.quantity > 0 && (
-                                    <ListGroup.Item>
-                                        <Row>
-                                            <Col>Số lượng</Col>
-                                            <Col>
-                                                <Form.Control as='select' value={qty} onChange={(e) => setQty(e.target.value)}>
-                                                    {
-                                                        [...Array(product.quantity).keys()].map(x => (
-                                                            <option key={x + 1} value={x + 1}>{x + 1}</option>
-                                                        ))
-                                                    }
-                                                </Form.Control>
-                                            </Col>
-                                        </Row>
-                                    </ListGroup.Item>
-                                )}
-
-                                <ListGroup.Item className='text-center'>
-                                    <Button onClick={addToCartHandler} className='btn btn-success' type='button' disabled={product.quantity === 0}>Thêm vào giỏ hàng</Button>
-                                </ListGroup.Item>
-                            </ListGroup>
+                    <Col md={5}>
+                        <Card style={{ width: '100%', border: 'none' }}>
+                            <Card.Body>
+                                <Card.Title><h4>{product.name}</h4></Card.Title>
+                                <Card.Subtitle className="my-3 text-muted"><h6>Nhà cung cấp: {product.supplier}</h6></Card.Subtitle>
+                                <Card.Text className='d-flex justify-content-between'>
+                                    <Rating value={product.rating} text={`${product.reviews?.length} đánh giá`} />
+                                    <div className='d-flex justify-content-between align-items-center'>
+                                        <i className="fas fa-pen mx-2"></i>
+                                        <p className='my-0' style={{ cursor: 'pointer' }} onClick={viewComment}>viết đánh giá</p>
+                                    </div>
+                                </Card.Text>
+                                <Card.Text>
+                                    Giá: <strong style={{ color: 'red', fontSize: '20px' }}>{product.price?.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</strong>
+                                </Card.Text>
+                                <Card.Text>
+                                    <h6 className='my-2' style={{ fontSize: '18px' }}>Mô tả sản phẩm:</h6> {product.description}
+                                </Card.Text>
+                                <Card.Text>
+                                    Trạng thái: {product.quantity > 0 ? <strong style={{ color: 'green' }}>Còn hàng</strong> : <strong style={{ color: 'red' }}>Hết hàng</strong>}
+                                </Card.Text>
+                                <Card.Text className='d-flex justify-content-between'>
+                                    <div>
+                                        <p>Chọn số lượng:</p>
+                                        <Form.Control as='select' value={qty} onChange={(e) => setQty(e.target.value)}>
+                                            {
+                                                [...Array(product.quantity).keys()].map(x => (
+                                                    <option key={x + 1} value={x + 1}>{x + 1}</option>
+                                                ))
+                                            }
+                                        </Form.Control>
+                                    </div>
+                                    <Button onClick={addToCartHandler} variant="success" type='button' disabled={product.quantity === 0}>
+                                        <i className="fas fa-cart-arrow-down" style={{ fontSize: '25px' }}></i>
+                                        <p className='my-0'>Thêm vào giỏ hàng</p>
+                                    </Button>
+                                </Card.Text>
+                            </Card.Body>
                         </Card>
                     </Col>
+                    {/* <Col md={3}>
+                        <Card>
+                            
+                        </Card>
+                    </Col> */}
                 </Row>}
-            <Row>
-                <h4 id="comment" className='pb-4'>Đánh giá sản phẩm ({product.reviews?.length})</h4>
+            <Row id="comment">
+                <h4 className='pt-5 pb-3'>Đánh giá sản phẩm ({product.reviews?.length})</h4>
                 {userInfo && <Form>
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                         <Form.Label>Đánh giá</Form.Label>
@@ -135,7 +130,7 @@ const ProductDetailScreen = () => {
                     </Form.Group> */}
                     <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
                         <Form.Label>Bình luận của bạn về sản phẩm</Form.Label>
-                        <Form.Control value={comment} onChange={(e) => setComment(e.target.value)} as="textarea" rows={3} />
+                        <Form.Control placeholder='Viết bình luận của bạn' value={comment} onChange={(e) => setComment(e.target.value)} as="textarea" rows={3} />
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
                         <Button onClick={submitComment}>Đăng bình luận</Button>

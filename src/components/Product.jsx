@@ -18,11 +18,11 @@ const Product = ({ product }) => {
                         <p>{product.name}</p>
                     </Card.Title>
                 </Link>
-                {/* <Card.Text as='h7' className='text-primary'>
+                <Card.Text as='h7' className='text-primary'>
                     Nhãn hiệu: {product.supplier}
-                </Card.Text><br /> */}
+                </Card.Text><br />
                 <Card.Text as='h7' className='text-danger'>
-                    Giá: {product.price} VNĐ / kg
+                    Giá: {product.price?.toLocaleString('vi', { style: 'currency', currency: 'VND' })}
                 </Card.Text>
             </Card.Body>
         </Card >

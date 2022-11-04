@@ -15,10 +15,13 @@ import {
 } from './reducers/userReducers'
 import { orderCreateReducer, getOrderReducer, orderDeleteReducer, orderUpdateReducer, orderDetailsReducer } from './reducers/orderReducers'
 import { incomeListReducer } from './reducers/statisticalReducers'
+import { supplierListReducer, supllierDetailsReducer, supplierCreateReducer, supplierDeleteReducer, supplierUpdateReducer } from './reducers/supplierReducers'
 
 const reducer = combineReducers({
     categoryList: categoryListReducer,
     categoryDetails: cateogryDetailsReducer,
+    supllierDetail: supllierDetailsReducer,
+    supplierList: supplierListReducer,
     productList: productListReducer,
     productDetails: productDetailsReducer,
     commentCreate: commentCreateReducer,
@@ -36,6 +39,9 @@ const reducer = combineReducers({
     userList: userListReducer,
     userDelete: userDeleteReducer,
     userUpdate: userUpdateReducer,
+    supplierDelete: supplierDeleteReducer,
+    supplierCreate: supplierCreateReducer,
+    supplierUpdate: supplierUpdateReducer,
     productDelete: productDeleteReducer,
     productCreate: productCreateReducer,
     productUpdate: productUpdateReducer,

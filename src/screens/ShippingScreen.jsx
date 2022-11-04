@@ -1,8 +1,7 @@
 import { React, useState } from 'react'
-import { Button, Form } from 'react-bootstrap'
+import { Button, Form, Container, Row, Col } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import FormContainer from '../components/FormContainer'
 import CheckoutSteps from '../components/CheckoutSteps'
 import { saveShippingAddress } from '../actions/cartActions'
 
@@ -26,31 +25,38 @@ const ShippingScreen = () => {
     }
 
     return (
-        <FormContainer>
+        <Container>
             <CheckoutSteps step1 step2 />
-            <h1>Giao hàng</h1>
-            <Form onSubmit={submitHandler}>
-                <Form.Group className='mb-3'>
-                    <Form.Label>Địa chỉ nhận hàng</Form.Label>
-                    <Form.Control type='text' placeholder='Nhập địa chỉ' value={address} onChange={(e) => setAddress(e.target.value)}></Form.Control>
-                </Form.Group>
-                <Form.Group className='mb-3'>
-                    <Form.Label>Thành phố</Form.Label>
-                    <Form.Control type='text' placeholder='Nhập tên thành phố' value={city} onChange={(e) => setCity(e.target.value)}></Form.Control>
-                </Form.Group>
-                <Form.Group className='mb-3'>
-                    <Form.Label>Tỉnh</Form.Label>
-                    <Form.Control type='text' placeholder='Nhập tên tỉnh' value={country} onChange={(e) => setCountry(e.target.value)}></Form.Control>
-                </Form.Group>
-                <Form.Group className='mb-3'>
-                    <Form.Label>Số điện thoại người nhận</Form.Label>
-                    <Form.Control type='number' placeholder='Nhập số điện thoại' value={phone} onChange={(e) => setPhone(e.target.value)}></Form.Control>
-                </Form.Group>
+            <Row className='pt-3'>
+                <h3 className='pb-4 d-flex justify-content-center'>Điền thông tin giao hàng</h3>
+            </Row>
+            <Row className='d-flex justify-content-center'>
+                <Col xl={5}>
+                    <Form onSubmit={submitHandler}>
+                        <Form.Group className='mb-3'>
+                            <Form.Label>Địa chỉ nhận hàng</Form.Label>
+                            <Form.Control type='text' placeholder='Nhập địa chỉ' value={address} onChange={(e) => setAddress(e.target.value)}></Form.Control>
+                        </Form.Group>
+                        <Form.Group className='mb-3'>
+                            <Form.Label>Thành phố</Form.Label>
+                            <Form.Control type='text' placeholder='Nhập tên thành phố' value={city} onChange={(e) => setCity(e.target.value)}></Form.Control>
+                        </Form.Group>
+                        <Form.Group className='mb-3'>
+                            <Form.Label>Tỉnh</Form.Label>
+                            <Form.Control type='text' placeholder='Nhập tên tỉnh' value={country} onChange={(e) => setCountry(e.target.value)}></Form.Control>
+                        </Form.Group>
+                        <Form.Group className='mb-3'>
+                            <Form.Label>Số điện thoại người nhận</Form.Label>
+                            <Form.Control type='number' placeholder='Nhập số điện thoại' value={phone} onChange={(e) => setPhone(e.target.value)}></Form.Control>
+                        </Form.Group>
 
-                <Button type='submit' variant='primary'>Tiếp tục</Button>
-            </Form>
-
-        </FormContainer>
+                        <Row className='py-3 d-flex justify-content-center align-items-center'>
+                            <Button style={{ width: '200px' }} type='submit' variant='success'>Tiếp tục</Button>
+                        </Row>
+                    </Form>
+                </Col>
+            </Row>
+        </Container>
     )
 }
 

@@ -154,7 +154,7 @@ const OrderListScreen = () => {
                   {
                     order.status === 'PROCESSING' ? <td className='text-center'>Chờ xác nhận</td> : <td className='text-center'>{order.status}</td>
                   }
-                  <td className='text-center'>{order.total}</td>
+                  <td className='text-center'>{order.total?.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</td>
                   <td className='d-flex justify-content-around'>
                     <DropdownButton variant="outline-primary" id="dropdown-basic-button" title="Hành động">
                       <Dropdown.Item className='d-flex justify-content-between align-items-center' href={`/admin/order/${order._id}/edit`}>

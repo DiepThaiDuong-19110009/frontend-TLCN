@@ -13,6 +13,8 @@ import OrderListScreen from '../screens/admin/OrderListScreen';
 import OrderEditScreen from '../screens/admin/OrderEditScreen';
 import Sidebar from '../components/Sidebar'
 import StatisticScreen from '../screens/admin/StatisticalScreen';
+import SupplierListScreen from '../screens/admin/SupplierListScreen';
+import SupplierEditScreen from '../screens/admin/SupplierEditScreen';
 
 const AdminRouter = () => {
   return (
@@ -24,6 +26,8 @@ const AdminRouter = () => {
         <Routes>
           <Route path='/userlist' element={<UserListScreen />} />
           <Route path='/user/:id/edit' element={<UserEditScreen />} />
+          <Route path='/supplierlist' element={<SupplierListScreen />} />
+          <Route path='/supplier/:id/edit' element={<SupplierEditScreen />} />
           <Route path='/productlist' element={<ProductListScreen />} />
           <Route path='/product/:id/edit' element={<ProductEditScreen />} />
           <Route path='/categorylist' element={<CategoryListScreen />} />

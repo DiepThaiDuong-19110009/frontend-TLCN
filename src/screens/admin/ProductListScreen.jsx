@@ -136,7 +136,7 @@ const ProductListScreen = () => {
                                 <th className='text-center'>Tên sản phẩm</th>
                                 <th className='text-center'>Nhà cung cấp</th>
                                 <th className='text-center'>Mô tả</th>
-                                <th className='text-center'>Giá (Đơn vị VNĐ)</th>
+                                <th className='text-center'>Giá sản phẩm</th>
                                 <th className='text-center'>Danh mục</th>
                                 <th className='text-center'>Số lượng</th>
                                 <th className='text-center'>Đã bán</th>
@@ -152,7 +152,7 @@ const ProductListScreen = () => {
                                     </td>
                                     <td className='text-center'><img style={{ width: '50px' }} src={product.photo} alt={product.name} /></td>
                                     <td className='text-center'>{product.name}</td>
-                                    <td className='text-center'>abc</td>
+                                    <td className='text-center'>{product._id}</td>
                                     <td>
                                         <Accordion className='py-0 px-0' defaultActiveKey="1">
                                             <Accordion.Item eventKey="0">
@@ -163,7 +163,7 @@ const ProductListScreen = () => {
                                             </Accordion.Item>
                                         </Accordion>
                                     </td>
-                                    <td className='text-center'>{product.price}</td>
+                                    <td className='text-center'>{product.price?.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</td>
                                     <td className='text-center'>{product.category.name}</td>
                                     <td className='text-center'>{product.quantity}</td>
                                     <td className='text-center'>{product.sold}</td>

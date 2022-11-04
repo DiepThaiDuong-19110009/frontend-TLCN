@@ -24,9 +24,6 @@ const TopProduct = () => {
                 <Col key={product.id} sm={0} md={0} lg={4} xl={3}>
                     <Product product={product} />)
                 </Col>)) */}
-                <form action='http://localhost:5000/api/pay' method='post'>
-                    <button>OK luon!</button>
-                </form>
             </Row>
         </div>
     )

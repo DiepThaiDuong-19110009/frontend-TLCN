@@ -18,16 +18,19 @@ const Sidebar = () => {
     <div style={{ display: 'flex', height: '100vh', width: '100%', fontSize: '14px' }} className='px-0'>
       <CDBSidebar textColor="#f5f5f5" backgroundColor="#000011" style={{ width: '100%' }}>
         <CDBSidebarHeader>
-          <p style={{fontSize: '20px' }}>HDKMart Admin</p>
-          <p style={{fontSize: '13px', color: '#cccccc' }}>Xin chào, {userInfo.user.name}</p>
+          <p style={{ fontSize: '20px' }}>HDKMart Admin</p>
+          <p style={{ fontSize: '13px', color: '#cccccc' }}>Xin chào, {userInfo.user.name}</p>
         </CDBSidebarHeader>
         <CDBSidebarContent>
           <CDBSidebarMenu>
+            <NavLink exact to="/admin/supplierlist" activeClassName="activeClicked">
+              <CDBSidebarMenuItem icon="boxes">Danh sách nhà cung cấp</CDBSidebarMenuItem>
+            </NavLink>
             <NavLink exact to="/admin/categorylist" activeClassName="activeClicked">
               <CDBSidebarMenuItem icon="list">Danh sách danh mục</CDBSidebarMenuItem>
             </NavLink>
             <NavLink exact to="/admin/productlist" activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="boxes">Danh sách sản phẩm</CDBSidebarMenuItem>
+              <CDBSidebarMenuItem icon="box-open">Danh sách sản phẩm</CDBSidebarMenuItem>
             </NavLink>
             <NavLink exact to="/admin/userlist" activeClassName="activeClicked">
               <CDBSidebarMenuItem icon="user">Danh sách người dùng</CDBSidebarMenuItem>
