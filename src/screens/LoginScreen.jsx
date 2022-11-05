@@ -36,15 +36,14 @@ const LoginScreen = () => {
 
     const submitHandler = (e) => {
         e.preventDefault()
+        dispatch(login(email, password))
         if (email.trim().length === 0 || password.trim().length === 0) {
             setMessage("Vui lòng điền đủ thông tin")
         } else if (error) {
             setMessage("Vui lòng kiểm tra lại thông tin đăng nhập")
-        } else {
-            dispatch(login(email, password))
         }
     }
-    console.log('==', error);
+    // console.log('==', error);
 
     return (
         <Row className='px-3 mx-0 d-flex justify-content-center align-items-center'>

@@ -38,21 +38,20 @@ const RegisterScreen = () => {
 
     const submitHandler = (e) => {
         e.preventDefault()
-        if (name === "" || email === '' || password === '') {
+        dispatch(register(name, email, password))
+        if (name.trim().length === 0 || email.trim().length === 0 || password.trim().length === 0) {
             setMessage("Vui lòng điền đủ thông tin")
         } else if (error) {
             setMessage("Tài khoản đã tồn tại")
             setEmail('')
-        } else {
-            dispatch(register(name, email, password))
-        }
+        } 
     }
 
     return (
         <Row className='px-3 mx-0 d-flex justify-content-center align-items-center'>
             <Col xl={4} md={5} sm={7} style={{ background: '#f5f5f5', margin: '20px', padding: '0 40px', borderRadius: '20px' }} className='shadow rounded'>
                 <h3 className='d-flex justify-content-center pt-5 pb-3'>Đăng ký</h3>
-                {message && <Message variant='danger'>{message}</Message>}
+                <p style={{ color: 'red', textAlign: 'center' }}>{message}</p>
                 {loading && <Loader />}
                 <Form onSubmit={submitHandler}>
                     <Form.Group controlId='username'>
