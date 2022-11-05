@@ -36,20 +36,21 @@ const LoginScreen = () => {
 
     const submitHandler = (e) => {
         e.preventDefault()
-        if (email === '' || password === '') {
+        if (email.trim().length === 0 || password.trim().length === 0) {
             setMessage("Vui lòng điền đủ thông tin")
         } else if (error) {
-            setMessage("Email hoặc mật khẩu chưa chính xác")
+            setMessage("Vui lòng kiểm tra lại thông tin đăng nhập")
         } else {
             dispatch(login(email, password))
         }
     }
+    console.log('==', error);
 
     return (
         <Row className='px-3 mx-0 d-flex justify-content-center align-items-center'>
             <Col xl={4} md={5} sm={7} style={{ background: '#f5f5f5', margin: '20px', padding: '0 40px', borderRadius: '20px' }} className='shadow rounded'>
                 <h3 className='d-flex justify-content-center pt-5 pb-3'>Đăng nhập</h3>
-                {error && <Message variant='danger'>{message}</Message>}
+                <p style={{ color: 'red', textAlign: 'center' }}>{message}</p>
                 {loading && <Loader />}
                 <Form onSubmit={submitHandler} >
                     <Form.Group controlId='email'>
@@ -80,7 +81,7 @@ const LoginScreen = () => {
                         <p className='textCenter'>Hoặc</p>
                     </Form.Group>
                     <Form.Group className='d-flex justify-content-center align-items-center py-2 shadow-sm rounded' style={{ width: '100%', background: 'white', margin: '10px 0 20px 0', borderRadius: '30px', cursor: 'pointer' }}>
-                        <a style={{textDecoration: 'none', color: 'black'}} href="http://localhost:5000/auth/google" variant="light">
+                        <a style={{ textDecoration: 'none', color: 'black' }} href="http://localhost:5000/auth/google" variant="light">
                             <Image style={{ width: '25px', height: '25px', marginRight: '15px' }} src='https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/800px-Google_%22G%22_Logo.svg.png'></Image>
                             Đăng nhập với Google
                         </a>
