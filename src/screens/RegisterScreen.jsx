@@ -1,6 +1,6 @@
 import { React, useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { Row, Col, Button, Form, Image } from 'react-bootstrap'
+import { Row, Col, Button, Form, Image, ProgressBar } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
@@ -19,15 +19,11 @@ const RegisterScreen = () => {
     const userRegister = useSelector(state => state.userRegister)
     const { loading, error, userInfo } = userRegister
 
-    // let location = useLocation();
-    // const redirect = location.search ? location.search.split('=')[1] : '/'
-
     // Check showpassword
     const [passwordShown, setPasswordShown] = useState(false);
     const togglePasswordVisiblity = () => {
         setPasswordShown(passwordShown ? false : true);
     };
-
 
     useEffect(() => {
         if (userInfo) {
@@ -36,6 +32,30 @@ const RegisterScreen = () => {
         }
     }, [navigate, userInfo])
 
+    //Check level Password
+    let level = 0
+    var i = 0;
+    var character = '';
+    const checkLevel = (password) => {
+        while (i <= password.length) {
+            character = password.charAt(i);
+            if (!isNaN(character * 1)) {
+                level += 5
+            } else {
+                if (character === character.toUpperCase()) {
+                    level += 10
+                }
+                if (character === character.toLowerCase()) {
+                    level += 3
+                }
+            }
+            i++;
+        }
+    }
+    checkLevel(password)
+    console.log('==', message);
+
+    //Submit Login
     const submitHandler = (e) => {
         e.preventDefault()
         dispatch(register(name, email, password))
@@ -44,7 +64,7 @@ const RegisterScreen = () => {
         } else if (error) {
             setMessage("Tài khoản đã tồn tại")
             setEmail('')
-        } 
+        }
     }
 
     return (
@@ -62,11 +82,37 @@ const RegisterScreen = () => {
                         <Form.Label>Email</Form.Label>
                         <Form.Control type='email' placeholder='Nhập email' value={email} onChange={(e) => setEmail(e.target.value)}></Form.Control>
                     </Form.Group>
-                    <Form.Group controlId='password' className='pb-3'>
+                    <Form.Group controlId='password' className='pb-1'>
                         <Form.Label>Mật khẩu</Form.Label>
                         <Form.Control type={passwordShown ? "text" : "password"} placeholder='Nhập mật khẩu' value={password} onChange={(e) => setPassword(e.target.value)}></Form.Control>
                     </Form.Group>
-                    <Form.Group>
+                    {
+                        password.trim().length !== 0 &&
+                        <div className='mt-1'>
+                            <p className='my-0 mb-1' >*Sử dụng các ký tự tăng độ bảo mật: ABC123!@#</p>
+                            {
+                                level <= 33 && <p>Độ bảo mật: <span style={{color: 'red'}}>Yếu</span></p>
+                            }
+                            {
+                                (level > 33 && level <= 66) && <p>Độ bảo mật: <span style={{color: '#f5b800'}}>Trung bình</span></p>
+                            }
+                            {
+                                level > 66 && <p>Độ bảo mật: <span style={{color: 'green'}}>Cao</span></p>
+                            }
+                            <ProgressBar style={{ height: '5px' }} className='mb-3'>
+                                {
+                                    level <= 33 && <ProgressBar striped variant="danger" now={level} key={1} />
+                                }
+                                {
+                                    (level > 33 && level <= 66) && <ProgressBar variant="warning" now={level} key={2} />
+                                }
+                                {
+                                    level > 66 && <ProgressBar striped variant="success" now={level} key={3} />
+                                }
+                            </ProgressBar>
+                        </div>
+                    }
+                    <Form.Group className='mt-2'>
                         <Form>
                             <div key='default-checkbox' className="mb-3">
                                 <Form.Check
