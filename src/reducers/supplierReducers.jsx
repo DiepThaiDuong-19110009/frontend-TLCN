@@ -3,11 +3,11 @@ import { PRODUCT_SUPPLIER_DETAILS_FAIL, PRODUCT_SUPPLIER_DETAILS_REQUEST, PRODUC
 export const supplierListReducer = (state = { suppliers: [] }, action) => {
     switch (action.type) {
         case PRODUCT_SUPPLIER_REQUEST:
-            return { loadings: true, suppliers: [] }
+            return { loading: true, suppliers: [] }
         case PRODUCT_SUPPLIER_SUCCESS:
-            return { loadings: false, suppliers: action.payload }
+            return { loading: false, suppliers: action.payload }
         case PRODUCT_SUPPLIER_FAIL:
-            return { loadings: false, errors: action.payload }
+            return { loading: false, errors: action.payload }
         default:
             return state
     }

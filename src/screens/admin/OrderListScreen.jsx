@@ -7,7 +7,7 @@ import Message from '../../components/Message'
 import { deleteOrder, getOrder, updateOrder } from '../../actions/orderActions'
 
 const OrderListScreen = () => {
-  const [filter, setFilter] = useState('Tất cả')
+  const [filter, setFilter] = useState('ALL')
   const dispatch = useDispatch()
 
   const { loading, error, orders } = useSelector(state => state.orderList)
@@ -37,24 +37,13 @@ const OrderListScreen = () => {
     }
   }
 
-  // Load Status
-  // const LoadStatus = () => {
-  //   orders.forEach(item => {
-  //     if (item.status === "PROCESSING") {
-  //       dispatch(updateOrder({ _id: item._id, status: 'Chờ xác nhận' }))
-  //     }
-  //   })
-  // }
-
-  // LoadStatus()
-
   // Filter Status
   const arrFilterOrder = []
   const FilterStatus = (status) => {
     orders.filter(x => {
       if (x.status === status) {
         arrFilterOrder.push(x)
-      } else if (status === 'Tất cả') {
+      } else if (status === 'ALL') {
         arrFilterOrder.push(x)
       }
     })
@@ -88,14 +77,14 @@ const OrderListScreen = () => {
         </Col>
         <Col className='d-flex justify-content-end align-items-center'>
           <p className='my-0 mx-3'>Lọc đơn hàng</p>
-          {/* <select value={filter} onChange={(e) => setFilter(e.target.value)}>
-            <option>Tất cả</option>
-            <option>Chờ xác nhận</option>
-            <option>Đã xác nhận</option>
-            <option>Đang giao hàng</option>
-            <option>Giao hàng thành công</option>
-            <option>Đã hủy</option>
-          </select> */}
+          <select value={filter} onChange={(e) => setFilter(e.target.value)}>
+            <option>ALL</option>
+            <option>PROCESSING</option>
+            <option>CONFIRMED</option>
+            <option>DELIVERING</option>
+            <option>DONE</option>
+            <option>CANCEL</option>
+          </select>
         </Col>
       </Row>
       {loading ? <Loader /> : error ? <Message variant='danger'>{error}</Message> :
@@ -110,7 +99,7 @@ const OrderListScreen = () => {
                 <th className='text-center'>Địa chỉ giao hàng</th>
                 <th className='text-center'>Trạng thái</th>
                 <th className='text-center'>Tổng thanh toán</th>
-                <th className='text-center'>Hành động</th>
+                <th className='text-center'>Thao tác</th>
               </tr>
             </thead>
             <tbody>
@@ -149,7 +138,7 @@ const OrderListScreen = () => {
                       </Accordion.Item>
                     </Accordion>
                   </td>
-                  <td className='text-center'>{order.createdAt.slice(0, 10)}</td>
+                  <td className='text-center'>{order.createdAt.slice(0, 10)}, {order.createdAt.slice(12, 19)}</td>
                   <td className='text-center'>{order.address}</td>
                   {/* {
                     order.status === 'PROCESSING' ? <td className='text-center'>Chờ xác nhận</td> : <td className='text-center'>{order.status}</td>

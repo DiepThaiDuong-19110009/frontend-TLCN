@@ -53,7 +53,7 @@ const RegisterScreen = () => {
         }
     }
     checkLevel(password)
-    console.log('==', message);
+    // console.log('==', message);
 
     //Submit Login
     const submitHandler = (e) => {

@@ -13,7 +13,7 @@ const CategoryListScreen = () => {
     const { loading: loadingDelete, error: errorDelete, success: successDelete } = categoryDelete
 
     const categoryCreate = useSelector(state => state.categoryCreate)
-    const { loading: loadingCreate, error: errorCreate, success: successCreate, product: createdProduct } = categoryCreate
+    const { loading: loadingCreate, error: errorCreate, success: successCreate, product: createCategory } = categoryCreate
 
     const categoryList = useSelector(state => state.categoryList)
     const { loading, error, categories } = categoryList
@@ -82,6 +82,10 @@ const CategoryListScreen = () => {
                     </Button>
                 </Col>
             </Row>
+            {loadingDelete && <Loader />}
+            {errorDelete && <Message variant='danger'>{errorDelete}</Message>}
+            {loadingCreate && <Loader />}
+            {errorCreate && <Message variant='danger'>{errorCreate}</Message>}
             {loading ? <Loader /> : error ? <Message variant='danger'>{error}</Message> :
                 (
                     <Table bordered responsive className='table-sm'>
@@ -90,7 +94,7 @@ const CategoryListScreen = () => {
                                 <th className='text-center'>#</th>
                                 <th className='text-center'>Tên danh mục sản phẩm</th>
                                 <th className='text-center'>Ngày tạo</th>
-                                <th className='text-center'>Hành động</th>
+                                <th className='text-center'>Thao tác</th>
                             </tr>
                         </thead>
                         <tbody>

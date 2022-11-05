@@ -13,7 +13,7 @@ const SupplierListScreen = () => {
     const { loading: loadingDelete, error: errorDelete, success: successDelete } = supplierDelete
 
     const supplierCreate = useSelector(state => state.supplierCreate)
-    const { loading: loadingCreate, error: errorCreate, success: successCreate, product: createdProduct } = supplierCreate
+    const { loading: loadingCreate, error: errorCreate, success: successCreate, product: createSuppliers } = supplierCreate
 
     const { loading, error, suppliers } = useSelector(state => state.supplierList)
     console.log('==', suppliers)
@@ -31,7 +31,7 @@ const SupplierListScreen = () => {
             dispatch(listSupplier())
         }
         //eslint-disable-next-line 
-    }, [dispatch, navigate, userInfo, successCreate, successDelete, createSupplier])
+    }, [dispatch, navigate, userInfo, successCreate, successDelete, createSuppliers])
 
     const createSupplierHandler = () => {
         dispatch(createSupplier())
@@ -81,6 +81,10 @@ const SupplierListScreen = () => {
                     </Button>
                 </Col>
             </Row>
+            {loadingDelete && <Loader />}
+            {errorDelete && <Message variant='danger'>{errorDelete}</Message>}
+            {loadingCreate && <Loader />}
+            {errorCreate && <Message variant='danger'>{errorCreate}</Message>}
             {loading ? <Loader /> : error ? <Message variant='danger'>{error}</Message> :
                 (
                     <Table bordered responsive className='table-sm'>

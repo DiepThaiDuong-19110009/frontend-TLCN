@@ -8,11 +8,11 @@ import { PRODUCT_CATEGORY_REQUEST, PRODUCT_CATEGORY_SUCCESS, PRODUCT_CATEGORY_FA
 export const categoryListReducer = (state = { categories: [] }, action) => {
     switch (action.type) {
         case PRODUCT_CATEGORY_REQUEST:
-            return { loadings: true, categories: [] }
+            return { loading: true, categories: [] }
         case PRODUCT_CATEGORY_SUCCESS:
-            return { loadings: false, categories: action.payload }
+            return { loading: false, categories: action.payload }
         case PRODUCT_CATEGORY_FAIL:
-            return { loadings: false, errors: action.payload }
+            return { loading: false, errors: action.payload }
         default:
             return state
     }
