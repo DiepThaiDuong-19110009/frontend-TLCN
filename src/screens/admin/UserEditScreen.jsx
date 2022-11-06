@@ -1,6 +1,6 @@
 import { React, useState, useEffect } from 'react'
 import { Link, useParams, useNavigate } from 'react-router-dom'
-import { Button, Form } from 'react-bootstrap'
+import { Button, Form, Row, Card, Col } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../../components/Loader'
 import Message from '../../components/Message'
@@ -48,28 +48,42 @@ const UserEditScreen = () => {
     }
 
     return (
-        <div style={{ overflowY: 'scroll', height: '100vh', width: '100%', fontSize: '14px' }} className='py-5 px-5'>
+        <div style={{ overflowY: 'scroll', height: '100%', width: '100%', fontSize: '14px' }} className='px-5'>
             <Link to='/admin/userlist' className='btn btn-light my-3'>Quay lại</Link>
             <FormContainer>
-                <h3 className='d-flex justify-content-center py-3'>Chỉnh sửa thông tin người dùng</h3>
+                <h5 className='d-flex justify-content-center py-3'>Chỉnh sửa thông tin người dùng</h5>
                 {loadingUpdate ? <Loader /> : errorUpdate ? <Message variant='danger'>{error}</Message> :
                     (
-                        <Form onSubmit={submitHandler}>
-                            <Form.Group controlId='username'>
-                                <Form.Label>Tên người dùng</Form.Label>
-                                <Form.Control type='name' placeholder='Nhập tên người dùng' value={name} onChange={(e) => setName(e.target.value)}></Form.Control>
-                            </Form.Group>
-                            <Form.Group controlId='email' className='py-3'>
-                                <Form.Label>Email <i style={{ color: 'red' }} className='fas fa-exclamation-circle'></i></Form.Label>
-                                <Form.Control disabled={user.isAdmin ? "true" : ""} type='email' placeholder='Nhập email' value={email} onChange={(e) => setEmail(e.target.value)}></Form.Control>
-                            </Form.Group>
-                            <Form.Group controlId='isadmin'>
-                                <Form.Check disabled={user.isAdmin ? "true" : ""} style={{ color: 'red' }} type="checkbox" label='Cấp quyền quản trị viên' checked={isAdmin} onChange={(e) => setIsAdmin(e.target.checked)}></Form.Check>
-                            </Form.Group>
-                            <Form.Group className='d-flex justify-content-center py-3'>
-                                <Button type='submit' variant='primary'>Cập nhật</Button>
-                            </Form.Group>
-                        </Form>
+                        <Card className='mb-5'>
+                            <Card.Header className='py-0 pt-3'>
+                                <Row>
+                                    <h6>ID người dùng</h6>
+                                    <Row>
+                                        <p className='mx-0' style={{ width: 'auto' }}>{user._id}</p>
+                                    </Row>
+                                </Row>
+                            </Card.Header>
+                            <Card.Body>
+                                <div>
+                                    <Form onSubmit={submitHandler}>
+                                        <Form.Group controlId='username'>
+                                            <Form.Label>Tên người dùng</Form.Label>
+                                            <Form.Control type='name' placeholder='Nhập tên người dùng' value={name} onChange={(e) => setName(e.target.value)}></Form.Control>
+                                        </Form.Group>
+                                        <Form.Group controlId='email' className='py-3'>
+                                            <Form.Label>Email <i style={{ color: 'red' }} className='fas fa-exclamation-circle'></i></Form.Label>
+                                            <Form.Control disabled={user.isAdmin ? "true" : ""} type='email' placeholder='Nhập email' value={email} onChange={(e) => setEmail(e.target.value)}></Form.Control>
+                                        </Form.Group>
+                                        <Form.Group controlId='isadmin'>
+                                            <Form.Check disabled={user.isAdmin ? "true" : ""} style={{ color: 'red' }} type="checkbox" label='Cấp quyền quản trị viên' checked={isAdmin} onChange={(e) => setIsAdmin(e.target.checked)}></Form.Check>
+                                        </Form.Group>
+                                        <Form.Group className='d-flex justify-content-center py-3'>
+                                            <Button type='submit' variant='primary'>Cập nhật</Button>
+                                        </Form.Group>
+                                    </Form>
+                                </div>
+                            </Card.Body>
+                        </Card>
                     )}
             </FormContainer>
         </div>

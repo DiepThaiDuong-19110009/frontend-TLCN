@@ -1,6 +1,6 @@
 import { React, useState, useEffect } from 'react'
 import { Link, useParams, useNavigate } from 'react-router-dom'
-import { Button, Form } from 'react-bootstrap'
+import { Button, Form, Row, Col, Card } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../../components/Loader'
 import Message from '../../components/Message'
@@ -38,7 +38,7 @@ const SupplierEditScreen = () => {
 
     const submitHandler = (e) => {
         e.preventDefault()
-        dispatch(updateSupplier({_id: supplierId, name}))
+        dispatch(updateSupplier({ _id: supplierId, name }))
     }
 
     return (
@@ -48,15 +48,29 @@ const SupplierEditScreen = () => {
                 <h3 className='d-flex justify-content-center py-3'>Chỉnh sửa thông tin nhà cung cấp</h3>
                 {loadingUpdate ? <Loader /> : errorUpdate ? <Message variant='danger'>{error}</Message> :
                     (
-                        <Form onSubmit={submitHandler}>
-                            <Form.Group controlId='productname'>
-                                <Form.Label>Tên nhà cung cấp</Form.Label>
-                                <Form.Control className='mb-3' type='name' placeholder='Nhập tên nhà cung cấp' value={name} onChange={(e) => setName(e.target.value)}></Form.Control>
-                            </Form.Group>
-                            <Form.Group className='d-flex justify-content-center py-3'>
-                                <Button type='submit' variant='primary'>Cập nhật</Button>
-                            </Form.Group>
-                        </Form>
+                        <Card className='mb-5'>
+                            <Card.Header className='py-0 pt-3'>
+                                <Row>
+                                    <h6>ID nhà cung cấp</h6>
+                                    <Row>
+                                        <p className='mx-0' style={{ width: 'auto' }}>{supplier._id}</p>
+                                    </Row>
+                                </Row>
+                            </Card.Header>
+                            <Card.Body>
+                                <div>
+                                    <Form onSubmit={submitHandler}>
+                                        <Form.Group controlId='productname'>
+                                            <Form.Label>Tên nhà cung cấp</Form.Label>
+                                            <Form.Control className='mb-3' type='name' placeholder='Nhập tên nhà cung cấp' value={name} onChange={(e) => setName(e.target.value)}></Form.Control>
+                                        </Form.Group>
+                                        <Form.Group className='d-flex justify-content-center py-3'>
+                                            <Button type='submit' variant='primary'>Cập nhật</Button>
+                                        </Form.Group>
+                                    </Form>
+                                </div>
+                            </Card.Body>
+                        </Card>
                     )}
             </FormContainer>
         </div>

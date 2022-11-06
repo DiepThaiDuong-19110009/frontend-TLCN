@@ -40,7 +40,7 @@ const SupplierDetailAdminScreen = () => {
                 {loading ? <Loader /> : error ? <Message variant='danger'>{error}</Message> :
                     (
                         <Card className='mb-5'>
-                            <Card.Header>
+                            <Card.Header className='py-0 pt-3'>
                                 <Row>
                                     <h6>ID danh mục</h6>
                                     <Row>

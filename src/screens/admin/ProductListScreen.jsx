@@ -92,11 +92,11 @@ const ProductListScreen = () => {
     // console.log('==', idDelete);
 
     return (
-        <div style={{ overflowY: 'scroll', height: '100%', width: '100%', fontSize: '14px' }} className='py-5 px-5'>
+        <div style={{ overflowY: 'scroll', height: '100%', width: '100%', fontSize: '14px' }} className='py-4 px-5'>
             <Row className='align-items-center py-0' id="productAdmin" >
                 <Row>
                     <Col>
-                        <h3>Danh sách sản phẩm</h3>
+                        <h5>Danh sách sản phẩm</h5>
                     </Col>
                 </Row>
                 <Col>

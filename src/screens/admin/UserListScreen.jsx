@@ -73,11 +73,11 @@ const UserListScreen = () => {
     }
 
     return (
-        <div style={{ overflowY: 'scroll', height: '100%', width: '100%', fontSize: '14px' }} className='py-5 px-5'>
+        <div style={{ overflowY: 'scroll', height: '100%', width: '100%', fontSize: '14px' }} className='py-4 px-5'>
             <Row className='align-items-center'>
                 <Row>
                     <Col>
-                        <h3>Danh sách người dùng</h3>
+                        <h5>Danh sách người dùng</h5>
                     </Col>
                 </Row>
                 <Col>

@@ -64,11 +64,11 @@ const SupplierListScreen = () => {
     }
 
     return (
-        <div style={{ overflowY: 'scroll', height: '100%', width: '100%', fontSize: '14px' }} className='py-5 px-5'>
+        <div style={{ overflowY: 'scroll', height: '100%', width: '100%', fontSize: '14px' }} className='py-4 px-5'>
             <Row className='align-items-center'>
                 <Row>
                     <Col>
-                        <h3>Danh sách nhà cung cấp</h3>
+                        <h5>Danh sách nhà cung cấp</h5>
                     </Col>
                 </Row>
                 <Col>

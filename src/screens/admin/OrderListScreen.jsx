@@ -64,11 +64,11 @@ const OrderListScreen = () => {
   }
 
   return (
-    <div style={{ overflowY: 'scroll', height: '100%', width: '100%', fontSize: '14px' }} className='py-5 px-5'>
+    <div style={{ overflowY: 'scroll', height: '100%', width: '100%', fontSize: '14px' }} className='py-4 px-5'>
       <Row className='align-items-center pb-4'>
         <Row>
           <Col>
-            <h3 className='pb-4'>Danh sách đơn hàng</h3>
+            <h5 className='pb-4'>Danh sách đơn hàng</h5>
           </Col>
         </Row>
         <Col>
