@@ -46,11 +46,23 @@ const HeaderAdmin = () => {
         //eslint-disable-next-line 
     }, [dispatch])
 
+    // confirm All Order
+    const statusAll = 'CONFIRMED'
+    const confirmAllOrder = () => {
+        orders.forEach(order => {
+            if (order.status === 'PROCESSING') {
+                dispatch(updateOrder(order._id, statusAll))
+            }
+        })
+        window.location.reload(false)
+    }
+
     // Confirm Order
     const status = 'CONFIRMED'
     const confirmOrder = (idOrder) => {
         dispatch(updateOrder(idOrder, status))
-        window.location.reload()
+        window.location.reload(false)
+
     }
 
     return (
@@ -71,8 +83,8 @@ const HeaderAdmin = () => {
                             <i data-tip data-for="tip6" style={{ cursor: 'pointer', fontSize: '20px' }} className="far fa-bell"></i>
                             {
                                 arrNotification.length !== 0 ?
-                                <i style={{ position: 'absolute', top: '-5px', right: '-15px', color: 'red', fontSize: '8px' }} className="fas fa-circle"></i> :
-                                <i style={{ position: 'absolute', top: '-5px', right: '-15px', color: 'white', fontSize: '8px' }} className="fas fa-circle"></i>
+                                    <i style={{ position: 'absolute', top: '-5px', right: '-15px', color: 'red', fontSize: '8px' }} className="fas fa-circle"></i> :
+                                    <i style={{ position: 'absolute', top: '-5px', right: '-15px', color: 'white', fontSize: '8px' }} className="fas fa-circle"></i>
                             }
                         </Row>
                         <Modal
@@ -83,19 +95,26 @@ const HeaderAdmin = () => {
                         >
                             <Modal.Header closeButton>
                                 <Modal.Title id="example-modal-sizes-title-lg">
-                                    <h6>Thông báo</h6>
+                                    <h5>Thông báo</h5>
                                 </Modal.Title>
                             </Modal.Header>
                             <Modal.Body>
+                                <Row className='d-flex justify-content-end align-items-center px-2 mb-3'>
+                                    {
+                                        arrNotification.length !== 0 ?
+                                            <Button variant="outline-primary" onClick={() => confirmAllOrder()} style={{ width: 'auto' }}>Xác nhận tất cả</Button> :
+                                            <p></p>
+                                    }
+                                </Row>
                                 {
                                     arrNotification.length !== 0 ?
                                         arrNotification.map(order => (
                                             <Row className='d-flex justify-content-between align-items-center px-2 mb-3'>
                                                 <h6 className='mx-0' style={{ width: 'auto' }}>Đơn hàng: ID {order} yêu cầu xác nhận</h6>
-                                                <Button onClick={() => confirmOrder(order)} style={{ width: 'auto' }}>Xác nhận</Button>
+                                                <Button variant="outline-primary" onClick={() => confirmOrder(order)} style={{ width: 'auto' }}>Xác nhận</Button>
                                             </Row>
                                         )) :
-                                        <p style={{textAlign: 'center'}}>Không có thông báo</p>
+                                        <p style={{ textAlign: 'center' }}>Không có thông báo</p>
                                 }
                             </Modal.Body>
                         </Modal>
