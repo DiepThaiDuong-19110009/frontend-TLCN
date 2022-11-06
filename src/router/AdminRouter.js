@@ -21,6 +21,8 @@ import SupplierEditScreen from '../screens/admin/SupplierEditScreen';
 import SupplierDetailAdminScreen from '../screens/admin/SupplierDetailScreen';
 import HeaderAdmin from '../components/HeaderAdmin';
 import ProductDetailAdminScreen from '../screens/admin/ProductAdminDetailScreen';
+import UserDetailScreen from '../screens/admin/UserDetailScreen';
+import OrderDetailScreen from '../screens/admin/OrderDetailScreen';
 
 const AdminRouter = () => {
   // Take Screenshots
@@ -55,6 +57,7 @@ const AdminRouter = () => {
           <Routes>
             <Route path='/userlist' element={<UserListScreen />} />
             <Route path='/user/:id/edit' element={<UserEditScreen />} />
+            <Route path='/user/:id/detail' element={<UserDetailScreen />} />
             <Route path='/supplierlist' element={<SupplierListScreen />} />
             <Route path='/supplier/:id/edit' element={<SupplierEditScreen />} />
             <Route path='/supplier/:id/detail' element={<SupplierDetailAdminScreen />} />
@@ -66,6 +69,7 @@ const AdminRouter = () => {
             <Route path='/category/:id/detail' element={<CategoryDetailAdminScreen />} />
             <Route path='/orderlist' element={<OrderListScreen />} />
             <Route path='/order/:id/edit' element={<OrderEditScreen />} />
+            <Route path='/order/:id/detail' element={<OrderDetailScreen />} />
             <Route path='/statistic' element={<StatisticScreen />} />
           </Routes>
         </div>

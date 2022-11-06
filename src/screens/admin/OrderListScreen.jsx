@@ -93,8 +93,6 @@ const OrderListScreen = () => {
               <tr>
                 <th className='text-center'>#</th>
                 <th className='text-center'>Người đặt hàng</th>
-                <th className='text-center'>Giỏ hàng</th>
-                <th className='text-center'>Ngày đặt</th>
                 <th className='text-center'>Địa chỉ giao hàng</th>
                 <th className='text-center'>Trạng thái</th>
                 <th className='text-center'>Tổng thanh toán</th>
@@ -108,36 +106,6 @@ const OrderListScreen = () => {
                     <strong>{index + 1}</strong>
                   </td>
                   <td className='text-center'>{order.user.name}</td>
-                  <td className='text-center'>
-                    <Accordion className='py-0 px-0' defaultActiveKey="1">
-                      <Accordion.Item eventKey="0">
-                        <Accordion.Header className='py-0 px-0'>Xem chi tiết</Accordion.Header>
-                        <Accordion.Body>
-                          {order.products.map((product, index) => (
-                            <Table>
-                              <thead>
-                                <tr>
-                                  <th>#</th>
-                                  <th>Tên sản phẩm</th>
-                                  <th>Số lượng</th>
-                                  <th>Thành tiền</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr>
-                                  <td>{index + 1}</td>
-                                  <td>{product.name}</td>
-                                  <td>{product.count}</td>
-                                  <td>{`${(product.count * product.price).toLocaleString('vi', { style: 'currency', currency: 'VND' })}`}</td>
-                                </tr>
-                              </tbody>
-                            </Table>
-                          ))}
-                        </Accordion.Body>
-                      </Accordion.Item>
-                    </Accordion>
-                  </td>
-                  <td className='text-center'>{order.createdAt.slice(0, 10)}, {order.createdAt.slice(12, 19)}</td>
                   <td className='text-center'>{order.address}</td>
                   {/* {
                     order.status === 'PROCESSING' ? <td className='text-center'>Chờ xác nhận</td> : <td className='text-center'>{order.status}</td>
@@ -145,7 +113,7 @@ const OrderListScreen = () => {
                   <td className='text-center'>{order.status}</td>
                   <td className='text-center'>{order.total?.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</td>
                   <td className='d-flex justify-content-center'>
-                    <Link data-tip data-for="tip1" to={`/admin/order/${order._id}/edit`}>
+                    <Link data-tip data-for="tip1" to={`/admin/order/${order._id}/detail`}>
                       <Button variant='info' className='btn-sm'>
                         <i style={{ color: 'white' }} className="fas fa-info-circle"></i>
                       </Button>

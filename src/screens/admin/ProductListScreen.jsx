@@ -130,14 +130,12 @@ const ProductListScreen = () => {
                                 <th className='text-center'>Hình ảnh</th>
                                 <th className='text-center'>Tên sản phẩm</th>
                                 <th className='text-center'>Nhà cung cấp</th>
-                                <th className='text-center'>Số lượng nhập</th>
-                                <th className='text-center'>Giá nhập</th>
-                                {/* <th className='text-center'>Mô tả</th> */}
-                                <th className='text-center'>Giá sản phẩm</th>
                                 <th className='text-center'>Danh mục</th>
-                                <th className='text-center'>Số lượng</th>
+                                <th className='text-center'>Giá nhập</th>
+                                <th className='text-center'>Giá bán</th>
+                                <th className='text-center'>Số lượng nhập</th>
                                 <th className='text-center'>Đã bán</th>
-                                {/* <th className='text-center'>Ngày tạo</th> */}
+                                <th className='text-center'>Tồn kho</th>
                                 <th className='text-center'>Thao tác</th>
                             </tr>
                         </thead>
@@ -150,23 +148,12 @@ const ProductListScreen = () => {
                                     <td className='text-center'><img style={{ width: '50px' }} src={product.photo} alt={product.name} /></td>
                                     <td className='text-center'>{product.name}</td>
                                     <td className='text-center'>{product.supplier?.id?.name}</td>
-                                    <td className='text-center'>{product.supplier?.quantityImport}</td>
-                                    <td className='text-center'>{product.supplier?.price}</td>
-                                    {/* <td>
-                                        <Accordion className='py-0 px-0' defaultActiveKey="1">
-                                            <Accordion.Item eventKey="0">
-                                                <Accordion.Header className='py-0 px-0'>Xem chi tiết</Accordion.Header>
-                                                <Accordion.Body>
-                                                    {product.description}
-                                                </Accordion.Body>
-                                            </Accordion.Item>
-                                        </Accordion>
-                                    </td> */}
-                                    <td className='text-center'>{product.price?.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</td>
                                     <td className='text-center'>{product.category.name}</td>
-                                    <td className='text-center'>{product.quantity}</td>
+                                    <td className='text-center'>{product.supplier?.price?.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</td>
+                                    <td className='text-center'>{product.price?.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</td>
+                                    <td className='text-center'>{product.supplier?.quantityImport}</td>
                                     <td className='text-center'>{product.sold}</td>
-                                    {/* <td className='text-center'>{product.createdAt}</td> */}
+                                    <td className='text-center'>{product.quantity}</td>
                                     <td className='d-flex justify-content-center'>
                                         <Link data-tip data-for="tip1" to={`/admin/product/${product._id}/detail`}>
                                             <Button variant='info' className='btn-sm'>

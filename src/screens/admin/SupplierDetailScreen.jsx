@@ -39,7 +39,7 @@ const SupplierDetailAdminScreen = () => {
                 <h5 className='d-flex justify-content-center py-3'>Chi tiết thông tin danh mục sản phẩm</h5>
                 {loading ? <Loader /> : error ? <Message variant='danger'>{error}</Message> :
                     (
-                        <Card>
+                        <Card className='mb-5'>
                             <Card.Header>
                                 <Row>
                                     <h6>ID danh mục</h6>

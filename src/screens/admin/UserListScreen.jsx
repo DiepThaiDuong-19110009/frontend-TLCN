@@ -103,8 +103,7 @@ const UserListScreen = () => {
                                 <th className='text-center'>Số điện thoại</th>
                                 <th className='text-center'>Địa chỉ</th>
                                 <th className='text-center'>Admin</th>
-                                <th className='text-center'>Ngày tạo tài khoản</th>
-                                <th className='text-center'>Hành động</th>
+                                <th className='text-center'>Thao tác</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -130,9 +129,8 @@ const UserListScreen = () => {
                                             <i className='fas fa-times' style={{ color: 'red' }}></i>
                                         )}
                                     </td>
-                                    <td className='text-center'>{user.createdAt.slice(0, 10)}</td>
                                     <td className='d-flex justify-content-center'>
-                                        <Link data-tip data-for="tip1" to={`/admin/user/${user._id}/edit`}>
+                                        <Link data-tip data-for="tip1" to={`/admin/user/${user._id}/detail`}>
                                             <Button variant='info' className='btn-sm'>
                                                 <i style={{ color: 'white' }} className="fas fa-info-circle"></i>
                                             </Button>
