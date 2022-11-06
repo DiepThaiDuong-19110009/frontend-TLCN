@@ -1,6 +1,6 @@
 import { React, useState, useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { Col, Row, Card, Accordion } from 'react-bootstrap'
+import { Col, Row, Card, Accordion, Button } from 'react-bootstrap'
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../../components/Loader'
@@ -34,7 +34,12 @@ const OrderDetailScreen = () => {
 
     return (
         <div style={{ overflowY: 'scroll', height: '100%', width: '100%', fontSize: '14px' }} className='px-5'>
-            <Link to='/admin/userlist' className='btn btn-light mt-3'>Quay lại</Link>
+            <Link to='/admin/orderlist' style={{ textDecoration: 'none' }}>
+                <Button variant="outline-success" className='my-3 d-flex justify-content-center align-items-center'>
+                    <i className="fas fa-chevron-left"></i>
+                    <p className='my-0' style={{marginLeft: '10px'}}>Quay lại</p>
+                </Button>
+            </Link>
             <FormContainer>
                 <h5 className='d-flex justify-content-center py-3'>Chi tiết thông tin đơn hàng</h5>
                 {loading ? <Loader /> : error ? <Message variant='danger'>{error}</Message> :
@@ -56,7 +61,7 @@ const OrderDetailScreen = () => {
                                     <Row>
                                         <Col>
                                             <h6>Tên người nhận</h6>
-                                            <p>{order.user.name}</p>
+                                            <p>{order.user?.name}</p>
                                         </Col>
                                         <Col>
                                             <h6>Trạng thái đơn hàng</h6>
@@ -65,16 +70,16 @@ const OrderDetailScreen = () => {
                                     </Row>
                                     <Row>
                                         <h6>Email người nhận</h6>
-                                        <p>{order.user.email}</p>
+                                        <p>{order.user?.email}</p>
                                     </Row>
                                     <Row>
                                         <Col>
                                             <h6>Số điện thoại</h6>
-                                            <p>{order.user.phone}</p>
+                                            <p>{order.user?.phone}</p>
                                         </Col>
                                         <Col>
                                             <h6>Địa chỉ giao hàng</h6>
-                                            <p>{order.user.address}</p>
+                                            <p>{order.user?.address}</p>
                                         </Col>
                                     </Row>
                                     <Row>
@@ -128,10 +133,10 @@ const OrderDetailScreen = () => {
                                             <h6>Ngày đặt hàng</h6>
                                             <Row>
                                                 <Col xl={5}>
-                                                    <p>Ngày: {order.user.createdAt?.slice(0, 10)}</p>
+                                                    <p>Ngày: {order.createdAt?.slice(0, 10)}</p>
                                                 </Col>
                                                 <Col>
-                                                    <p>Vào lúc: {order.user.createdAt?.slice(11, 19)}</p>
+                                                    <p>Vào lúc: {order.createdAt?.slice(11, 19)}</p>
                                                 </Col>
                                             </Row>
                                         </Col>
@@ -139,10 +144,10 @@ const OrderDetailScreen = () => {
                                             <h6>Cập nhật lần cuối</h6>
                                             <Row>
                                                 <Col xl={5}>
-                                                    <p>Ngày: {order.user.updatedAt?.slice(0, 10)}</p>
+                                                    <p>Ngày: {order.updatedAt?.slice(0, 10)}</p>
                                                 </Col>
                                                 <Col>
-                                                    <p>Vào lúc: {order.user.updatedAt?.slice(11, 19)}</p>
+                                                    <p>Vào lúc: {order.updatedAt?.slice(11, 19)}</p>
                                                 </Col>
                                             </Row>
                                         </Col>

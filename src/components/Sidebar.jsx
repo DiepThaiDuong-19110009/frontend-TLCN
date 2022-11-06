@@ -8,17 +8,13 @@ import {
   CDBSidebarMenuItem,
 } from 'cdbreact';
 import { NavLink } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 
 const Sidebar = () => {
-  const userLogin = useSelector(state => state.userLogin)
-  const { userInfo } = userLogin
-
   return (
     <div style={{ display: 'flex', height: '100vh', width: '100%', fontSize: '14px' }} className='px-0'>
       <CDBSidebar textColor="#f5f5f5" backgroundColor="#000011" style={{ width: '100%' }}>
         <CDBSidebarHeader>
-          <p style={{ fontSize: '20px' }}>HDKMart Admin</p>
+          <p style={{ fontSize: '20px', margin: '0px', textAlign: 'center' }}>HDKMart Admin</p>
         </CDBSidebarHeader>
         <CDBSidebarContent>
           <CDBSidebarMenu>

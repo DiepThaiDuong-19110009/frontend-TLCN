@@ -101,7 +101,12 @@ const ProductEditScreen = () => {
 
     return (
         <div style={{ overflowY: 'scroll', height: '100%', width: '100%', fontSize: '14px' }} className='px-5'>
-            <Link to='/admin/productlist' className='btn btn-light my-3'>Quay lại</Link>
+            <Link to='/admin/productlist' style={{ textDecoration: 'none' }}>
+                <Button variant="outline-success" className='my-3 d-flex justify-content-center align-items-center'>
+                    <i className="fas fa-chevron-left"></i>
+                    <p className='my-0' style={{marginLeft: '10px'}}>Quay lại</p>
+                </Button>
+            </Link>
             <FormContainer>
                 <h5 className='d-flex justify-content-center py-3'>Chỉnh sửa thông tin sản phẩm</h5>
                 {loadingUpdate ? <Loader /> : errorUpdate ? <Message variant='danger'>{error}</Message> :
@@ -120,11 +125,11 @@ const ProductEditScreen = () => {
                                     <Form.Group controlId='productimage'>
                                         <Form.Label>Hình ảnh sản phẩm</Form.Label>
                                         <Form.Control className='mb-3' type='name' placeholder='Đường dẫn file ảnh' value={photo} onChange={(e) => setPhoto(e.target.value)}></Form.Control>
-                                        <div className='d-flex justify-content-center'>
-                                            <Zoom>
-                                                <img className='shadow p-3 mb-5 bg-white rounded' style={{ width: '40%' }} src={photo} alt={name} />
-                                            </Zoom>
-                                        </div>
+                                        <Zoom>
+                                            <div className='d-flex justify-content-center'>
+                                                <img className='p-3 mb-3' style={{ width: '30%', margin: '10px auto', border: '1px solid #f1f1f1', borderRadius: '15px' }} src={photo} alt={name} />
+                                            </div>
+                                        </Zoom>
                                     </Form.Group>
                                     <Form.Group controlId='productname'>
                                         <Form.Label>Tên sản phẩm</Form.Label>

@@ -76,7 +76,7 @@ const OrderListScreen = () => {
         </Col>
         <Col className='d-flex justify-content-end align-items-center'>
           <p className='my-0 mx-3'>Lọc đơn hàng</p>
-          <select value={filter} onChange={(e) => setFilter(e.target.value)}>
+          <select style={{border: '2px solid gray', borderRadius: '5px'}} value={filter} onChange={(e) => setFilter(e.target.value)}>
             <option>ALL</option>
             <option>PROCESSING</option>
             <option>CONFIRMED</option>

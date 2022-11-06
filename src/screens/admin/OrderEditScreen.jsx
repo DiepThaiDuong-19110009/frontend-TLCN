@@ -46,7 +46,12 @@ const OrderEditScreen = () => {
 
     return (
         <div style={{ overflowY: 'scroll', height: '100%', width: '100%', fontSize: '14px' }} className='px-5'>
-            <Link to='/admin/orderlist' className='btn btn-light my-3'>Quay lại</Link>
+            <Link to='/admin/orderlist' style={{ textDecoration: 'none' }}>
+                <Button variant="outline-success" className='my-3 d-flex justify-content-center align-items-center'>
+                    <i className="fas fa-chevron-left"></i>
+                    <p className='my-0' style={{ marginLeft: '10px' }}>Quay lại</p>
+                </Button>
+            </Link>
             <FormContainer>
                 <h5 className='d-flex justify-content-center py-3'>Chỉnh sửa trạng thái đơn hàng</h5>
                 {loadingUpdate ? <Loader /> : errorUpdate ? <Message variant='danger'>{error}</Message> :

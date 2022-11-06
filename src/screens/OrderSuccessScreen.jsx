@@ -6,7 +6,7 @@ import { Container } from 'react-bootstrap';
 const OrderSuccessScreen = () => {
 
     return (
-        <Container>
+        <Container className='my-5'>
             <Alert variant="success">
                 <Alert.Heading>Đặt hàng thành công</Alert.Heading>
                 <p>
@@ -15,7 +15,7 @@ const OrderSuccessScreen = () => {
                 </p>
                 <hr />
                 <div className="d-flex justify-content-end">
-                    <Link to='/'>
+                    <Link style={{textDecoration: 'none', color: 'black'}} to='/'>
                         Quay lại trang chủ
                     </Link>
                 </div>

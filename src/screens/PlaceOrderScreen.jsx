@@ -43,7 +43,7 @@ const PlaceOrderScreen = () => {
         products: cartItems,
         amount: count,
         address: shippingAddress.address + ', ' + shippingAddress.city + ', ' + shippingAddress.country,
-        status: 'PROCESSING',
+        // status: 'PROCESSING',
         total: cart.totalPrice,
         user: userInfo.user
     }

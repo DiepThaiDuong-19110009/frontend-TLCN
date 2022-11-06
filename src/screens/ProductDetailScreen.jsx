@@ -75,7 +75,7 @@ const ProductDetailScreen = () => {
                         <Card style={{ width: '100%', border: 'none' }}>
                             <Card.Body>
                                 <Card.Title><h4>{product.name}</h4></Card.Title>
-                                <Card.Subtitle className="my-3 text-muted"><h6>Nhà cung cấp: {product.supplier}</h6></Card.Subtitle>
+                                <Card.Subtitle className="my-3 text-muted"><h6>Nhà cung cấp: {product.supplier?.id?.name}</h6></Card.Subtitle>
                                 <Card.Text className='d-flex justify-content-between'>
                                     <Rating value={product.rating} text={`${product.reviews?.length} đánh giá`} />
                                     <div className='d-flex justify-content-between align-items-center'>

@@ -104,7 +104,7 @@ const ProductListScreen = () => {
                 </Col>
                 <Col className='d-flex justify-content-end align-items-center'>
                     <p className='my-0 mx-3'>Lọc sản phẩm</p>
-                    <select value={filter} onChange={(e) => setFilter(e.target.value)}>
+                    <select style={{border: '2px solid gray', borderRadius: '5px'}} value={filter} onChange={(e) => setFilter(e.target.value)}>
                         <option>Tất cả</option>
                         {categories.map(cate => (
                             <option>{cate.name}</option>

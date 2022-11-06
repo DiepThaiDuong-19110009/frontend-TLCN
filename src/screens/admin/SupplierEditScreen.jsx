@@ -42,10 +42,15 @@ const SupplierEditScreen = () => {
     }
 
     return (
-        <div style={{ overflowY: 'scroll', height: '100vh', width: '100%', fontSize: '14px' }} className='py-5 px-5'>
-            <Link to='/admin/supplierlist' className='btn btn-light my-3'>Quay lại</Link>
+        <div style={{ overflowY: 'scroll', height: '100vh', width: '100%', fontSize: '14px' }} className='px-5'>
+            <Link to='/admin/supplierlist' style={{ textDecoration: 'none' }}>
+                <Button variant="outline-success" className='my-3 d-flex justify-content-center align-items-center'>
+                    <i className="fas fa-chevron-left"></i>
+                    <p className='my-0' style={{marginLeft: '10px'}}>Quay lại</p>
+                </Button>
+            </Link>
             <FormContainer>
-                <h3 className='d-flex justify-content-center py-3'>Chỉnh sửa thông tin nhà cung cấp</h3>
+                <h5 className='d-flex justify-content-center py-3'>Chỉnh sửa thông tin nhà cung cấp</h5>
                 {loadingUpdate ? <Loader /> : errorUpdate ? <Message variant='danger'>{error}</Message> :
                     (
                         <Card className='mb-5'>

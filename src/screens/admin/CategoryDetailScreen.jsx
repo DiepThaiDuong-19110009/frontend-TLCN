@@ -1,6 +1,6 @@
 import { React, useState, useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { Col, Row, Card } from 'react-bootstrap'
+import { Col, Row, Card, Button } from 'react-bootstrap'
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../../components/Loader'
@@ -34,7 +34,12 @@ const CategoryDetailAdminScreen = () => {
 
     return (
         <div style={{ overflowY: 'scroll', height: '100%', width: '100%', fontSize: '14px' }} className='px-5'>
-            <Link to='/admin/categorylist' className='btn btn-light mt-3'>Quay lại</Link>
+            <Link to='/admin/categorylist' style={{ textDecoration: 'none' }}>
+                <Button variant="outline-success" className='my-3 d-flex justify-content-center align-items-center'>
+                    <i className="fas fa-chevron-left"></i>
+                    <p className='my-0' style={{marginLeft: '10px'}}>Quay lại</p>
+                </Button>
+            </Link>
             <FormContainer>
                 <h5 className='d-flex justify-content-center py-3'>Chi tiết thông tin danh mục sản phẩm</h5>
                 {loading ? <Loader /> : error ? <Message variant='danger'>{error}</Message> :
