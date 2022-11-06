@@ -1,6 +1,7 @@
 import { React, useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { Table, Button, Row, Col, Modal, DropdownButton, Dropdown, Accordion } from 'react-bootstrap'
+import { useNavigate, Link } from 'react-router-dom'
+import { Table, Button, Row, Col, Modal, Accordion } from 'react-bootstrap'
+import ReactTooltip from 'react-tooltip'
 import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../../components/Loader'
 import Message from '../../components/Message'
@@ -91,7 +92,7 @@ const ProductListScreen = () => {
     // console.log('==', idDelete);
 
     return (
-        <div style={{ overflowY: 'scroll', height: '100vh', width: '100%', fontSize: '14px' }} className='py-5 px-5'>
+        <div style={{ overflowY: 'scroll', height: '100%', width: '100%', fontSize: '14px' }} className='py-5 px-5'>
             <Row className='align-items-center py-0' id="productAdmin" >
                 <Row>
                     <Col>
@@ -137,7 +138,7 @@ const ProductListScreen = () => {
                                 <th className='text-center'>Nhà cung cấp</th>
                                 <th className='text-center'>Số lượng nhập</th>
                                 <th className='text-center'>Giá nhập</th>
-                                <th className='text-center'>Mô tả</th>
+                                {/* <th className='text-center'>Mô tả</th> */}
                                 <th className='text-center'>Giá sản phẩm</th>
                                 <th className='text-center'>Danh mục</th>
                                 <th className='text-center'>Số lượng</th>
@@ -157,7 +158,7 @@ const ProductListScreen = () => {
                                     <td className='text-center'>{product.supplier?.id?.name}</td>
                                     <td className='text-center'>{product.supplier?.quantityImport}</td>
                                     <td className='text-center'>{product.supplier?.price}</td>
-                                    <td>
+                                    {/* <td>
                                         <Accordion className='py-0 px-0' defaultActiveKey="1">
                                             <Accordion.Item eventKey="0">
                                                 <Accordion.Header className='py-0 px-0'>Xem chi tiết</Accordion.Header>
@@ -166,27 +167,37 @@ const ProductListScreen = () => {
                                                 </Accordion.Body>
                                             </Accordion.Item>
                                         </Accordion>
-                                    </td>
+                                    </td> */}
                                     <td className='text-center'>{product.price?.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</td>
                                     <td className='text-center'>{product.category.name}</td>
                                     <td className='text-center'>{product.quantity}</td>
                                     <td className='text-center'>{product.sold}</td>
                                     {/* <td className='text-center'>{product.createdAt}</td> */}
-                                    <td className='d-flex justify-content-around'>
-                                        <DropdownButton style={{ fontSize: '14px' }} variant="outline-primary" id="dropdown-basic-button" title="">
-                                            <Dropdown.Item className='d-flex justify-content-between align-items-center' href={`/admin/product/${product._id}/edit`}>
-                                                <Button variant='secondary' className='btn-sm'>
-                                                    <i className='fas fa-edit'></i>
-                                                </Button>
-                                                <p className='my-0'>Chỉnh sửa</p>
-                                            </Dropdown.Item>
-                                            <Dropdown.Item onClick={() => handleShow(product._id)} className='d-flex justify-content-between align-items-center'>
-                                                <Button variant='danger' className='btn-sm'>
-                                                    <i className='fas fa-trash'></i>
-                                                </Button>
-                                                <p className='my-0'>Xóa</p>
-                                            </Dropdown.Item>
-                                        </DropdownButton>
+                                    <td className='d-flex justify-content-center'>
+                                    <Link data-tip data-for="tip1" to={`/admin/product/${product._id}/edit`}>
+                                            <Button variant='info' className='btn-sm'>
+                                                <i style={{ color: 'white' }} className="fas fa-info-circle"></i>
+                                            </Button>
+                                        </Link>
+                                        <ReactTooltip id="tip1" place="top" effect="solid">
+                                            Chi tiết thông tin sản phẩm
+                                        </ReactTooltip>
+
+                                        <Link data-tip data-for="tip2" className='px-2' to={`/admin/product/${product._id}/edit`}>
+                                            <Button variant='secondary' className='btn-sm'>
+                                                <i className='fas fa-edit'></i>
+                                            </Button>
+                                        </Link>
+                                        <ReactTooltip id="tip2" place="top" effect="solid">
+                                            Chỉnh sửa thông tin sản phẩm
+                                        </ReactTooltip>
+
+                                        <Button disabled data-tip data-for="tip3" onClick={() => handleShow(product._id)} variant='danger' className='btn-sm'>
+                                            <i className='fas fa-trash'></i>
+                                        </Button>
+                                        <ReactTooltip id="tip3" place="top" effect="solid">
+                                            Xóa sản phẩm
+                                        </ReactTooltip>
                                     </td>
                                 </tr>
                             ))}

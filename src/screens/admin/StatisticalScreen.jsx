@@ -28,7 +28,7 @@ const StatisticScreen = () => {
     }, [dispatch, getIncome])
 
     return (
-        <div style={{ overflowY: 'scroll', height: '100vh', width: '100%', fontSize: '14px' }} className='py-5 px-5'>
+        <div style={{ overflowY: 'scroll', height: '100%', width: '100%', fontSize: '14px' }} className='py-5 px-5'>
             <div className="col-md-12">
                 <h3 className='pb-3'>Thống kê</h3>
             </div>

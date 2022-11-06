@@ -1,6 +1,7 @@
 import { React, useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { Table, Button, Row, Col, Modal, Dropdown, DropdownButton } from 'react-bootstrap'
+import { useNavigate, Link } from 'react-router-dom'
+import { Table, Button, Row, Col, Modal } from 'react-bootstrap'
+import ReactTooltip from 'react-tooltip'
 import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../../components/Loader'
 import Message from '../../components/Message'
@@ -77,7 +78,7 @@ const UserListScreen = () => {
     }
 
     return (
-        <div style={{ overflowY: 'scroll', height: '100vh', width: '100%', fontSize: '14px' }} className='py-5 px-5'>
+        <div style={{ overflowY: 'scroll', height: '100%', width: '100%', fontSize: '14px' }} className='py-5 px-5'>
             <Row className='align-items-center'>
                 <Row>
                     <Col>
@@ -141,21 +142,31 @@ const UserListScreen = () => {
                                         )}
                                     </td>
                                     <td className='text-center'>{user.createdAt.slice(0, 10)}</td>
-                                    <td className='d-flex justify-content-around'>
-                                        <DropdownButton variant="outline-primary" id="dropdown-basic-button" title="Hành động">
-                                            <Dropdown.Item className='d-flex justify-content-between align-items-center' href={`/admin/user/${user._id}/edit`}>
-                                                <Button variant='secondary' className='btn-sm'>
-                                                    <i className='fas fa-edit'></i>
-                                                </Button>
-                                                <p className='my-0'>Chỉnh sửa</p>
-                                            </Dropdown.Item>
-                                            <Dropdown.Item disabled={user.isAdmin ? "true" : ""} onClick={() => handleShow(user._id)} className='d-flex justify-content-between align-items-center'>
-                                                <Button disabled={user.isAdmin ? "true" : ""} variant='danger' className='btn-sm'>
-                                                    <i className='fas fa-trash'></i>
-                                                </Button>
-                                                <p className='my-0'>Xóa</p>
-                                            </Dropdown.Item>
-                                        </DropdownButton>
+                                    <td className='d-flex justify-content-center'>
+                                        <Link data-tip data-for="tip1" to={`/admin/user/${user._id}/edit`}>
+                                            <Button variant='info' className='btn-sm'>
+                                                <i style={{ color: 'white' }} className="fas fa-info-circle"></i>
+                                            </Button>
+                                        </Link>
+                                        <ReactTooltip id="tip1" place="top" effect="solid">
+                                            Chi tiết thông tin người dùng
+                                        </ReactTooltip>
+
+                                        <Link data-tip data-for="tip2" className='px-2' to={`/admin/user/${user._id}/edit`}>
+                                            <Button variant='secondary' className='btn-sm'>
+                                                <i className='fas fa-edit'></i>
+                                            </Button>
+                                        </Link>
+                                        <ReactTooltip id="tip2" place="top" effect="solid">
+                                            Chỉnh sửa thông tin người dùng
+                                        </ReactTooltip>
+
+                                        <Button disabled data-tip data-for="tip3" onClick={() => handleShow(user._id)} variant='danger' className='btn-sm'>
+                                            <i className='fas fa-trash'></i>
+                                        </Button>
+                                        <ReactTooltip id="tip3" place="top" effect="solid">
+                                            Xóa người dùng
+                                        </ReactTooltip>
                                     </td>
                                 </tr>
                             ))}

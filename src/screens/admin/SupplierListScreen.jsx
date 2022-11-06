@@ -1,6 +1,7 @@
 import { React, useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { Table, Button, Row, Col, Modal, DropdownButton, Dropdown } from 'react-bootstrap'
+import { Link, useNavigate } from 'react-router-dom'
+import { Table, Button, Row, Col, Modal } from 'react-bootstrap'
+import ReactTooltip from 'react-tooltip'
 import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../../components/Loader'
 import Message from '../../components/Message'
@@ -16,7 +17,7 @@ const SupplierListScreen = () => {
     const { loading: loadingCreate, error: errorCreate, success: successCreate, product: createSuppliers } = supplierCreate
 
     const { loading, error, suppliers } = useSelector(state => state.supplierList)
-    console.log('==', suppliers)
+    // console.log('==', suppliers)
 
     const userLogin = useSelector(state => state.userLogin)
     const { userInfo } = userLogin
@@ -37,6 +38,15 @@ const SupplierListScreen = () => {
         dispatch(createSupplier())
         window.location.reload()
     }
+
+    // Init Data
+    const arrSupplier = []
+    const InitData = () => {
+        suppliers?.forEach(supplier => {
+            arrSupplier.push(supplier)
+        })
+    }
+    InitData()
 
     //Delete user
     const deleteHandler = (supplierId) => {
@@ -59,7 +69,7 @@ const SupplierListScreen = () => {
     }
 
     return (
-        <div style={{ overflowY: 'scroll', height: '100vh', width: '100%', fontSize: '14px' }} className='py-5 px-5'>
+        <div style={{ overflowY: 'scroll', height: '100%', width: '100%', fontSize: '14px' }} className='py-5 px-5'>
             <Row className='align-items-center'>
                 <Row>
                     <Col>
@@ -77,7 +87,7 @@ const SupplierListScreen = () => {
                 </Col>
                 <Col className='d-flex justify-content-end'>
                     <Button style={{ background: 'green', border: 'none' }} className='my-3' onClick={createSupplierHandler}>
-                        <i className='fas fa-plus'></i> Thêm danh mục
+                        <i className='fas fa-plus'></i> Thêm nhà cung cấp
                     </Button>
                 </Col>
             </Row>
@@ -93,11 +103,11 @@ const SupplierListScreen = () => {
                                 <th className='text-center'>#</th>
                                 <th className='text-center'>Tên nhà cung cấp</th>
                                 {/* <th className='text-center'>Ngày tạo</th> */}
-                                <th className='text-center'>Hành động</th>
+                                <th className='text-center'>Thao tác</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {suppliers?.reverse().map((supplier, index) => (
+                            {arrSupplier?.reverse().map((supplier, index) => (
                                 <tr key={supplier._id}>
                                     <td className='text-center'>
                                         <strong>
@@ -105,21 +115,31 @@ const SupplierListScreen = () => {
                                         </strong>
                                     </td>
                                     <td>{supplier.name}</td>
-                                    <td className='d-flex justify-content-around'>
-                                        <DropdownButton variant="outline-primary" id="dropdown-basic-button" title="Hành động">
-                                            <Dropdown.Item className='d-flex justify-content-between align-items-center' href={`/admin/supplier/${supplier._id}/edit`}>
-                                                <Button variant='secondary' className='btn-sm'>
-                                                    <i className='fas fa-edit'></i>
-                                                </Button>
-                                                <p className='my-0'>Chỉnh sửa</p>
-                                            </Dropdown.Item>
-                                            <Dropdown.Item onClick={() => handleShow(supplier._id)} className='d-flex justify-content-between align-items-center'>
-                                                <Button variant='danger' className='btn-sm'>
-                                                    <i className='fas fa-trash'></i>
-                                                </Button>
-                                                <p className='my-0'>Xóa</p>
-                                            </Dropdown.Item>
-                                        </DropdownButton>
+                                    <td className='d-flex justify-content-center'>
+                                        <Link data-tip data-for="tip1" to={`/admin/supplier/${supplier._id}/edit`}>
+                                            <Button variant='info' className='btn-sm'>
+                                                <i style={{ color: 'white' }} className="fas fa-info-circle"></i>
+                                            </Button>
+                                        </Link>
+                                        <ReactTooltip id="tip1" place="top" effect="solid">
+                                            Chi tiết thông tin nhà cung cấp
+                                        </ReactTooltip>
+
+                                        <Link data-tip data-for="tip2" className='px-2' to={`/admin/supplier/${supplier._id}/edit`}>
+                                            <Button variant='secondary' className='btn-sm'>
+                                                <i className='fas fa-edit'></i>
+                                            </Button>
+                                        </Link>
+                                        <ReactTooltip id="tip2" place="top" effect="solid">
+                                            Chỉnh sửa thông tin nhà cung cấp
+                                        </ReactTooltip>
+
+                                        <Button disabled data-tip data-for="tip3" onClick={() => handleShow(supplier._id)} variant='danger' className='btn-sm'>
+                                            <i className='fas fa-trash'></i>
+                                        </Button>
+                                        <ReactTooltip id="tip3" place="top" effect="solid">
+                                            Xóa nhà cung cấp
+                                        </ReactTooltip>
                                     </td>
                                 </tr>
                             ))}

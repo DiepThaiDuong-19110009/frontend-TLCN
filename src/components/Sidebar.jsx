@@ -19,30 +19,29 @@ const Sidebar = () => {
       <CDBSidebar textColor="#f5f5f5" backgroundColor="#000011" style={{ width: '100%' }}>
         <CDBSidebarHeader>
           <p style={{ fontSize: '20px' }}>HDKMart Admin</p>
-          <p style={{ fontSize: '13px', color: '#cccccc' }}>Xin chào, {userInfo.user.name}</p>
         </CDBSidebarHeader>
         <CDBSidebarContent>
           <CDBSidebarMenu>
             <NavLink exact to="/admin/supplierlist" activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="boxes">Danh sách nhà cung cấp</CDBSidebarMenuItem>
+              <CDBSidebarMenuItem className='mx-0 px-3' id='sidebaritem' icon="boxes">Danh sách nhà cung cấp</CDBSidebarMenuItem>
             </NavLink>
             <NavLink exact to="/admin/categorylist" activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="list">Danh sách danh mục</CDBSidebarMenuItem>
+              <CDBSidebarMenuItem className='mx-0 px-3' id='sidebaritem' icon="list">Danh sách danh mục</CDBSidebarMenuItem>
             </NavLink>
             <NavLink exact to="/admin/productlist" activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="box-open">Danh sách sản phẩm</CDBSidebarMenuItem>
+              <CDBSidebarMenuItem className='mx-0 px-3' id='sidebaritem' icon="box-open">Danh sách sản phẩm</CDBSidebarMenuItem>
             </NavLink>
             <NavLink exact to="/admin/userlist" activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="user">Danh sách người dùng</CDBSidebarMenuItem>
+              <CDBSidebarMenuItem className='mx-0 px-3' id='sidebaritem' icon="user">Danh sách người dùng</CDBSidebarMenuItem>
             </NavLink>
             <NavLink exact to="/admin/orderlist" activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="cart-plus">Danh sách đơn hàng</CDBSidebarMenuItem>
+              <CDBSidebarMenuItem className='mx-0 px-3' id='sidebaritem' icon="cart-plus">Danh sách đơn hàng</CDBSidebarMenuItem>
             </NavLink>
             <NavLink exact to="/admin/statistic" activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="chart-line">Thống kê</CDBSidebarMenuItem>
+              <CDBSidebarMenuItem className='mx-0 px-3' id='sidebaritem' icon="chart-line">Thống kê</CDBSidebarMenuItem>
             </NavLink>
             <NavLink exact to="/" activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="arrow-left">Thoát</CDBSidebarMenuItem>
+              <CDBSidebarMenuItem className='mx-0 px-3' id='sidebaritem' icon="arrow-left">Thoát</CDBSidebarMenuItem>
             </NavLink>
           </CDBSidebarMenu>
         </CDBSidebarContent>

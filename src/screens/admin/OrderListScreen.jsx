@@ -1,6 +1,7 @@
 import { React, useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { Table, Button, Row, Col, Dropdown, DropdownButton, Accordion } from 'react-bootstrap'
+import { Link, useNavigate } from 'react-router-dom'
+import { Table, Button, Row, Col, Modal, Accordion } from 'react-bootstrap'
+import ReactTooltip from 'react-tooltip'
 import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../../components/Loader'
 import Message from '../../components/Message'
@@ -58,8 +59,17 @@ const OrderListScreen = () => {
     window.location.reload(false)
   }
 
+  // Alert
+  const [idDelete, setIdDelete] = useState('')
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = (id) => {
+    setShow(true);
+    setIdDelete(id)
+  }
+
   return (
-    <div style={{ overflowY: 'scroll', height: '100vh', width: '100%', fontSize: '14px' }} className='py-5 px-5'>
+    <div style={{ overflowY: 'scroll', height: '100%', width: '100%', fontSize: '14px' }} className='py-5 px-5'>
       <Row className='align-items-center pb-4'>
         <Row>
           <Col>
@@ -145,21 +155,31 @@ const OrderListScreen = () => {
                   } */}
                   <td className='text-center'>{order.status}</td>
                   <td className='text-center'>{order.total?.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</td>
-                  <td className='d-flex justify-content-around'>
-                    <DropdownButton variant="outline-primary" id="dropdown-basic-button" title="Hành động">
-                      <Dropdown.Item className='d-flex justify-content-between align-items-center' href={`/admin/order/${order._id}/edit`}>
-                        <Button variant='secondary' className='btn-sm'>
-                          <i className='fas fa-edit'></i>
-                        </Button>
-                        <p className='my-0'>Chỉnh sửa</p>
-                      </Dropdown.Item>
-                      {/* <Dropdown.Item onClick={() => handleShow(order._id)} className='d-flex justify-content-between align-items-center'>
-                        <Button variant='danger' className='btn-sm'>
-                          <i className='fas fa-trash'></i>
-                        </Button>
-                        <p className='my-0'>Xóa</p>
-                      </Dropdown.Item> */}
-                    </DropdownButton>
+                  <td className='d-flex justify-content-center'>
+                    <Link data-tip data-for="tip1" to={`/admin/order/${order._id}/edit`}>
+                      <Button variant='info' className='btn-sm'>
+                        <i style={{ color: 'white' }} className="fas fa-info-circle"></i>
+                      </Button>
+                    </Link>
+                    <ReactTooltip id="tip1" place="top" effect="solid">
+                      Chi tiết thông tin đơn hàng
+                    </ReactTooltip>
+
+                    <Link data-tip data-for="tip2" className='px-2' to={`/admin/order/${order._id}/edit`}>
+                      <Button variant='secondary' className='btn-sm'>
+                        <i className='fas fa-edit'></i>
+                      </Button>
+                    </Link>
+                    <ReactTooltip id="tip2" place="top" effect="solid">
+                      Chỉnh sửa thông tin đơn hàng
+                    </ReactTooltip>
+
+                    <Button disabled data-tip data-for="tip3" onClick={() => handleShow(order._id)} variant='danger' className='btn-sm'>
+                      <i className='fas fa-trash'></i>
+                    </Button>
+                    <ReactTooltip id="tip3" place="top" effect="solid">
+                      Xóa đơn hàng
+                    </ReactTooltip>
                   </td>
                 </tr>
               ))}
@@ -167,6 +187,25 @@ const OrderListScreen = () => {
           </Table>
         )}
       {arrFilterOrder.length === 0 ? <p className='text-center'>Không có đơn hàng nào ở trạng thái ({filter})</p> : <p></p>}
+      <Modal
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Xóa nhà cung cấp</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          Bạn có chắc chắn muốn xóa nhà cung cấp này không?
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Hủy
+          </Button>
+          <Button variant="danger" onClick={() => deleteHandler(idDelete)}>Xóa nhà cung cấp</Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   )
 }

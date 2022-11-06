@@ -96,13 +96,13 @@ const ChangePassword = () => {
                             }
                             <ProgressBar style={{ height: '5px' }} className='mb-3'>
                                 {
-                                    level <= 33 && <ProgressBar striped variant="danger" now={level} key={1} />
+                                    level <= 33 && <ProgressBar variant="danger" now={level} key={1} />
                                 }
                                 {
                                     (level > 33 && level <= 66) && <ProgressBar variant="warning" now={level} key={2} />
                                 }
                                 {
-                                    level > 66 && <ProgressBar striped variant="success" now={level} key={3} />
+                                    level > 66 && <ProgressBar variant="success" now={level} key={3} />
                                 }
                             </ProgressBar>
                         </div>

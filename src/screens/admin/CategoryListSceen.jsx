@@ -1,6 +1,7 @@
 import { React, useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { Table, Button, Row, Col, Modal, DropdownButton, Dropdown } from 'react-bootstrap'
+import { useNavigate, Link } from 'react-router-dom'
+import { Table, Button, Row, Col, Modal } from 'react-bootstrap'
+import ReactTooltip from 'react-tooltip'
 import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../../components/Loader'
 import Message from '../../components/Message'
@@ -13,7 +14,7 @@ const CategoryListScreen = () => {
     const { loading: loadingDelete, error: errorDelete, success: successDelete } = categoryDelete
 
     const categoryCreate = useSelector(state => state.categoryCreate)
-    const { loading: loadingCreate, error: errorCreate, success: successCreate, product: createCategory } = categoryCreate
+    const { loading: loadingCreate, error: errorCreate, success: successCreate, product: createCategorys } = categoryCreate
 
     const categoryList = useSelector(state => state.categoryList)
     const { loading, error, categories } = categoryList
@@ -32,22 +33,26 @@ const CategoryListScreen = () => {
             dispatch(listCategory())
         }
         //eslint-disable-next-line 
-    }, [dispatch, navigate, userInfo, successDelete, successCreate, createCategory])
+    }, [dispatch, navigate, userInfo, successDelete, successCreate, createCategorys])
 
     const createCategoryHandler = () => {
         dispatch(createCategory())
         window.location.reload()
     }
 
+    // Init Data
+    const arrCategory = []
+    const InitData = () => {
+        categories?.forEach(category => {
+            arrCategory.push(category)
+        })
+    }
+    InitData()
+
     //Delete user
     const deleteHandler = (categoryId) => {
         dispatch(deleteCategory(categoryId))
         setShow(false)
-    }
-
-    // load page
-    const loadpage = () => {
-        window.location.reload(false)
     }
 
     // Alert
@@ -60,17 +65,11 @@ const CategoryListScreen = () => {
     }
 
     return (
-        <div style={{ overflowY: 'scroll', height: '100vh', width: '100%', fontSize: '14px' }} className='py-5 px-5'>
+        <div style={{ overflowY: 'scroll', height: '100%', width: '100%', fontSize: '14px' }} className='py-5 px-5'>
             <Row className='align-items-center'>
                 <Row>
                     <Col>
                         <h3>Danh sách danh mục sản phẩm</h3>
-                    </Col>
-                    <Col className='d-flex justify-content-end align-items-center'>
-                        <Button variant="outline-secondary" onClick={loadpage} className='d-flex justify-content-center align-items-center'>
-                            <i className="fas fa-redo-alt"></i>
-                            <p className='my-0 mx-3'>Tải lại</p>
-                        </Button>
                     </Col>
                 </Row>
                 <Col>
@@ -98,7 +97,7 @@ const CategoryListScreen = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {categories.reverse().map((category, index) => (
+                            {arrCategory.reverse().map((category, index) => (
                                 <tr key={category._id}>
                                     <td className='text-center'>
                                         <strong>
@@ -107,21 +106,31 @@ const CategoryListScreen = () => {
                                     </td>
                                     <td>{category.name}</td>
                                     <td className='text-center'>{category.createdAt.slice(0, 10)}</td>
-                                    <td className='d-flex justify-content-around'>
-                                        <DropdownButton variant="outline-primary" id="dropdown-basic-button" title="Hành động">
-                                            <Dropdown.Item className='d-flex justify-content-between align-items-center' href={`/admin/category/${category._id}/edit`}>
-                                                <Button variant='secondary' className='btn-sm'>
-                                                    <i className='fas fa-edit'></i>
-                                                </Button>
-                                                <p className='my-0'>Chỉnh sửa</p>
-                                            </Dropdown.Item>
-                                            <Dropdown.Item onClick={() => handleShow(category._id)} className='d-flex justify-content-between align-items-center'>
-                                                <Button variant='danger' className='btn-sm'>
-                                                    <i className='fas fa-trash'></i>
-                                                </Button>
-                                                <p className='my-0'>Xóa</p>
-                                            </Dropdown.Item>
-                                        </DropdownButton>
+                                    <td className='d-flex justify-content-center'>
+                                        <Link data-tip data-for="tip1" to={`/admin/category/${category._id}/detail`}>
+                                            <Button variant='info' className='btn-sm'>
+                                                <i style={{ color: 'white' }} className="fas fa-info-circle"></i>
+                                            </Button>
+                                        </Link>
+                                        <ReactTooltip id="tip1" place="top" effect="solid">
+                                            Chi tiết thông tin danh mục sản phẩm
+                                        </ReactTooltip>
+
+                                        <Link data-tip data-for="tip2" className='px-2' to={`/admin/category/${category._id}/edit`}>
+                                            <Button variant='secondary' className='btn-sm'>
+                                                <i className='fas fa-edit'></i>
+                                            </Button>
+                                        </Link>
+                                        <ReactTooltip id="tip2" place="top" effect="solid">
+                                            Chỉnh sửa thông tin danh mục sản phẩm
+                                        </ReactTooltip>
+
+                                        <Button disabled data-tip data-for="tip3" onClick={() => handleShow(category._id)} variant='danger' className='btn-sm'>
+                                            <i className='fas fa-trash'></i>
+                                        </Button>
+                                        <ReactTooltip id="tip3" place="top" effect="solid">
+                                            Xóa danh mục sản phẩm
+                                        </ReactTooltip>
                                     </td>
                                 </tr>
                             ))}

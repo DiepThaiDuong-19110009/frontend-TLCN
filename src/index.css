@@ -102,3 +102,7 @@ h3 {
 .nav-tabs .nav-link.active {
   border-bottom: solid 4px white !important;
 }
+
+#sidebaritem:hover {
+  background-color: rgba(174, 174, 174, 0.163);
+}

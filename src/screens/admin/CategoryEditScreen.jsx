@@ -28,7 +28,7 @@ const CategoryEditScreen = () => {
             navigate('/admin/categorylist')
             window.location.reload()
         } else {
-            if (!category.name || category._id !== categoryId) {
+            if (!category?.name || category._id !== categoryId) {
                 dispatch(listCategoryDetails(categoryId))
             } else {
                 setName(category.name)
@@ -45,7 +45,7 @@ const CategoryEditScreen = () => {
         <div style={{ overflowY: 'scroll', height: '100vh', width: '100%', fontSize: '14px' }} className='py-5 px-5'>
             <Link to='/admin/categorylist' className='btn btn-light my-3'>Quay lại</Link>
             <FormContainer>
-                <h1 className='d-flex justify-content-center py-3'>Chỉnh sửa thông tin danh mục sản phẩm</h1>
+                <h3 className='d-flex justify-content-center py-3'>Chỉnh sửa thông tin danh mục sản phẩm</h3>
                 {loadingUpdate ? <Loader /> : errorUpdate ? <Message variant='danger'>{error}</Message> :
                     (
                         <Form onSubmit={submitHandler}>
