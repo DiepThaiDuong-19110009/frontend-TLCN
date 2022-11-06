@@ -11,14 +11,16 @@ import ProductListScreen from '../screens/admin/ProductListScreen';
 import ProductEditScreen from '../screens/admin/ProductEditScreen';
 import CategoryListScreen from '../screens/admin/CategoryListSceen';
 import CategoryEditScreen from '../screens/admin/CategoryEditScreen';
-import CategoryEditAdminScreen from '../screens/admin/CategoryDetailScreen';
+import CategoryDetailAdminScreen from '../screens/admin/CategoryDetailScreen';
 import OrderListScreen from '../screens/admin/OrderListScreen';
 import OrderEditScreen from '../screens/admin/OrderEditScreen';
 import Sidebar from '../components/Sidebar'
 import StatisticScreen from '../screens/admin/StatisticalScreen';
 import SupplierListScreen from '../screens/admin/SupplierListScreen';
 import SupplierEditScreen from '../screens/admin/SupplierEditScreen';
+import SupplierDetailAdminScreen from '../screens/admin/SupplierDetailScreen';
 import HeaderAdmin from '../components/HeaderAdmin';
+import ProductDetailAdminScreen from '../screens/admin/ProductAdminDetailScreen';
 
 const AdminRouter = () => {
   // Take Screenshots
@@ -55,11 +57,13 @@ const AdminRouter = () => {
             <Route path='/user/:id/edit' element={<UserEditScreen />} />
             <Route path='/supplierlist' element={<SupplierListScreen />} />
             <Route path='/supplier/:id/edit' element={<SupplierEditScreen />} />
+            <Route path='/supplier/:id/detail' element={<SupplierDetailAdminScreen />} />
             <Route path='/productlist' element={<ProductListScreen />} />
             <Route path='/product/:id/edit' element={<ProductEditScreen />} />
+            <Route path='/product/:id/detail' element={<ProductDetailAdminScreen />} />
             <Route path='/categorylist' element={<CategoryListScreen />} />
             <Route path='/category/:id/edit' element={<CategoryEditScreen />} />
-            <Route path='/category/:id/detail' element={<CategoryEditAdminScreen />} />
+            <Route path='/category/:id/detail' element={<CategoryDetailAdminScreen />} />
             <Route path='/orderlist' element={<OrderListScreen />} />
             <Route path='/order/:id/edit' element={<OrderEditScreen />} />
             <Route path='/statistic' element={<StatisticScreen />} />

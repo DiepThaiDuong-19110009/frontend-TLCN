@@ -63,11 +63,6 @@ const UserListScreen = () => {
     FilterUser(filter)
     // console.log('==', filter)
 
-    // load page
-    const loadpage = () => {
-        window.location.reload(false)
-    }
-
     // Alert
     const [idDelete, setIdDelete] = useState('')
     const [show, setShow] = useState(false);
@@ -83,12 +78,6 @@ const UserListScreen = () => {
                 <Row>
                     <Col>
                         <h3>Danh sách người dùng</h3>
-                    </Col>
-                    <Col className='d-flex justify-content-end align-items-center'>
-                        <Button variant="outline-secondary" onClick={loadpage} className='d-flex justify-content-center align-items-center'>
-                            <i className="fas fa-redo-alt"></i>
-                            <p className='my-0 mx-3'>Tải lại</p>
-                        </Button>
                     </Col>
                 </Row>
                 <Col>

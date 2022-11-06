@@ -98,12 +98,6 @@ const ProductListScreen = () => {
                     <Col>
                         <h3>Danh sách sản phẩm</h3>
                     </Col>
-                    <Col className='d-flex justify-content-end align-items-center'>
-                        <Button variant="outline-secondary" onClick={loadpage} className='d-flex justify-content-center align-items-center'>
-                            <i className="fas fa-redo-alt"></i>
-                            <p className='my-0 mx-3'>Tải lại</p>
-                        </Button>
-                    </Col>
                 </Row>
                 <Col>
                     <h6>Tổng số lượng: {arrFilterProduct.length} sản phẩm ({filter})</h6>
@@ -118,8 +112,8 @@ const ProductListScreen = () => {
                     </select>
                 </Col>
                 <Col className='d-flex justify-content-end'>
-                    <Button style={{ background: 'green', border: 'none' }} className='my-3' onClick={createProductHandler}>
-                        <i className='fas fa-plus'></i> Thêm sản phẩm
+                    <Button variant="outline-success" className='my-3' onClick={createProductHandler}>
+                        <i style={{ marginRight: '5px' }} className='fas fa-plus'></i> Thêm sản phẩm
                     </Button>
                 </Col>
             </Row>
@@ -174,7 +168,7 @@ const ProductListScreen = () => {
                                     <td className='text-center'>{product.sold}</td>
                                     {/* <td className='text-center'>{product.createdAt}</td> */}
                                     <td className='d-flex justify-content-center'>
-                                    <Link data-tip data-for="tip1" to={`/admin/product/${product._id}/edit`}>
+                                        <Link data-tip data-for="tip1" to={`/admin/product/${product._id}/detail`}>
                                             <Button variant='info' className='btn-sm'>
                                                 <i style={{ color: 'white' }} className="fas fa-info-circle"></i>
                                             </Button>

@@ -54,11 +54,6 @@ const SupplierListScreen = () => {
         setShow(false)
     }
 
-    // load page
-    const loadpage = () => {
-        window.location.reload(false)
-    }
-
     // Alert
     const [idDelete, setIdDelete] = useState('')
     const [show, setShow] = useState(false);
@@ -75,19 +70,13 @@ const SupplierListScreen = () => {
                     <Col>
                         <h3>Danh sách nhà cung cấp</h3>
                     </Col>
-                    <Col className='d-flex justify-content-end align-items-center'>
-                        <Button variant="outline-secondary" onClick={loadpage} className='d-flex justify-content-center align-items-center'>
-                            <i className="fas fa-redo-alt"></i>
-                            <p className='my-0 mx-3'>Tải lại</p>
-                        </Button>
-                    </Col>
                 </Row>
                 <Col>
                     <h6>Tổng số lượng: {suppliers?.length} nhà cung cấp</h6>
                 </Col>
                 <Col className='d-flex justify-content-end'>
-                    <Button style={{ background: 'green', border: 'none' }} className='my-3' onClick={createSupplierHandler}>
-                        <i className='fas fa-plus'></i> Thêm nhà cung cấp
+                    <Button variant="outline-success" className='my-3' onClick={createSupplierHandler}>
+                        <i style={{ marginRight: '5px' }} className='fas fa-plus'></i> Thêm nhà cung cấp
                     </Button>
                 </Col>
             </Row>
@@ -116,7 +105,7 @@ const SupplierListScreen = () => {
                                     </td>
                                     <td>{supplier.name}</td>
                                     <td className='d-flex justify-content-center'>
-                                        <Link data-tip data-for="tip1" to={`/admin/supplier/${supplier._id}/edit`}>
+                                        <Link data-tip data-for="tip1" to={`/admin/supplier/${supplier._id}/detail`}>
                                             <Button variant='info' className='btn-sm'>
                                                 <i style={{ color: 'white' }} className="fas fa-info-circle"></i>
                                             </Button>

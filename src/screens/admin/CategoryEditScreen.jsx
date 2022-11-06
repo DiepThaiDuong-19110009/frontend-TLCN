@@ -42,7 +42,7 @@ const CategoryEditScreen = () => {
     }
 
     return (
-        <div style={{ overflowY: 'scroll', height: '100vh', width: '100%', fontSize: '14px' }} className='py-5 px-5'>
+        <div style={{ overflowY: 'scroll', height: '100vh', width: '100%', fontSize: '14px' }} className='px-5'>
             <Link to='/admin/categorylist' className='btn btn-light my-3'>Quay lại</Link>
             <FormContainer>
                 <h3 className='d-flex justify-content-center py-3'>Chỉnh sửa thông tin danh mục sản phẩm</h3>

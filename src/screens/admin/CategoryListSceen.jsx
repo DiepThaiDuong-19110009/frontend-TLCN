@@ -65,19 +65,19 @@ const CategoryListScreen = () => {
     }
 
     return (
-        <div style={{ overflowY: 'scroll', height: '100%', width: '100%', fontSize: '14px' }} className='py-5 px-5'>
+        <div style={{ overflowY: 'scroll', height: '100%', width: '100%', fontSize: '14px' }} className='py-4 px-5'>
             <Row className='align-items-center'>
                 <Row>
                     <Col>
-                        <h3>Danh sách danh mục sản phẩm</h3>
+                        <h5>Danh sách danh mục sản phẩm</h5>
                     </Col>
                 </Row>
                 <Col>
                     <h6>Tổng số lượng: {categories.length} danh mục</h6>
                 </Col>
                 <Col className='d-flex justify-content-end'>
-                    <Button style={{ background: 'green', border: 'none' }} className='my-3' onClick={createCategoryHandler}>
-                        <i className='fas fa-plus'></i> Thêm danh mục
+                    <Button variant="outline-success" className='my-3' onClick={createCategoryHandler}>
+                        <i style={{marginRight: '5px'}} className='fas fa-plus'></i> Thêm danh mục
                     </Button>
                 </Col>
             </Row>
@@ -93,6 +93,7 @@ const CategoryListScreen = () => {
                                 <th className='text-center'>#</th>
                                 <th className='text-center'>Tên danh mục sản phẩm</th>
                                 <th className='text-center'>Ngày tạo</th>
+                                <th className='text-center'>Cập nhật lần cuối</th>
                                 <th className='text-center'>Thao tác</th>
                             </tr>
                         </thead>
@@ -106,6 +107,7 @@ const CategoryListScreen = () => {
                                     </td>
                                     <td>{category.name}</td>
                                     <td className='text-center'>{category.createdAt.slice(0, 10)}</td>
+                                    <td className='text-center'>{category.updatedAt.slice(0, 10)}</td>
                                     <td className='d-flex justify-content-center'>
                                         <Link data-tip data-for="tip1" to={`/admin/category/${category._id}/detail`}>
                                             <Button variant='info' className='btn-sm'>

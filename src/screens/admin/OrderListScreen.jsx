@@ -54,11 +54,6 @@ const OrderListScreen = () => {
   // console.log('==', filter)
   // console.log('==', arrFilterOrder)
 
-  // load page
-  const loadpage = () => {
-    window.location.reload(false)
-  }
-
   // Alert
   const [idDelete, setIdDelete] = useState('')
   const [show, setShow] = useState(false);
@@ -74,12 +69,6 @@ const OrderListScreen = () => {
         <Row>
           <Col>
             <h3 className='pb-4'>Danh sách đơn hàng</h3>
-          </Col>
-          <Col className='d-flex justify-content-end align-items-center'>
-            <Button variant="outline-secondary" onClick={loadpage} className='d-flex justify-content-center align-items-center'>
-              <i className="fas fa-redo-alt"></i>
-              <p className='my-0 mx-3'>Tải lại</p>
-            </Button>
           </Col>
         </Row>
         <Col>

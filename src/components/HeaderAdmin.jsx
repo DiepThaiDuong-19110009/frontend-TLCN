@@ -39,8 +39,9 @@ const HeaderAdmin = () => {
             <Container className="justify-content-end">
                 <Row className='d-flex justify-content-center align-items-center'>
                     <Navbar.Collapse>
-                        <Row className='py-0 d-flex' style={{ width: 'auto', paddingRight: '30px' }}>
-                            <i data-tip data-for="tip6" style={{ cursor: 'pointer', fontSize: '20px' }} className="far fa-bell"></i>
+                        <Row className='py-0 d-flex justify-content-center align-items-center' style={{ width: 'auto', paddingRight: '30px', position: 'relative'  }}>
+                            <i data-tip data-for="tip6" style={{ cursor: 'pointer', fontSize: '20px'}} className="far fa-bell"></i>
+                            <i style={{ position: 'absolute', top: '-5px', right: '-15px', color: 'red', fontSize: '8px'}} className="fas fa-circle"></i>
                         </Row>
                         <Nav className='ml-auto'>
                             {userInfo ? (
