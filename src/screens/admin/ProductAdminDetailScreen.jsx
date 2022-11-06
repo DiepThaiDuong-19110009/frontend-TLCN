@@ -115,7 +115,26 @@ const ProductDetailAdminScreen = () => {
                                                 <Accordion.Body>
                                                     {
                                                         product.reviews?.map(review => (
-                                                            <p>{review.comment}</p>
+                                                            <Row>
+                                                                <Col>
+                                                                    <h6>Tên người đánh giá</h6>
+                                                                    <Row>
+                                                                        <p className='mx-0' style={{ width: 'auto' }}>{review.user?._id}</p>
+                                                                        <CopyToClipboard text={product._id} onCopy={onCopyText}>
+                                                                            <span className='px-0' style={{ width: 'auto', cursor: 'pointer' }}>{isCopied ? "Copied!" : <i className="fas fa-copy"></i>}</span>
+                                                                        </CopyToClipboard>
+                                                                    </Row>
+                                                                    <p>{review.user?.name}</p>
+                                                                </Col>
+                                                                <Col>
+                                                                    <h6>Nội dung đánh giá</h6>
+                                                                    <p>{review.comment}</p>
+                                                                </Col>
+                                                                <Col>
+                                                                    <h6>Số sao đánh giá</h6>
+                                                                    <p>{review.rating}</p>
+                                                                </Col>
+                                                            </Row>
                                                         ))
                                                     }
                                                 </Accordion.Body>
