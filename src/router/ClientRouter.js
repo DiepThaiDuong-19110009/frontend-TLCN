@@ -19,6 +19,8 @@ import ForgotPassword from '../screens/ForgotPassword';
 import MyOrderScreen from '../screens/MyOrderScreen';
 import EventScreen from '../screens/EventScreen';
 import ScrollTop from '../components/ScrollTop';
+import BlogScreen from '../screens/BlogScreen';
+import ContactScreen from '../screens/ContactScreen';
 
 const ClientRouter = () => {
   return (
@@ -43,6 +45,8 @@ const ClientRouter = () => {
           <Route path='/ordersuccess' element={<OrderSuccessScreen />} />
           <Route path='/myorder' element={<MyOrderScreen />} />
           <Route path='/event' element={<EventScreen />} />
+          <Route path='/blog' element={<BlogScreen />} />
+          <Route path='/contact' element={<ContactScreen />} />
         </Routes>
       </main>
       <ScrollTop />

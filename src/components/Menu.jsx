@@ -38,10 +38,10 @@ function Menu() {
                             {userInfo &&
                                 <Nav.Link className='px-4' href="/myorder">Đơn hàng</Nav.Link>
                             }
-                            <Nav.Link className='px-4' href="/event">Sự kiện <span style={{color: 'white', background: 'red', padding: '3px 10px', borderRadius: '20px'}}>Hot</span></Nav.Link>
+                            {/* <Nav.Link className='px-4' href="/event">Sự kiện <span style={{color: 'white', background: 'red', padding: '3px 10px', borderRadius: '20px'}}>Hot</span></Nav.Link> */}
                             <Nav.Link className='px-4' href="/blog">Bài viết</Nav.Link>
                             <Nav.Link className='px-4' href="/contact">Liên hệ</Nav.Link>
-                            <Nav.Link className='px-4' href="/support">Hỗ trợ khách hàng</Nav.Link>
+                            {/* <Nav.Link className='px-4' href="/support">Hỗ trợ khách hàng</Nav.Link> */}
                         </Nav>
                     </Navbar.Collapse>
                 </Container>

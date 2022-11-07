@@ -147,7 +147,7 @@ const PlaceOrderScreen = () => {
                             <ListGroup.Item className='d-flex justify-content-center py-4'>
                                 {
                                     cart.paymentMethod === 'Tiền mặt' ?
-                                        <Button type='button' className='btn-block' disabled={cart.cartItems === 0} onClick={placeOrderHandler}>Thanh toán</Button> :
+                                        <Button style={{width: '100%'}} type='button' className='btn-success' disabled={cart.cartItems === 0} onClick={placeOrderHandler}>Thanh toán</Button> :
                                         <form action='http://localhost:5000/api/pay' method='post'>
                                             <button style={{ background: 'white', border: '1px solid gray', borderRadius: '10px' }} className='shadow-sm d-flex justify-content-center align-items-center p-3'>
                                                 <Image style={{ height: '50px' }} src='https://quyetdao.com/wp-content/uploads/2019/04/paypal-logo.png' alt='paypal'></Image>

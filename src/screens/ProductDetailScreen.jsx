@@ -2,6 +2,7 @@ import { React, useState, useEffect } from 'react'
 import { Link, useParams, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { Row, Col, Image, Card, Button, Form, Container } from 'react-bootstrap'
+import { format, formatDistance, formatRelative, subDays } from 'date-fns'
 import 'react-medium-image-zoom/dist/styles.css'
 import Zoom from 'react-medium-image-zoom'
 import Rating from '../components/Rating'
@@ -55,7 +56,7 @@ const ProductDetailScreen = () => {
             <Link to='/product' style={{ textDecoration: 'none' }}>
                 <Button variant="outline-success" className='my-5 d-flex justify-content-center align-items-center'>
                     <i className="fas fa-chevron-left"></i>
-                    <p className='my-0' style={{marginLeft: '10px'}}>Quay lại</p>
+                    <p className='my-0' style={{ marginLeft: '10px' }}>Quay lại</p>
                 </Button>
             </Link>
             {loading ? <Loader /> : error ? <Message variant='danger'>{error}</Message> :
@@ -147,15 +148,25 @@ const ProductDetailScreen = () => {
                         <p>Chưa có bình luận nào</p>
                         :
                         product.reviews?.reverse().map((review) => (
-                            <Row className='px-0'>
-                                <Col>
-                                    <h6>{review.user.name}</h6>
-                                </Col>
-                                <Col className='d-flex align-items-center justify-content-end'>
-                                    <h6 className='my-0 mx-3'>Đã đánh giá: </h6>
-                                    <Rating value={review.rating} />
-                                </Col>
-                                <p className='pb-4'>{review.comment}</p>
+                            <Row>
+
+                                <Row className='px-0'>
+                                    <Col>
+                                        <h6>{review.user.name}</h6>
+                                    </Col>
+                                    <Col className='d-flex align-items-center justify-content-end'>
+                                        <h6 className='my-0 mx-3'>Đã đánh giá: </h6>
+                                        <Rating value={review.rating} />
+                                    </Col>
+                                </Row>
+                                <Row className='px-0'>
+                                    <Col>
+                                        <p className='pb-4'>{review.comment}</p>
+                                    </Col>
+                                    <Col className='d-flex align-items-center justify-content-end'>
+                                        <p style={{color: 'gray'}} className='pb-4'>Ngày đăng: {format(Date.now(), "dd/MM/yyyy hh:mm")}</p>
+                                    </Col>
+                                </Row>
                             </Row>
                         ))
                     }

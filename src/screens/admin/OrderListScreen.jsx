@@ -105,7 +105,7 @@ const OrderListScreen = () => {
                   <td className='text-center'>
                     <strong>{index + 1}</strong>
                   </td>
-                  <td className='text-center'>{order.user.name}</td>
+                  <td className='text-center'>{order.user?.name}</td>
                   <td className='text-center'>{order.address}</td>
                   {/* {
                     order.status === 'PROCESSING' ? <td className='text-center'>Chờ xác nhận</td> : <td className='text-center'>{order.status}</td>
