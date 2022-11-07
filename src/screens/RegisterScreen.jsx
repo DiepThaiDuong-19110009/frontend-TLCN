@@ -127,7 +127,7 @@ const RegisterScreen = () => {
                     <Form.Group className='d-flex justify-content-center pt-3'>
                         <Button style={{ width: '100%' }} type='submit' variant='success'>Đăng ký</Button>
                     </Form.Group>
-                    <Form.Group className='d-flex justify-content-center pt-3'>
+                    {/* <Form.Group className='d-flex justify-content-center pt-3'>
                         <p className='textCenter'>Hoặc</p>
                     </Form.Group>
                     <Form.Group className='d-flex justify-content-center align-items-center py-2 shadow-sm rounded' style={{ width: '100%', background: 'white', margin: '10px 0 20px 0', borderRadius: '30px', cursor: 'pointer' }}>
@@ -135,7 +135,7 @@ const RegisterScreen = () => {
                             <Image style={{ width: '25px', height: '25px', marginRight: '15px' }} src='https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/800px-Google_%22G%22_Logo.svg.png'></Image>
                             Đăng ký với Google
                         </a>
-                    </Form.Group>
+                    </Form.Group> */}
                 </Form>
 
                 <Row>

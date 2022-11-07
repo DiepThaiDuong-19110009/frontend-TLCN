@@ -2,6 +2,11 @@ import { React, useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Table, Button, Row, Col, Modal, Accordion } from 'react-bootstrap'
 import ReactTooltip from 'react-tooltip'
+import {
+  RangeDatePicker,
+  SingleDatePicker
+} from "react-google-flight-datepicker";
+import "react-google-flight-datepicker/dist/main.css";
 import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../../components/Loader'
 import Message from '../../components/Message'
@@ -9,6 +14,10 @@ import { deleteOrder, getOrder, updateOrder } from '../../actions/orderActions'
 
 const OrderListScreen = () => {
   const [filter, setFilter] = useState('ALL')
+  const [startDay, setStartDay] = useState('')
+  const [endDay, setEndDay] = useState('')
+  console.log('==', startDay)
+  console.log('==', endDay)
   const dispatch = useDispatch()
 
   const { loading, error, orders } = useSelector(state => state.orderList)
@@ -74,9 +83,15 @@ const OrderListScreen = () => {
         <Col>
           <h6>Tổng số lượng: {arrFilterOrder.length} đơn hàng ({filter})</h6>
         </Col>
+        <Col>
+          <RangeDatePicker
+            startDate={new Date(2020, 0, 1)}
+            endDate={new Date(2020, 1, 1)}
+          />
+        </Col>
         <Col className='d-flex justify-content-end align-items-center'>
           <p className='my-0 mx-3'>Lọc đơn hàng</p>
-          <select style={{border: '2px solid gray', borderRadius: '5px'}} value={filter} onChange={(e) => setFilter(e.target.value)}>
+          <select style={{ border: '2px solid gray', borderRadius: '5px' }} value={filter} onChange={(e) => setFilter(e.target.value)}>
             <option>ALL</option>
             <option>PROCESSING</option>
             <option>CONFIRMED</option>
