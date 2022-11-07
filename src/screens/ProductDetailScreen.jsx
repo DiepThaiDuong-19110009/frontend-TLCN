@@ -164,7 +164,7 @@ const ProductDetailScreen = () => {
                                         <p className='pb-4'>{review.comment}</p>
                                     </Col>
                                     <Col className='d-flex align-items-center justify-content-end'>
-                                        <p style={{color: 'gray'}} className='pb-4'>Ngày đăng: {format(Date.now(), "dd/MM/yyyy hh:mm")}</p>
+                                        <p style={{color: 'gray'}} className='pb-4'>Ngày đăng: {review.createAt}</p>
                                     </Col>
                                 </Row>
                             </Row>
