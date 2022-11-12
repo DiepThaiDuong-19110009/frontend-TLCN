@@ -19,7 +19,7 @@ const PlaceOrderScreen = () => {
     cart.itemsPrice = cart.cartItems.reduce((acc, item) => acc + item.price * item.count, 0)
     cart.shippingPrice = cart.itemsPrice < 500000 ? 0 : 10000
     cart.taxPrice = Number((0.02 * cart.itemsPrice).toFixed(2))
-    cart.totalPrice = cart.itemsPrice + cart.shippingPrice + cart.taxPrice
+    cart.totalPrice = cart.itemsPrice + cart.shippingPrice
 
     // Order
     const createOrder = useSelector(state => state.orderCreate)
@@ -131,12 +131,12 @@ const PlaceOrderScreen = () => {
                                     <Col>{(cart.shippingPrice).toLocaleString('vi', { style: 'currency', currency: 'VND' })}</Col>
                                 </Row>
                             </ListGroup.Item>
-                            <ListGroup.Item>
+                            {/* <ListGroup.Item>
                                 <Row>
                                     <Col>Thuế (5%)</Col>
                                     <Col>{(cart.taxPrice).toLocaleString('vi', { style: 'currency', currency: 'VND' })}</Col>
                                 </Row>
-                            </ListGroup.Item>
+                            </ListGroup.Item> */}
                             <ListGroup.Item>
                                 <Row>
                                     <Col>Tổng thanh toán</Col>

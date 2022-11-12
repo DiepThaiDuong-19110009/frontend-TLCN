@@ -5,7 +5,7 @@ import ReactTooltip from 'react-tooltip'
 import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../../components/Loader'
 import Message from '../../components/Message'
-import { listUsers, deleteUser } from '../../actions/userActions'
+import { listUsers, updateUser } from '../../actions/userActions'
 
 const UserListScreen = () => {
     const dispatch = useDispatch()
@@ -13,13 +13,13 @@ const UserListScreen = () => {
 
     const userList = useSelector(state => state.userList)
     const { loading, error, users } = userList
-    // console.log('==', users)
+    console.log('==', users)
 
     const userLogin = useSelector(state => state.userLogin)
     const { userInfo } = userLogin
 
-    const userDelete = useSelector(state => state.userDelete)
-    const { success: successDelete } = userDelete
+    const userUpdate = useSelector(state => state.userUpdate)
+    const { success: successUpdate } = userUpdate
 
     const navigate = useNavigate();
 
@@ -30,13 +30,7 @@ const UserListScreen = () => {
             navigate('/login')
         }
         //eslint-disable-next-line 
-    }, [dispatch, navigate, successDelete, userInfo])
-
-    //Delete user
-    const deleteHandler = (userId) => {
-        dispatch(deleteUser(userId))
-        setShow(false)
-    }
+    }, [dispatch, navigate, successUpdate, userInfo])
 
     // Filter User
     const arrFilterUser = []
@@ -64,12 +58,30 @@ const UserListScreen = () => {
     // console.log('==', filter)
 
     // Alert
+    //Delete user
+    const deleteHandler = (userId) => {
+        dispatch(updateUser({ _id: userId, status: 0 }))
+        setShow(false)
+    }
     const [idDelete, setIdDelete] = useState('')
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = (id) => {
         setShow(true);
         setIdDelete(id)
+    }
+
+    //Unlock user
+    const unlockHandler = (userId) => {
+        dispatch(updateUser({ _id: userId, status: 1 }))
+        setShowUnlock(false)
+    }
+    const [idUnlock, setIdUnlock] = useState('')
+    const [showUnlock, setShowUnlock] = useState(false);
+    const handleCloseUnlock = () => setShowUnlock(false);
+    const handleShowUnlock = (id) => {
+        setShowUnlock(true);
+        setIdUnlock(id)
     }
 
     return (
@@ -85,7 +97,7 @@ const UserListScreen = () => {
                 </Col>
                 <Col className='d-flex justify-content-end align-items-center'>
                     <p className='my-0 mx-3'>Lọc người dùng</p>
-                    <select style={{border: '2px solid gray', borderRadius: '5px'}} value={filter} onChange={(e) => setFilter(e.target.value)}>
+                    <select style={{ border: '2px solid gray', borderRadius: '5px' }} value={filter} onChange={(e) => setFilter(e.target.value)}>
                         <option>Tất cả</option>
                         <option>Admin</option>
                         <option>User</option>
@@ -98,11 +110,12 @@ const UserListScreen = () => {
                         <thead>
                             <tr>
                                 <th className='text-center'>#</th>
-                                <th className='text-center'>Tên người dùng</th>
-                                <th className='text-center'>Email</th>
-                                <th className='text-center'>Số điện thoại</th>
-                                <th className='text-center'>Địa chỉ</th>
+                                <th>Tên người dùng</th>
+                                <th>Email</th>
+                                <th className='text-end'>Số điện thoại</th>
+                                <th>Địa chỉ</th>
                                 <th className='text-center'>Admin</th>
+                                <th className='text-center'>Trạng thái</th>
                                 <th className='text-center'>Thao tác</th>
                             </tr>
                         </thead>
@@ -115,18 +128,25 @@ const UserListScreen = () => {
                                     <td>{user.name}</td>
                                     <td><a href={`mailto: ${user.email}`}>{user.email}</a></td>
                                     {user.phone ?
-                                        <td className='text-center'>{user.phone}</td> :
-                                        <td className='text-center'>Chưa cập nhật</td>
+                                        <td className='text-end'>{user.phone}</td> :
+                                        <td className='text-end'>Chưa cập nhật</td>
                                     }
                                     {user.address ?
-                                        <td className='text-center'>{user.address}</td> :
-                                        <td className='text-center'>Chưa cập nhật</td>
+                                        <td>{user.address}</td> :
+                                        <td>Chưa cập nhật</td>
                                     }
                                     <td className='text-center'>
                                         {user.isAdmin ? (
                                             <i className='fas fa-check' style={{ color: 'green' }}></i>
                                         ) : (
                                             <i className='fas fa-times' style={{ color: 'red' }}></i>
+                                        )}
+                                    </td>
+                                    <td className='text-center'>
+                                        {user.status === 0 ? (
+                                            <p>Khóa</p>
+                                        ) : (
+                                            <p>Hoạt động</p>
                                         )}
                                     </td>
                                     <td className='d-flex justify-content-center'>
@@ -136,23 +156,29 @@ const UserListScreen = () => {
                                             </Button>
                                         </Link>
                                         <ReactTooltip id="tip1" place="top" effect="solid">
-                                            Chi tiết thông tin người dùng
+                                            Chi tiết
                                         </ReactTooltip>
 
-                                        <Link data-tip data-for="tip2" className='px-2' to={`/admin/user/${user._id}/edit`}>
+                                        {/* <Link data-tip data-for="tip2" className='px-2' to={`/admin/user/${user._id}/edit`}>
                                             <Button variant='secondary' className='btn-sm'>
                                                 <i className='fas fa-edit'></i>
                                             </Button>
                                         </Link>
                                         <ReactTooltip id="tip2" place="top" effect="solid">
-                                            Chỉnh sửa thông tin người dùng
-                                        </ReactTooltip>
+                                            Chỉnh sửa 
+                                        </ReactTooltip> */}
 
-                                        <Button disabled data-tip data-for="tip3" onClick={() => handleShow(user._id)} variant='danger' className='btn-sm'>
-                                            <i className='fas fa-trash'></i>
+                                        <Button disabled={(user.isAdmin || user.status === 0) ? 'true' : ''} data-tip data-for="tip3" onClick={() => handleShow(user._id)} variant='danger' className='btn-sm mx-2'>
+                                            <i className='fas fa-lock'></i>
                                         </Button>
                                         <ReactTooltip id="tip3" place="top" effect="solid">
-                                            Xóa người dùng
+                                            Khóa
+                                        </ReactTooltip>
+                                        <Button disabled={(user.isAdmin || user.status === 1) ? 'true' : ''} data-tip data-for="tip4" onClick={() => handleShowUnlock(user._id)} variant='success' className='btn-sm'>
+                                            <i className='fas fa-unlock'></i>
+                                        </Button>
+                                        <ReactTooltip id="tip4" place="top" effect="solid">
+                                            Mở khóa
                                         </ReactTooltip>
                                     </td>
                                 </tr>
@@ -167,16 +193,37 @@ const UserListScreen = () => {
                 keyboard={false}
             >
                 <Modal.Header closeButton>
-                    <Modal.Title>Xóa người dùng</Modal.Title>
+                    <Modal.Title>Khóa người dùng</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    Bạn có chắc chắn muốn xóa người dùng này không?
+                    Bạn có chắc chắn muốn khóa người dùng này không?
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
                         Hủy
                     </Button>
-                    <Button variant="danger" onClick={() => deleteHandler(idDelete)}>Xóa người dùng</Button>
+                    <Button variant="danger" onClick={() => deleteHandler(idDelete)}>Đồng ý</Button>
+                </Modal.Footer>
+            </Modal>
+
+            {/* Unlock user */}
+            <Modal
+                show={showUnlock}
+                onHide={handleCloseUnlock}
+                backdrop="static"
+                keyboard={false}
+            >
+                <Modal.Header closeButton>
+                    <Modal.Title>Mở khóa người dùng</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    Bạn có chắc chắn muốn mở khóa người dùng này không?
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleCloseUnlock}>
+                        Hủy
+                    </Button>
+                    <Button variant="danger" onClick={() => unlockHandler(idUnlock)}>Đồng ý</Button>
                 </Modal.Footer>
             </Modal>
         </div>

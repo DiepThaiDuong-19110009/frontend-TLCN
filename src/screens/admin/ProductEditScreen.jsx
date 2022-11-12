@@ -96,7 +96,8 @@ const ProductEditScreen = () => {
 
     const submitHandler = (e) => {
         e.preventDefault()
-        dispatch(updateProduct({ _id: productId, photo, name, supplier: { id: supplier, quantityImport: importQuantity, price: importPrice }, description, price, category, quantity, sold }))
+        dispatch(updateProduct({ _id: productId, photo, name, supplier: { id: supplier, quantityImport: importQuantity, 
+            price: importPrice }, description, price, category, quantity, sold }))
     }
 
     return (

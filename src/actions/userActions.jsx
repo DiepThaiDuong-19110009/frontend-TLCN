@@ -36,8 +36,9 @@ export const login = (email, password) => async (dispatch) => {
     } catch (error) {
         dispatch({
             type: USER_LOGIN_FAIL,
-            payload: error.response && error.response.data.error ? error.response.data.error : error.error,
+            payload: error?.response?.status
         })
+        // console.log('==', error.response?.status)
     }
 }
 
@@ -230,7 +231,8 @@ export const listUsers = () => async (dispatch, getState) => {
 }
 
 //Delete user Admin
-export const deleteUser = (id) => async (dispatch, getState) => {
+export const blockUser = (id, status) => async (dispatch, getState) => {
+    console.log('==', id, status)
     try {
         dispatch({
             type: USER_DELETE_REQUEST
@@ -244,10 +246,11 @@ export const deleteUser = (id) => async (dispatch, getState) => {
             }
         }
 
-        await axios.delete(`http://localhost:5000/api/user/${id}`, config)
+        const { data } = await axios.put(`http://localhost:5000/api/user/${id}`, status, config)
 
         dispatch({
-            type: USER_DELETE_SUCCESS
+            type: USER_DELETE_SUCCESS,
+            payload: data
         })
 
     } catch (error) {

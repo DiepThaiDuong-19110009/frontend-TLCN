@@ -47,7 +47,7 @@ export const listProducts = () => async (dispatch) => {
         dispatch({ type: PRODUCT_LIST_REQUEST })
 
         const { data } = await axios.get('http://localhost:5000/api/product')
-        // console.log('==', data.products);
+        console.log('==', data.products);
 
         dispatch({
             type: PRODUCT_LIST_SUCCESS,
@@ -141,7 +141,8 @@ export const createProduct = () => async (dispatch, getState) => {
             }
         }
 
-        const { data } = await axios.post(`http://localhost:5000/api/product`, { name: 'new', description: 'new', price: 0, category: '6335529689e225ab4f354271' }, config)
+        const { data } = await axios.post(`http://localhost:5000/api/product`, { name: 'new', description: 'new', price: 0, 
+        category: '6335529689e225ab4f354271' }, config)
 
         dispatch({
             type: PRODUCT_CREATE_SUCCESS,

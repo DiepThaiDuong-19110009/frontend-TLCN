@@ -35,7 +35,7 @@ const HeaderAdmin = () => {
     const getNotification = () => {
         orders.forEach(order => {
             if (order.status === 'PROCESSING') {
-                arrNotification.push(order._id)
+                arrNotification.push({id: order._id, name: order?.user?.name})
             }
         })
     }
@@ -108,10 +108,10 @@ const HeaderAdmin = () => {
                                 </Row>
                                 {
                                     arrNotification.length !== 0 ?
-                                        arrNotification.map(order => (
+                                        arrNotification.reverse().map(order => (
                                             <Row className='d-flex justify-content-between align-items-center px-2 mb-3'>
-                                                <h6 className='mx-0' style={{ width: 'auto' }}>Đơn hàng: ID {order} yêu cầu xác nhận</h6>
-                                                <Button variant="outline-primary" onClick={() => confirmOrder(order)} style={{ width: 'auto' }}>Xác nhận</Button>
+                                                <h6 className='mx-0' style={{ width: 'auto' }}>Đơn hàng của {order.name} yêu cầu xác nhận</h6>
+                                                <Button variant="outline-primary" onClick={() => confirmOrder(order.id)} style={{ width: 'auto' }}>Xác nhận</Button>
                                             </Row>
                                         )) :
                                         <p style={{ textAlign: 'center' }}>Không có thông báo</p>

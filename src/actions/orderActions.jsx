@@ -125,7 +125,7 @@ export const updateOrder = (id, status) => async (dispatch, getState) => {
         }
 
         const { data } = await axios.put(`http://localhost:5000/api/order/${id}`, { status }, config)
-        console.log('==', data);
+        // console.log('==', data);
 
         dispatch({
             type: ORDER_UPDATE_SUCCESS,

@@ -11,6 +11,7 @@ const StatisticScreen = () => {
     const dispatch = useDispatch()
 
     const { income } = useSelector(state => state.incomeList)
+    console.log('==', income)
     const { suppliers } = useSelector(state => state.supplierList)
     const { categories } = useSelector(state => state.categoryList)
     const { products } = useSelector(state => state.productList)

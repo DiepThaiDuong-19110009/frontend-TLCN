@@ -8,10 +8,13 @@ import { saveShippingAddress } from '../actions/cartActions'
 const ShippingScreen = () => {
     const cart = useSelector(state => state.cart)
     const { shippingAddress } = cart
+    const [message, setMessage] = useState('')
+    console.log('==', message);
 
     const navigate = useNavigate();
 
     const [address, setAddress] = useState(shippingAddress.address)
+    // console.log('==', address.trim().length);
     const [city, setCity] = useState(shippingAddress.city)
     const [country, setCountry] = useState(shippingAddress.country)
     const [phone, setPhone] = useState(shippingAddress.phone)
@@ -21,7 +24,11 @@ const ShippingScreen = () => {
     const submitHandler = (e) => {
         e.preventDefault()
         dispatch(saveShippingAddress({ address, city, country, phone }))
-        navigate('/payment')
+        if (address.trim().length === 0 || city.trim().length === 0 || country.trim().length === 0 || phone.trim().length === 0) {
+            setMessage('Cung cấp đầy đủ thông tin')
+        } else {
+            navigate('/payment')
+        }
     }
 
     return (
@@ -29,6 +36,9 @@ const ShippingScreen = () => {
             <CheckoutSteps step1 step2 />
             <Row className='pt-3'>
                 <h3 className='pb-4 d-flex justify-content-center'>Điền thông tin giao hàng</h3>
+            </Row>
+            <Row>
+                <p style={{ color: 'red', textAlign: 'center' }}>{message}</p>
             </Row>
             <Row className='d-flex justify-content-center'>
                 <Col xl={5}>

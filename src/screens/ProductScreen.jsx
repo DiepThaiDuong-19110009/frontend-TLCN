@@ -12,7 +12,7 @@ import Search from '../components/Search'
 const ProductScreen = () => {
   const [data, setData] = useState([])
   const [showAll, setShowAll] = useState(true)
-  const [loadMore, setLoadMore] = useState(4)
+  const [loadMore, setLoadMore] = useState(8)
 
   const dispatch = useDispatch()
 

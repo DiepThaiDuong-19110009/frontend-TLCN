@@ -42,7 +42,7 @@ const SupplierEditScreen = () => {
     }
 
     return (
-        <div style={{ overflowY: 'scroll', height: '100vh', width: '100%', fontSize: '14px' }} className='px-5'>
+        <div style={{ overflowY: 'scroll', height: '100%', width: '100%', fontSize: '14px' }} className='px-5'>
             <Link to='/admin/supplierlist' style={{ textDecoration: 'none' }}>
                 <Button variant="outline-success" className='my-3 d-flex justify-content-center align-items-center'>
                     <i className="fas fa-chevron-left"></i>

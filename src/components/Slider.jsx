@@ -7,7 +7,7 @@ const Slider = () => {
             <Carousel.Item>
                 <img
                     className="d-block w-100"
-                    src="https://scontent.fsgn10-1.fna.fbcdn.net/v/t1.15752-9/306539332_1495705460841672_6052415495575701737_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=ae9488&_nc_ohc=37DQtMbr-1EAX9HmUFh&_nc_ht=scontent.fsgn10-1.fna&oh=03_AdQmFFWDfaOha_Z3D42VV2JbFahztnjnp9OSEcDqOYlgrQ&oe=636B9722"
+                    src="https://png.pngtree.com/thumb_back/fw800/background/20190221/ourmid/pngtree-green-fresh-fruit-theme-avocado-image_17597.jpg"
                     alt="First slide"
                 />
                 <Carousel.Caption style={{background: 'white'}}>
@@ -18,7 +18,7 @@ const Slider = () => {
             <Carousel.Item>
                 <img
                     className="d-block w-100"
-                    src="https://scontent.fsgn10-1.fna.fbcdn.net/v/t1.15752-9/309907718_1249852619137315_2032329692371238586_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=ae9488&_nc_ohc=CZkHSBe_ItkAX9mE1wc&_nc_ht=scontent.fsgn10-1.fna&oh=03_AdRRvb7ZxHXtZ3NCqJxr1vA-LBcUGr-pI1tIbuloRFLUVQ&oe=636BE261"
+                    src="https://png.pngtree.com/thumb_back/fw800/back_our/20190621/ourmid/pngtree-fresh-mango-blue-minimalist-banner-image_183513.jpg"
                     alt="Second slide"
                 />
                 <Carousel.Caption style={{background: 'white'}}>
@@ -29,7 +29,7 @@ const Slider = () => {
             <Carousel.Item>
                 <img
                     className="d-block w-100"
-                    src="https://scontent.fsgn10-1.fna.fbcdn.net/v/t1.15752-9/307112565_635614418073104_8958825575204445034_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=ae9488&_nc_ohc=TKVO7JXBtYQAX_aReM8&_nc_ht=scontent.fsgn10-1.fna&oh=03_AdR-5C5JWHEUFSksa9-fRtwK2XZaJtHopCw8RYUhaNoJ_w&oe=636D5348"
+                    src="https://tayoka.vn/uploads/Banner/jjj.jpg"
                     alt="Third slide"
                 />
                 <Carousel.Caption style={{background: 'white'}}>

@@ -18,7 +18,7 @@ const CategoryListScreen = () => {
 
     const categoryList = useSelector(state => state.categoryList)
     const { loading, error, categories } = categoryList
-    // console.log('==', categories)
+    console.log('==', categories)
 
     const userLogin = useSelector(state => state.userLogin)
     const { userInfo } = userLogin
@@ -91,7 +91,7 @@ const CategoryListScreen = () => {
                         <thead>
                             <tr>
                                 <th className='text-center'>#</th>
-                                <th className='text-center'>Tên danh mục sản phẩm</th>
+                                <th>Tên danh mục sản phẩm</th>
                                 <th className='text-center'>Ngày tạo</th>
                                 <th className='text-center'>Cập nhật lần cuối</th>
                                 <th className='text-center'>Thao tác</th>
@@ -115,7 +115,7 @@ const CategoryListScreen = () => {
                                             </Button>
                                         </Link>
                                         <ReactTooltip id="tip1" place="top" effect="solid">
-                                            Chi tiết thông tin danh mục sản phẩm
+                                            Chi tiết
                                         </ReactTooltip>
 
                                         <Link data-tip data-for="tip2" className='px-2' to={`/admin/category/${category._id}/edit`}>
@@ -124,15 +124,15 @@ const CategoryListScreen = () => {
                                             </Button>
                                         </Link>
                                         <ReactTooltip id="tip2" place="top" effect="solid">
-                                            Chỉnh sửa thông tin danh mục sản phẩm
+                                            Chỉnh sửa
                                         </ReactTooltip>
 
-                                        <Button disabled data-tip data-for="tip3" onClick={() => handleShow(category._id)} variant='danger' className='btn-sm'>
+                                        {/* <Button disabled data-tip data-for="tip3" onClick={() => handleShow(category._id)} variant='danger' className='btn-sm'>
                                             <i className='fas fa-trash'></i>
                                         </Button>
                                         <ReactTooltip id="tip3" place="top" effect="solid">
                                             Xóa danh mục sản phẩm
-                                        </ReactTooltip>
+                                        </ReactTooltip> */}
                                     </td>
                                 </tr>
                             ))}

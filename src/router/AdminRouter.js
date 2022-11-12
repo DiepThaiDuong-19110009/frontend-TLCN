@@ -46,11 +46,8 @@ const AdminRouter = () => {
         <Sidebar />
       </div>
       <div style={{ maxWidth: '82%' }} className='px-0'>
-        <div style={{ height: '10vh' }} className='d-flex justify-content-between align-items-center shadow-sm px-4'>
-          <Image data-tip data-for="tip4" onClick={downloadScreenshot} style={{ width: '30px', cursor: 'pointer' }} src='https://static.thenounproject.com/png/3244586-200.png' alt='ScreenShot'></Image>
-          <ReactTooltip id="tip4" place="right" effect="solid">
-            Chụp màn hình
-          </ReactTooltip>
+        <div style={{ height: '10vh' }} className='d-flex justify-content-end align-items-center shadow-sm px-4'>
+          
           <HeaderAdmin />
         </div>
         <div ref={ref} style={{ height: '90vh' }}>

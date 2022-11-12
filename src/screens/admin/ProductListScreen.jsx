@@ -17,7 +17,7 @@ const ProductListScreen = () => {
 
     const productList = useSelector(state => state.productList)
     const { loading, error, products } = productList
-    // console.log('==', products)
+    console.log('==', products)
 
     const productDelete = useSelector(state => state.productDelete)
     const { loading: loadingDelete, error: errorDelete, success: successDelete } = productDelete
@@ -128,14 +128,14 @@ const ProductListScreen = () => {
                             <tr>
                                 <th className='text-center'>#</th>
                                 <th className='text-center'>Hình ảnh</th>
-                                <th className='text-center'>Tên sản phẩm</th>
-                                <th className='text-center'>Nhà cung cấp</th>
-                                <th className='text-center'>Danh mục</th>
-                                <th className='text-center'>Giá nhập</th>
-                                <th className='text-center'>Giá bán</th>
-                                <th className='text-center'>Số lượng nhập</th>
-                                <th className='text-center'>Đã bán</th>
-                                <th className='text-center'>Tồn kho</th>
+                                <th>Tên sản phẩm</th>
+                                <th>Nhà cung cấp</th>
+                                <th>Danh mục</th>
+                                <th className='text-end'>Giá nhập</th>
+                                <th className='text-end'>Giá bán</th>
+                                <th className='text-end'>Số lượng nhập</th>
+                                <th className='text-end'>Đã bán</th>
+                                <th className='text-end'>Tồn kho</th>
                                 <th className='text-center'>Thao tác</th>
                             </tr>
                         </thead>
@@ -146,14 +146,14 @@ const ProductListScreen = () => {
                                         <strong>{index + 1}</strong>
                                     </td>
                                     <td className='text-center'><img style={{ width: '50px' }} src={product.photo} alt={product.name} /></td>
-                                    <td className='text-center'>{product.name}</td>
-                                    <td className='text-center'>{product.supplier?.id?.name}</td>
-                                    <td className='text-center'>{product.category.name}</td>
-                                    <td className='text-center'>{product.supplier?.price?.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</td>
-                                    <td className='text-center'>{product.price?.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</td>
-                                    <td className='text-center'>{product.supplier?.quantityImport}</td>
-                                    <td className='text-center'>{product.sold}</td>
-                                    <td className='text-center'>{product.quantity}</td>
+                                    <td>{product.name}</td>
+                                    <td>{product.supplier?.id?.name}</td>
+                                    <td>{product.category.name}</td>
+                                    <td className='text-end'>{product.supplier?.price?.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</td>
+                                    <td className='text-end'>{product.price?.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</td>
+                                    <td className='text-end'>{product.supplier?.quantityImport}</td>
+                                    <td className='text-end'>{product.sold}</td>
+                                    <td className='text-end'>{product.quantity}</td>
                                     <td className='d-flex justify-content-center'>
                                         <Link data-tip data-for="tip1" to={`/admin/product/${product._id}/detail`}>
                                             <Button variant='info' className='btn-sm'>
@@ -161,7 +161,7 @@ const ProductListScreen = () => {
                                             </Button>
                                         </Link>
                                         <ReactTooltip id="tip1" place="top" effect="solid">
-                                            Chi tiết thông tin sản phẩm
+                                            Chi tiết
                                         </ReactTooltip>
 
                                         <Link data-tip data-for="tip2" className='px-2' to={`/admin/product/${product._id}/edit`}>
@@ -170,15 +170,15 @@ const ProductListScreen = () => {
                                             </Button>
                                         </Link>
                                         <ReactTooltip id="tip2" place="top" effect="solid">
-                                            Chỉnh sửa thông tin sản phẩm
+                                            Chỉnh sửa
                                         </ReactTooltip>
 
-                                        <Button disabled data-tip data-for="tip3" onClick={() => handleShow(product._id)} variant='danger' className='btn-sm'>
+                                        {/* <Button disabled data-tip data-for="tip3" onClick={() => handleShow(product._id)} variant='danger' className='btn-sm'>
                                             <i className='fas fa-trash'></i>
                                         </Button>
                                         <ReactTooltip id="tip3" place="top" effect="solid">
                                             Xóa sản phẩm
-                                        </ReactTooltip>
+                                        </ReactTooltip> */}
                                     </td>
                                 </tr>
                             ))}

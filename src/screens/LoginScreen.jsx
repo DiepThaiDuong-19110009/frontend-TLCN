@@ -16,7 +16,8 @@ const LoginScreen = () => {
     const navigate = useNavigate();
 
     const userLogin = useSelector(state => state.userLogin)
-    const { loading, error, userInfo } = userLogin
+    const { loading, error = 200, userInfo } = userLogin
+    console.log('==', error)
 
     let location = useLocation();
     const redirect = location.search ? location.search.split('=')[1] : '/'
@@ -39,8 +40,14 @@ const LoginScreen = () => {
         dispatch(login(email, password))
         if (email.trim().length === 0 || password.trim().length === 0) {
             setMessage("Vui lòng điền đủ thông tin")
-        } else if (error) {
-            setMessage("Vui lòng kiểm tra lại thông tin đăng nhập")
+        } else if (error === 404) {
+            setMessage("Tài khoản không tồn tại")
+        } else if (error === 401) {
+            setMessage("Mật khẩu không chính xác")
+        } else if (error === 400) {
+            setMessage("Tài khoản đã bị vô hiệu hóa")
+        } else {
+            setMessage('')
         }
     }
     // console.log('==', error);
