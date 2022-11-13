@@ -23,10 +23,17 @@ const ProductDetailScreen = () => {
 
     const userLogin = useSelector(state => state.userLogin)
     const { userInfo } = userLogin
-    console.log('==', userInfo);
+    // console.log('==', userInfo);
     const productDetails = useSelector(state => state.productDetails)
     const { loading, error, product } = productDetails
     console.log('==', product);
+
+    let stock = product?.supplier?.quantityImport - product.sold
+    const arrStock = []
+    for (let i = 1; i <= stock; i++) {
+        arrStock.push(i)
+    }
+    // console.log('==', arrStock)
 
     useEffect(() => {
         dispatch(listProductDetails(productId))
@@ -99,10 +106,10 @@ const ProductDetailScreen = () => {
                                 <Row>
                                     <Col xl={4} className='d-flex justify-content-between align-items-center'>
                                         <p className='my-0'>Số lượng:</p>
-                                        <Form.Control style={{width: '50%'}} as='select' value={qty} onChange={(e) => setQty(e.target.value)}>
+                                        <Form.Control style={{ width: '50%' }} as='select' value={qty} onChange={(e) => setQty(e.target.value)}>
                                             {
-                                                [...Array(product?.supplier?.quantityImport - product.sold).keys()].map(x => (
-                                                    <option key={x + 1} value={x + 1}>{x + 1}</option>
+                                                arrStock.map(x => (
+                                                    <option value={x}>{x}</option>
                                                 ))
                                             }
                                         </Form.Control>
