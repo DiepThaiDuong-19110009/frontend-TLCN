@@ -76,13 +76,13 @@ const StatisticScreen = () => {
                 <h5 className="section-title">Doanh thu bán hàng theo tháng</h5>
                 <div className="section-content">
                     <ResponsiveContainer width="100%" height={500} p>
-                        <LineChart data={income} margin={{ top: 15, right: 0, bottom: 15, left: 0 }}>
+                        <LineChart data={income} margin={{ top: 15, right: 0, bottom: 15, left: 10 }}>
                             <Tooltip />
                             <XAxis dataKey="_id" />
                             <YAxis />
                             <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
                             <Legend />
-                            <Line type="monotone" dataKey="totalAvenue" stroke="#009900" />
+                            <Line type="monotone" dataKey="totalAvenue" name='Tổng doanh thu' stroke="#009900" />
                             {/* <Line type="monotone" dataKey="total" stroke="#17A8F5" /> */}
                         </LineChart>
                     </ResponsiveContainer>
@@ -90,7 +90,7 @@ const StatisticScreen = () => {
             </div>
 
             <div className="section">
-                <h5 className="section-title">Sản phẩm bán ra</h5>
+                <h5 className="section-title">Sản phẩm bán ra theo tháng</h5>
                 <div className="section-content">
                     <ResponsiveContainer width="100%" height={500}>
                         <BarChart data={income} margin={{ top: 15, right: 0, bottom: 15, left: 0 }}>
@@ -100,7 +100,7 @@ const StatisticScreen = () => {
                             <Tooltip />
                             <Legend />
                             {/* <Bar dataKey="totalAvenue" fill="#FB8833" /> */}
-                            <Bar dataKey="total" fill="#17A8F5" />
+                            <Bar dataKey="total" fill="#17A8F5" name='Số lượng đã bán' />
                         </BarChart>
                     </ResponsiveContainer>
                 </div>
