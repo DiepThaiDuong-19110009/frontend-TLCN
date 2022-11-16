@@ -62,13 +62,13 @@ const ProductDetailScreen = () => {
     return (
         <Container style={{ background: '#ffffff' }} className='pt-1'>
             <Link to='/product' style={{ textDecoration: 'none' }}>
-                <Button variant="outline-success" className='my-5 d-flex justify-content-center align-items-center'>
+                <Button variant="outline-success" className='mt-3 d-flex justify-content-center align-items-center'>
                     <i className="fas fa-chevron-left"></i>
                     <p className='my-0' style={{ marginLeft: '10px' }}>Quay lại</p>
                 </Button>
             </Link>
             {loading ? <Loader /> : error ? <Message variant='danger'>{error}</Message> :
-                <Row style={{ width: 'auto', margin: '0 auto' }} className='d-flex justify-content-evenly'>
+                <Row style={{ width: 'auto', margin: '0 auto' }} className='d-flex justify-content-evenly py-0'>
                     <Col md={5}>
                         <Zoom>
                             <Image
@@ -105,8 +105,8 @@ const ProductDetailScreen = () => {
                                 <Card.Text>
                                     Đã bán: <strong style={{ color: 'red' }}>{product.sold} sản phẩm</strong>
                                 </Card.Text>
-                                <Row>
-                                    <Col xl={4} className='d-flex justify-content-between align-items-center'>
+                                <Row className='d-flex justify-content-between align-items-center'>
+                                    <Col xl={4} className='d-flex justify-content-between align-items-center mt-3'>
                                         <p className='my-0'>Số lượng:</p>
                                         <Form.Control style={{ width: '50%' }} as='select' value={qty} onChange={(e) => setQty(e.target.value)}>
                                             {
@@ -116,7 +116,7 @@ const ProductDetailScreen = () => {
                                             }
                                         </Form.Control>
                                     </Col>
-                                    <Col xl={8} className='d-flex justify-content-end align-items-center'>
+                                    <Col xl={8} className='d-flex justify-content-center align-items-center mt-3'>
                                         <Button className='py-2' onClick={addToCartHandler} variant="success" type='button' disabled={product.quantity === 0}>
                                             <div className='d-flex justify-content-between'>
                                                 <i className="fas fa-cart-arrow-down" style={{ fontSize: '25px', marginRight: '10px' }}></i>
