@@ -20,20 +20,21 @@ const TopProduct = () => {
     const getTopProduct = () => {
         let soldMax = products[0].sold
         products.forEach(product => {
-            if(product.sold > soldMax){
-                
+            if (product.sold > soldMax) {
+
             }
         })
     }
 
     return (
         <div>
-            <h3>Sản phẩm bán chạy</h3>
-            <Row id='productlist' style={{ border: 'solid 2px #f2f2f2', borderRadius: '10px' }} className="py-3 px-3 my-5">
-               {products.slice(0, 4).map(product => (
-                <Col key={product.id} sm={0} md={0} lg={4} xl={3}>
-                    <Product product={product} />
-                </Col>))}
+            <h4 className="py-2">Sản phẩm bán chạy</h4>
+            <Row id='productlist' style={{ border: 'solid 2px #f5f5f5', borderRadius: '10px' }} className="">
+                {products.slice(0, 12).map(product => (
+                    <Col key={product.id} sm={0} md={0} lg={4} xl={2} className='px-1 pb-2'>
+                        <Product product={product} />
+                    </Col>
+                ))}
             </Row>
         </div>
     )

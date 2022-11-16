@@ -9,7 +9,7 @@ import AdminRouter from './router/AdminRouter';
 const App = () => {
   return (
     <BrowserRouter>
-      <main className='py-0'>
+      <main className='py-0' style={{background: '#f5f5f5'}}>
         <Routes>
           <Route path='/*' element={<ClientRouter />} />
           <Route path='/admin/*' element={<AdminRouter />} />

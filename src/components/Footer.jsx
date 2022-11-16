@@ -3,7 +3,7 @@ import { Container, Row, Col } from 'react-bootstrap'
 
 const Footer = () => {
   return (
-    <Container className='py-5'>
+    <Container className='py-5' style={{background: '#ffffff'}}>
       <Row className='d-flex justify-content-center justify-content-lg-between p-4 border-bottom'>
         <Col xl={9} class="me-5 d-none d-lg-block">
           <span>Theo dõi HDKMart thông qua các mạng xã hội</span>

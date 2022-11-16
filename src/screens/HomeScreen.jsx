@@ -15,14 +15,14 @@ const HomeScreen = () => {
   }, [dispatch])
 
   return (
-    <Container className='pt-4'>
+    <Container className='pt-4' style={{background: '#f5f5f5'}}>
       <Row>
         <Slider />
       </Row>
       <Row style={{ border: 'solid 2px #dddddd', borderRadius: '5px' }} className='py-4 my-5'>
         <Introduce />
       </Row>
-      <Row>
+      <Row style={{background: '#f5f5f5'}}>
         <TopProduct />
       </Row>
     </Container>

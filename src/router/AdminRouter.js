@@ -41,7 +41,7 @@ const AdminRouter = () => {
   const downloadScreenshot = () => takeScreenShot(ref.current).then(download);
 
   return (
-    <Row className='d-flex flex-nowrap mx-0 py-0' style={{ height: '100vh', maxWidth: '100%' }}>
+    <Row className='d-flex flex-nowrap mx-0 py-0' style={{ height: '100vh', maxWidth: '100%', background: '#ffffff' }}>
       <div style={{ maxWidth: '18%', background: 'green' }} className='px-0'>
         <Sidebar />
       </div>

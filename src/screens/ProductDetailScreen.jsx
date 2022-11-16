@@ -37,6 +37,7 @@ const ProductDetailScreen = () => {
 
     useEffect(() => {
         dispatch(listProductDetails(productId))
+        window.scrollTo(0, 0)
     }, [dispatch, productId])
 
     //Event add to cart
@@ -59,7 +60,7 @@ const ProductDetailScreen = () => {
         window.location.href = '#comment'
     }
     return (
-        <Container>
+        <Container style={{ background: '#ffffff' }} className='pt-1'>
             <Link to='/product' style={{ textDecoration: 'none' }}>
                 <Button variant="outline-success" className='my-5 d-flex justify-content-center align-items-center'>
                     <i className="fas fa-chevron-left"></i>
@@ -79,7 +80,7 @@ const ProductDetailScreen = () => {
                             />
                         </Zoom>
                     </Col>
-                    <Col md={5}>
+                    <Col md={7}>
                         <Card style={{ width: '100%', border: 'none' }}>
                             <Card.Body>
                                 <Card.Title><h4>{product.name}</h4></Card.Title>
@@ -95,7 +96,8 @@ const ProductDetailScreen = () => {
                                     Giá: <strong style={{ color: 'red', fontSize: '20px' }}>{product.price?.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</strong>
                                 </Card.Text>
                                 <Card.Text>
-                                    <h6 className='my-2' style={{ fontSize: '18px' }}>Mô tả sản phẩm:</h6> {product.description}
+                                    <h6 className='my-2' style={{ fontSize: '15px' }}>Mô tả sản phẩm:</h6> 
+                                    <p>{product.description}</p>
                                 </Card.Text>
                                 <Card.Text>
                                     Trạng thái: {(product.quantity) > 0 ? <strong style={{ color: 'green' }}>Còn hàng</strong> : <strong style={{ color: 'red' }}>Hết hàng</strong>}

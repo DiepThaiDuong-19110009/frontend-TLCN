@@ -46,7 +46,7 @@ const Header = () => {
 
     return (
         <div className={classes}>
-            <Row className='d-flex justify-content-between align-items-center flex-wrap mx-0 py-2'>
+            <Row className='d-flex justify-content-between align-items-center flex-wrap mx-0 py-2' style={{background: '#ffffff'}}>
                 <Col xl={3} className='d-flex justify-content-center align-items-center'>
                     <LinkContainer to='/'>
                         <Navbar.Brand className='text-success'>

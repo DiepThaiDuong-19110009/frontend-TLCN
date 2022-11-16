@@ -66,7 +66,7 @@ const HeaderAdmin = () => {
     }
 
     return (
-        <Navbar style={{ height: '100%' }} variant='dark' expand="lg" collapseOnSelect>
+        <Navbar style={{ height: '100%', background: '#ffffff' }} variant='dark' expand="lg" collapseOnSelect> 
             <Row className='py-0 px-4 d-flex' style={{ width: 'auto' }}>
                 <i data-tip data-for="tip5" onClick={loadpage} style={{ cursor: 'pointer', fontSize: '18px' }} className="fas fa-redo-alt"></i>
             </Row>
