@@ -12,7 +12,7 @@ import Search from '../components/Search'
 const ProductScreen = () => {
   const [data, setData] = useState([])
   const [showAll, setShowAll] = useState(true)
-  const [loadMore, setLoadMore] = useState(8)
+  const [loadMore, setLoadMore] = useState(12)
 
   const dispatch = useDispatch()
 
@@ -40,7 +40,7 @@ const ProductScreen = () => {
   }
 
   const getCategoryId = (id) => e => {
-    setLoadMore(loadMore => loadMore = 4)
+    setLoadMore(loadMore => loadMore = 6)
     window.location.href = '#productlist'
     arrProductGetCateId.length = 0
     getProductByCategotyId(products, id)
@@ -55,20 +55,17 @@ const ProductScreen = () => {
 
   //Load more
   const loadMoreOnClick = () => {
-    setLoadMore(loadMore => loadMore + 4)
+    setLoadMore(loadMore => loadMore + 6)
   }
 
   const collapseOnClick = () => {
-    setLoadMore(loadMore => loadMore = 4)
+    setLoadMore(loadMore => loadMore = 6)
   }
 
   return (
-    <div>
+    <div style={{background: '#f5f5f5'}}>
       {loading ? <Loader /> : error ? <Message variant='danger'>{error}</Message> :
-        <Container>
-          <Row>
-            <Search />
-          </Row>
+        <Container className='pt-3' style={{background: '#f5f5f5'}}>
           <Row>
             <Col>
               <ListGroup as="ul" className='mb-3'>
@@ -91,7 +88,7 @@ const ProductScreen = () => {
               <h5 className='mt-5 mb-4'>Danh sách sản phẩm</h5>
             </Col>
           </Row>
-          <Row id='productlist' style={{ border: 'solid 2px #f2f2f2', borderRadius: '10px' }} className="py-3 px-3">
+          <Row id='productlist' className="py-3 px-3">
             <Row>
               <Col sm={0} md={0} lg={4} xl={4} className='d-flex justify-content-center align-item'>
                 {/* <p className='mb-4 mt-3'>Sắp xếp</p> */}
@@ -104,17 +101,17 @@ const ProductScreen = () => {
               </Col>
             </Row>
             {showAll === false ? (data.slice(0, loadMore).map(product => (
-              <Col key={product.id} sm={0} md={0} lg={4} xl={3}>
+              <Col key={product.id} sm={0} md={0} lg={4} xl={2} className='px-1 pb-2'>
                 <Product product={product} />
               </Col>
             ))) : (
               products.slice(0, loadMore).map(product => (
-                <Col key={product.id} sm={0} md={0} lg={4} xl={3}>
+                <Col key={product.id} sm={0} md={0} lg={4} xl={2} className='px-1 pb-2'>
                   <Product product={product} />
                 </Col>
               ))
             )}
-            <Row>
+            <Row className='my-3'>
               {
                 (loadMore >= ((showAll === false) ? data.length : products.length))
                   ?
@@ -123,7 +120,7 @@ const ProductScreen = () => {
                   </Col>
                   :
                   <Col className='d-flex justify-content-center'>
-                    <Button className='w-25' variant="outline-primary" onClick={loadMoreOnClick}>Xem thêm sản phẩm</Button>
+                    <Button className='w-25' variant="outline-primary" onClick={loadMoreOnClick}>Xem thêm</Button>
                   </Col>
               }
             </Row>

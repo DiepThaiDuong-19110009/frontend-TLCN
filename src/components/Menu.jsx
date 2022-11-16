@@ -27,7 +27,7 @@ function Menu() {
 
     const classes = `header-section ${sticky}`;
     return (
-        <header className={classes}>
+        <header >
             <Navbar className='py-2 shadow-sm bg-white' expand="lg">
                 <Container fluid>
                     <Navbar.Toggle aria-controls="navbarScroll" />

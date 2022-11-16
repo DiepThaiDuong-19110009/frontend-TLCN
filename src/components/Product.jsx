@@ -5,7 +5,7 @@ import Rating from '../components/Rating'
 
 const Product = ({ product }) => {
     return (
-        <Card className='mb-5 p-3 rounded shadow bg-white rounded'>
+        <Card style={{border: 'none', borderRadius: '0px'}}>
             <Link to={`/product/${product._id}`} className='d-flex justify-content-center align-items-center'>
                 <Card.Img src={product.photo} alt={product.name} variant='top' style={{ width: '80%', margin: '0 auto' }} />
             </Link>
@@ -14,7 +14,7 @@ const Product = ({ product }) => {
                     <Rating value={product.rating} text={`${product.reviews?.length} đánh giá`} />
                 </Card.Text>
                 <Link style={{ color: 'black', textDecoration: 'none' }} to={`/product/${product._id}`}>
-                    <Card.Title as='h6'>
+                    <Card.Title as='h6' style={{minHeight: '50px'}}>
                         <p className='my-3'>{product.name}</p>
                     </Card.Title>
                 </Link>

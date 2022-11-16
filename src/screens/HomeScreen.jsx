@@ -15,10 +15,7 @@ const HomeScreen = () => {
   }, [dispatch])
 
   return (
-    <Container>
-      <Row>
-        <Search />
-      </Row>
+    <Container className='pt-4'>
       <Row>
         <Slider />
       </Row>

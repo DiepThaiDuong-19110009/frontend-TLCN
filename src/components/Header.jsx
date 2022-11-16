@@ -1,4 +1,4 @@
-import { React } from 'react'
+import { React, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { LinkContainer } from 'react-router-bootstrap'
@@ -23,9 +23,30 @@ const Header = () => {
     const cart = useSelector(state => state.cart)
     const { cartItems } = cart
 
+
+    // Scroll page
+    const [sticky, setSticky] = useState("");
+
+    // on render, set listener
+    useEffect(() => {
+        window.addEventListener("scroll", isSticky);
+        return () => {
+            window.removeEventListener("scroll", isSticky);
+        };
+    }, []);
+
+    const isSticky = () => {
+        /* Method that will fix header after a specific scrollable */
+        const scrollTop = window.scrollY;
+        const stickyClass = scrollTop >= 50 ? "is-sticky" : "";
+        setSticky(stickyClass);
+    };
+
+    const classes = `header-section ${sticky}`;
+
     return (
-        <div>
-            <Row className='d-flex justify-content-between align-items-center flex-wrap mx-0'>
+        <div className={classes}>
+            <Row className='d-flex justify-content-between align-items-center flex-wrap mx-0 py-2'>
                 <Col xl={3} className='d-flex justify-content-center align-items-center'>
                     <LinkContainer to='/'>
                         <Navbar.Brand className='text-success'>
@@ -34,11 +55,11 @@ const Header = () => {
                         </Navbar.Brand>
                     </LinkContainer>
                 </Col>
-                <Col xl={6} style={{margin: '0 auto', padding: 'auto', height: 'auto'}} className='px-4'>
+                <Col xl={6} style={{margin: '0 auto', padding: 'auto', height: 'auto'}} className='py-3'>
                     <Search />
                 </Col>
                 <Col xl={3} className='d-flex justify-content-center align-items-center'>
-                    <LinkContainer style={{ color: 'white' }} to='/cart'>
+                    <LinkContainer style={{ color: 'white' }} to='/cart' className='px-3'>
                         <Nav.Link className='text-success'>
                             <i style={{ fontSize: '30px' }} className='fas fa-shopping-cart'></i> <strong style={{ fontSize: '20px' }}>({cartItems.length})</strong>
                         </Nav.Link>
