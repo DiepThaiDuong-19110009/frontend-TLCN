@@ -34,9 +34,8 @@ const Search = () => {
     }
 
     return (
-        <div>
-            <h5 className='my-3'>Tìm kiếm sản phẩm</h5>
-            <div className='d-flex align-items-center mb-5 py-0 px-3 shadow-sm p-3 mb-5 bg-white rounded' style={{ background: '#ffffff', borderRadius: '10px', border: 'solid 1px #3CB371' }}>
+        <>
+            <div className='d-flex align-items-center py-0 px-3 shadow-sm  bg-white rounded' style={{ background: '#ffffff', borderRadius: '10px', border: 'solid 1px #3CB371' }}>
                 <div className='w-100'>
                     <Autocomplete disablePortal options={myOptions.sort()} onChange={(event, value) => setSelectedOptions(value)}
                         renderInput={(params) => (
@@ -54,7 +53,7 @@ const Search = () => {
                     </Button>
                 </div>
             </div>
-        </div>
+        </>
     )
 }
 
