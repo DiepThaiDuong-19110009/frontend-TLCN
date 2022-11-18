@@ -68,14 +68,14 @@ const ProductScreen = () => {
         <Container className='pt-3' style={{background: '#f5f5f5'}}>
           <Row>
             <Col>
-              <ListGroup as="ul" className='mb-3'>
-                <ListGroup.Item style={{ background: 'green', display: 'flex', alignItems: 'center' }}>
-                  <i style={{ fontSize: '20px', color: '#f2f2f2', marginRight: '3%' }} class="fas fa-bars"></i>
-                  <h5 className='text-light my-2'>Danh mục sản phẩm</h5>
+              <ListGroup as="ul" style={{borderRadius: '0px'}}>
+                <ListGroup.Item style={{ background: 'green', display: 'flex', alignItems: 'center'}}>
+                  <i style={{ fontSize: '16px', color: '#f2f2f2', marginRight: '3%' }} class="fas fa-bars"></i>
+                  <h6 className='text-light my-2'>Danh mục sản phẩm</h6>
                 </ListGroup.Item>
-                <ListGroup.Item className='hoverCate' onClick={showAllProduct} >Tất cả sản phẩm</ListGroup.Item>
+                <ListGroup.Item style={{fontSize: '14px'}} className='hoverCate' onClick={showAllProduct} >Tất cả sản phẩm</ListGroup.Item>
                 {categories.map(category => (
-                  <ListGroup.Item className='hoverCate' key={category._id} onClick={getCategoryId(category._id)} as="li">{category.name}</ListGroup.Item>
+                  <ListGroup.Item style={{fontSize: '14px'}} className='hoverCate' key={category._id} onClick={getCategoryId(category._id)} as="li">{category.name}</ListGroup.Item>
                 ))}
               </ListGroup>
             </Col>

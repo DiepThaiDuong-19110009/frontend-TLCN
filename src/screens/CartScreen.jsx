@@ -1,7 +1,7 @@
-import { React, useEffect } from 'react'
+import { React, useEffect, useState } from 'react'
 import { Link, useParams, useNavigate, useLocation } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { Row, Col, Image, ListGroup, Card, Button, Form, Container } from 'react-bootstrap'
+import { Row, Col, Image, ListGroup, Card, Button, Form, Container, Modal } from 'react-bootstrap'
 import Message from '../components/Message'
 import { addToCart, removeFormCart } from '../actions/cartActions'
 
@@ -16,19 +16,13 @@ const CartScreen = () => {
 
   const cart = useSelector(state => state.cart)
   const { cartItems } = cart
-  console.log('==', cartItems);
+  // console.log('==', cartItems);
 
   useEffect(() => {
     if (productId) {
       dispatch(addToCart(productId, quantity))
     }
   }, [dispatch, productId, quantity])
-
-  // Comfirm Remove
-
-  const removeFromCartHandler = (id) => {
-    dispatch(removeFormCart(id))
-  }
 
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
@@ -39,6 +33,34 @@ const CartScreen = () => {
     } else {
       navigate('/shipping')
     }
+  }
+
+  // Add to cart
+  const increaseQty = (id, count, quantity) => {
+    const newQty = count + 1;
+    if (newQty > quantity) return;
+    dispatch(addToCart(id, newQty))
+  }
+
+  const decreaseQty = (id, count) => {
+    const newQty = count - 1;
+    if (newQty <= 0) return;
+    dispatch(addToCart(id, newQty))
+
+  }
+
+  //Alert delete product
+  // Comfirm Remove
+  const removeFromCartHandler = (id) => {
+    dispatch(removeFormCart(id))
+    setShowUnlock(false)
+  }
+  const [idUnlock, setIdUnlock] = useState('')
+  const [showUnlock, setShowUnlock] = useState(false);
+  const handleCloseUnlock = () => setShowUnlock(false);
+  const handleShowUnlock = (id) => {
+    setShowUnlock(true);
+    setIdUnlock(id)
   }
 
   return (
@@ -65,21 +87,21 @@ const CartScreen = () => {
                     <Col md={2}>
                       <Image src={item.image} alt={item.name} fluid rounded />
                     </Col>
-                    <Col md={4} className='d-flex align-items-center'>
+                    <Col md={3} className='d-flex align-items-center'>
                       <Link style={{ textDecoration: 'none', color: 'black' }} to={`/product/${item.product}`}>{item.name}</Link>
                     </Col>
                     <Col md={2} className='d-flex align-items-center'>{(item.price).toLocaleString('vi', { style: 'currency', currency: 'VND' })}</Col>
-                    <Col md={2} className='d-flex align-items-center'>
-                      <Form.Control as='select' value={item.count} onChange={(e) => dispatch(addToCart(item.product, Number(e.target.value)))}>
-                        {
-                          [...Array(item.quantity).keys()].map(x => (
-                            <option key={x + 1} value={x + 1}>{x + 1}</option>
-                          ))
-                        }
-                      </Form.Control>
+                    <Col md={3} className='d-flex align-items-center'>
+                      <Row className="d-flex justify-content-between">
+                        <Form.Group className="d-flex justify-content-between" >
+                          <Button className='py-0' variant="outline-success" style={{ width: '40px', height: '40px', fontSize: '20px' }} onClick={() => decreaseQty(item.product, item.count)}>-</Button>
+                          <Form.Control style={{ width: '50px', height: '40px' }} type='number' className="text-center mx-1" value={item.count}></Form.Control>  
+                          <Button className='py-0' variant="outline-success" style={{ width: '40px', height: '40px', fontSize: '20px' }} onClick={() => increaseQty(item.product, item.count, item.quantity)}>+</Button>
+                        </Form.Group>
+                      </Row>
                     </Col>
                     <Col md={1} className='d-flex align-items-center'>
-                      <Button type='button' variant='light' onClick={() => removeFromCartHandler(item.product)}>
+                      <Button type='button' variant='light' onClick={() => handleShowUnlock(item.product)}>
                         <i className='fas fa-trash'></i>
                       </Button>
                     </Col>
@@ -105,6 +127,26 @@ const CartScreen = () => {
           </Card>
         </Col>
       </Row>
+      {/* Unlock user */}
+      <Modal
+        show={showUnlock}
+        onHide={handleCloseUnlock}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Xóa sản phẩm</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          Bạn có chắc chắn muốn xóa sản phẩm dùng này không?
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseUnlock}>
+            Hủy
+          </Button>
+          <Button variant="danger" onClick={() => removeFromCartHandler(idUnlock)}>Đồng ý</Button>
+        </Modal.Footer>
+      </Modal>
     </Container>
   )
 }

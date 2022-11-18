@@ -2,18 +2,21 @@ import { React, useState, useEffect } from 'react'
 import { Link, useParams, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { Row, Col, Image, Card, Button, Form, Container } from 'react-bootstrap'
-import { format, formatDistance, formatRelative, subDays } from 'date-fns'
+import Rating from '@material-ui/lab/Rating';
+import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
 import 'react-medium-image-zoom/dist/styles.css'
 import Zoom from 'react-medium-image-zoom'
-import Rating from '../components/Rating'
+import Rate from '../components/Rating'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 import { listProductDetails, createCommentProduct } from '../actions/productActions'
 
 const ProductDetailScreen = () => {
-    const [qty, setQty] = useState(1)
+    const [quantity, setQuantity] = useState(1)
     const [rating, setRating] = useState(5)
     const [comment, setComment] = useState('')
+    const [alert, setAlert] = useState('')
     // console.log('==', comment);
 
     const navigate = useNavigate();
@@ -42,23 +45,43 @@ const ProductDetailScreen = () => {
 
     //Event add to cart
     const addToCartHandler = () => {
-        navigate(`/cart/${productId}?qty=${qty}`)
+        navigate(`/cart/${productId}?qty=${quantity}`)
     }
 
     // submit Comment
     const submitComment = () => {
         const commentProduct = { user: userInfo.user._id, rating, comment }
-        // console.log('==', commentProduct)
-        if (userInfo) {
+        if (comment === '') {
+            setAlert('Vui lòng thêm nội dung đánh giá')
+        }
+        else if (userInfo) {
             dispatch(createCommentProduct(productId, commentProduct))
             window.location.reload()
         }
+        // console.log('==', commentProduct)
+    }
+
+    // Add to cart
+    const increaseQty = () => {
+        const count = document.querySelector('.count')
+        if (count.valueAsNumber >= product.quantity) return;
+        const qty = count.valueAsNumber + 1;
+        setQuantity(qty)
+    }
+
+    const decreaseQty = () => {
+        const count = document.querySelector('.count')
+        if (count.valueAsNumber <= 1) return;
+        const qty = count.valueAsNumber - 1;
+        setQuantity(qty)
+
     }
 
     // view Comment
     const viewComment = () => {
         window.location.href = '#comment'
     }
+
     return (
         <Container style={{ background: '#ffffff' }} className='pt-1'>
             <Link to='/product' style={{ textDecoration: 'none' }}>
@@ -86,7 +109,7 @@ const ProductDetailScreen = () => {
                                 <Card.Title><h4>{product.name}</h4></Card.Title>
                                 <Card.Subtitle className="my-3 text-muted"><h6>Nhà cung cấp: {product.supplier?.id?.name}</h6></Card.Subtitle>
                                 <Card.Text className='d-flex justify-content-between'>
-                                    <Rating value={product.rating} text={`${product.reviews?.length} đánh giá`} />
+                                    <Rate value={product.rating} text={`${product.reviews?.length} đánh giá`} />
                                     <div className='d-flex justify-content-between align-items-center'>
                                         <i className="fas fa-pen mx-2"></i>
                                         <p className='my-0' style={{ cursor: 'pointer' }} onClick={viewComment}>viết đánh giá</p>
@@ -96,7 +119,7 @@ const ProductDetailScreen = () => {
                                     Giá: <strong style={{ color: 'red', fontSize: '20px' }}>{product.price?.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</strong>
                                 </Card.Text>
                                 <Card.Text>
-                                    <h6 className='my-2' style={{ fontSize: '15px' }}>Mô tả sản phẩm:</h6> 
+                                    <h6 className='my-2' style={{ fontSize: '15px' }}>Mô tả sản phẩm:</h6>
                                     <p>{product.description}</p>
                                 </Card.Text>
                                 <Card.Text>
@@ -107,14 +130,20 @@ const ProductDetailScreen = () => {
                                 </Card.Text>
                                 <Row className='d-flex justify-content-between align-items-center'>
                                     <Col xl={4} className='d-flex justify-content-between align-items-center mt-3'>
-                                        <p className='my-0'>Số lượng:</p>
-                                        <Form.Control style={{ width: '50%' }} as='select' value={qty} onChange={(e) => setQty(e.target.value)}>
+                                        {/* <Form.Control style={{ width: '50%' }} as='select' value={qty} onChange={(e) => setQty(e.target.value)}>
                                             {
                                                 arrStock.map(x => (
                                                     <option value={x}>{x}</option>
                                                 ))
                                             }
-                                        </Form.Control>
+                                        </Form.Control> */}
+                                        <Row className="d-flex justify-content-between">
+                                            <Button className='py-0' variant="outline-success" style={{ width: '40px', height: '40px', fontSize: '20px' }} onClick={decreaseQty}>-</Button>
+
+                                            <input style={{ width: '80px', height: '40px' }} type="number" className="form-control count text-center mx-2" value={quantity} readOnly />
+
+                                            <Button className='py-0' variant="outline-success" style={{ width: '40px', height: '40px', fontSize: '20px' }} onClick={increaseQty}>+</Button>
+                                        </Row>
                                     </Col>
                                     <Col xl={8} className='d-flex justify-content-center align-items-center mt-3'>
                                         <Button className='py-2' onClick={addToCartHandler} variant="success" type='button' disabled={product.quantity === 0}>
@@ -128,28 +157,25 @@ const ProductDetailScreen = () => {
                             </Card.Body>
                         </Card>
                     </Col>
-                    {/* <Col md={3}>
-                        <Card>
-                            
-                        </Card>
-                    </Col> */}
                 </Row>}
             <Row id="comment">
                 <h4 className='pt-5 pb-3'>Đánh giá sản phẩm ({product.reviews?.length})</h4>
                 {userInfo && <Form>
-                    <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                        <Form.Label>Đánh giá</Form.Label>
-                        <Form.Select value={rating} onChange={(e) => setRating(e.target.value)} aria-label="Default select example">
-                            <option value={5}>5 Sao</option>
-                            <option value={4}>4 Sao</option>
-                            <option value={3}>3 Sao</option>
-                            <option value={2}>2 Sao</option>
-                            <option value={1}>1 Sao</option>
-                        </Form.Select>
+                    <Box component="fieldset" mb={3} borderColor="transparent">
+                        <Typography component="legend">
+                            Vui lòng chọn đánh giá
+                        </Typography>
+                        <Rating
+                            name="Rating Label"
+                            value={rating}
+                            onChange={(event, newValue) => {
+                                setRating(newValue);
+                            }}
+                        />
+                    </Box>
+                    <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+                        <p style={{ color: 'red' }}>{alert}</p>
                     </Form.Group>
-                    {/* <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-                       <p style={{color: 'red'}}>*Vui lòng viết bình luận của bạn</p>
-                    </Form.Group> */}
                     <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
                         <Form.Label>Bình luận của bạn về sản phẩm</Form.Label>
                         <Form.Control placeholder='Viết bình luận của bạn' value={comment} onChange={(e) => setComment(e.target.value)} as="textarea" rows={3} />
@@ -172,7 +198,7 @@ const ProductDetailScreen = () => {
                                     </Col>
                                     <Col className='d-flex align-items-center justify-content-end'>
                                         <h6 className='my-0 mx-3'>Đã đánh giá: </h6>
-                                        <Rating value={review.rating} />
+                                        <Rate value={review.rating} />
                                     </Col>
                                 </Row>
                                 <Row className='px-0'>
