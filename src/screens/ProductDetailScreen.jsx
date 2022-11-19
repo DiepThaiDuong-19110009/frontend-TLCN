@@ -11,6 +11,7 @@ import Rate from '../components/Rating'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 import { listProductDetails, createCommentProduct } from '../actions/productActions'
+import { addToCart } from '../actions/cartActions';
 
 const ProductDetailScreen = () => {
     const [quantity, setQuantity] = useState(1)
@@ -29,7 +30,11 @@ const ProductDetailScreen = () => {
     // console.log('==', userInfo);
     const productDetails = useSelector(state => state.productDetails)
     const { loading, error, product } = productDetails
-    console.log('==', product);
+    // console.log('==', product);
+
+    const cart = useSelector(state => state.cart)
+    const { cartItems } = cart
+    console.log('==', cartItems);
 
     let stock = product?.supplier?.quantityImport - product.sold
     const arrStock = []
@@ -45,7 +50,19 @@ const ProductDetailScreen = () => {
 
     //Event add to cart
     const addToCartHandler = () => {
-        navigate(`/cart/${productId}?qty=${quantity}`)
+        let check = false
+        cartItems.forEach(x => {
+            if (x.product === productId) {
+                x.count += quantity
+                dispatch(addToCart(productId, x.count))
+                navigate(`/cart/${productId}?qty=${x.count}`)
+                check = true
+            }
+        })
+        if(check === false){
+            dispatch(addToCart(productId, quantity))
+            navigate(`/cart/${productId}?qty=${quantity}`)
+        }
     }
 
     // submit Comment
@@ -74,7 +91,6 @@ const ProductDetailScreen = () => {
         if (count.valueAsNumber <= 1) return;
         const qty = count.valueAsNumber - 1;
         setQuantity(qty)
-
     }
 
     // view Comment

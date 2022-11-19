@@ -18,11 +18,14 @@ const CartScreen = () => {
   const { cartItems } = cart
   // console.log('==', cartItems);
 
+  // check cart
+  
   useEffect(() => {
     if (productId) {
       dispatch(addToCart(productId, quantity))
     }
-  }, [dispatch, productId, quantity])
+    //eslint-disable-next-line 
+  }, [dispatch])
 
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
@@ -53,14 +56,14 @@ const CartScreen = () => {
   // Comfirm Remove
   const removeFromCartHandler = (id) => {
     dispatch(removeFormCart(id))
-    setShowUnlock(false)
+    setShowAlert(false)
   }
-  const [idUnlock, setIdUnlock] = useState('')
-  const [showUnlock, setShowUnlock] = useState(false);
-  const handleCloseUnlock = () => setShowUnlock(false);
-  const handleShowUnlock = (id) => {
-    setShowUnlock(true);
-    setIdUnlock(id)
+  const [idProduct, setIdProduct] = useState('')
+  const [showAlert, setShowAlert] = useState(false);
+  const handleCloseAlert = () => setShowAlert(false);
+  const handleDeleteProduct = (id) => {
+    setShowAlert(true);
+    setIdProduct(id)
   }
 
   return (
@@ -95,13 +98,13 @@ const CartScreen = () => {
                       <Row className="d-flex justify-content-between">
                         <Form.Group className="d-flex justify-content-between" >
                           <Button className='py-0' variant="outline-success" style={{ width: '40px', height: '40px', fontSize: '20px' }} onClick={() => decreaseQty(item.product, item.count)}>-</Button>
-                          <Form.Control style={{ width: '50px', height: '40px' }} type='number' className="text-center mx-1" value={item.count}></Form.Control>  
+                          <input style={{ width: '50px', height: '40px' }} type='text' inputmode="decimal" className="form-control text-center mx-1" value={item.count} readOnly></input>
                           <Button className='py-0' variant="outline-success" style={{ width: '40px', height: '40px', fontSize: '20px' }} onClick={() => increaseQty(item.product, item.count, item.quantity)}>+</Button>
                         </Form.Group>
                       </Row>
                     </Col>
                     <Col md={1} className='d-flex align-items-center'>
-                      <Button type='button' variant='light' onClick={() => handleShowUnlock(item.product)}>
+                      <Button type='button' variant='light' onClick={() => handleDeleteProduct(item.product)}>
                         <i className='fas fa-trash'></i>
                       </Button>
                     </Col>
@@ -129,8 +132,8 @@ const CartScreen = () => {
       </Row>
       {/* Unlock user */}
       <Modal
-        show={showUnlock}
-        onHide={handleCloseUnlock}
+        show={showAlert}
+        onHide={handleCloseAlert}
         backdrop="static"
         keyboard={false}
       >
@@ -141,10 +144,10 @@ const CartScreen = () => {
           Bạn có chắc chắn muốn xóa sản phẩm dùng này không?
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseUnlock}>
+          <Button variant="secondary" onClick={handleCloseAlert}>
             Hủy
           </Button>
-          <Button variant="danger" onClick={() => removeFromCartHandler(idUnlock)}>Đồng ý</Button>
+          <Button variant="danger" onClick={() => removeFromCartHandler(idProduct)}>Đồng ý</Button>
         </Modal.Footer>
       </Modal>
     </Container>

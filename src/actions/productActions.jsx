@@ -23,7 +23,7 @@ import {
 import { PRODUCT_LIST_REQUEST, PRODUCT_LIST_SUCCESS, PRODUCT_LIST_FAIL } from '../constants/productConstants'
 import { PRODUCT_DETAILS_REQUEST, PRODUCT_DETAILS_SUCCESS, PRODUCT_DETAILS_FAIL } from '../constants/productConstants'
 
-
+// console.log('====env', process.env.BASE_URL)
 export const listCategory = () => async (dispatch) => {
     try {
         dispatch({ type: PRODUCT_CATEGORY_REQUEST })
@@ -46,7 +46,7 @@ export const listProducts = () => async (dispatch) => {
     try {
         dispatch({ type: PRODUCT_LIST_REQUEST })
 
-        const { data } = await axios.get('http://localhost:5000/api/product')
+        const { data } = await axios.get(`http://localhost:5000/api/product`)
         console.log('==', data.products);
 
         dispatch({
@@ -289,7 +289,7 @@ export const createCommentProduct = (id, commentProduct) => async (dispatch, get
                 Authorization: `Bearer ${userInfo.token}`
             }
         }
-        const { data } = await axios.put(`http://localhost:5000/api/comment/${id}`, commentProduct, config)
+        const { data } = await axios.put(`${process.env.BASE_URL}/comment/${id}`, commentProduct, config)
 
         dispatch({
             type: PRODUCT_COMMENT_SUCCESS,
