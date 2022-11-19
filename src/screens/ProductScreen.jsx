@@ -83,12 +83,12 @@ const ProductScreen = () => {
               <Slider />
             </Col>
           </Row>
-          <Row>
+          <Row id='productlist'>
             <Col sm={0} md={0} lg={8} xl={8}>
               <h5 className='mt-5 mb-4'>Danh sách sản phẩm</h5>
             </Col>
           </Row>
-          <Row id='productlist' className="py-3 px-3">
+          <Row className="py-3 px-3">
             <Row>
               <Col sm={0} md={0} lg={4} xl={4} className='d-flex justify-content-center align-item'>
                 {/* <p className='mb-4 mt-3'>Sắp xếp</p> */}
