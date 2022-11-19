@@ -59,7 +59,7 @@ const ProductDetailScreen = () => {
                 check = true
             }
         })
-        if(check === false){
+        if (check === false) {
             dispatch(addToCart(productId, quantity))
             navigate(`/cart/${productId}?qty=${quantity}`)
         }
@@ -108,31 +108,32 @@ const ProductDetailScreen = () => {
             </Link>
             {loading ? <Loader /> : error ? <Message variant='danger'>{error}</Message> :
                 <Row style={{ width: 'auto', margin: '0 auto' }} className='d-flex justify-content-evenly py-0'>
-                    <Col md={5}>
+                    <Col md={4}>
                         <Zoom>
                             <Image
                                 alt="That Wanaka Tree, New Zealand by Laura Smetsers"
                                 src={product.photo}
-                                width="500"
+                                width="400"
                                 fluid
                                 style={{ background: '#f3f3f3' }}
                             />
                         </Zoom>
                     </Col>
-                    <Col md={7}>
+                    <Col md={8}>
                         <Card style={{ width: '100%', border: 'none' }}>
                             <Card.Body>
-                                <Card.Title><h4>{product.name}</h4></Card.Title>
-                                <Card.Subtitle className="my-3 text-muted"><h6>Nhà cung cấp: {product.supplier?.id?.name}</h6></Card.Subtitle>
+                                <Card.Title><h5>{product.name}</h5></Card.Title>
+                                <Card.Subtitle className="my-3 text-muted"><p>Nhà cung cấp: {product.supplier?.id?.name}</p></Card.Subtitle>
                                 <Card.Text className='d-flex justify-content-between'>
-                                    <Rate value={product.rating} text={`${product.reviews?.length} đánh giá`} />
-                                    <div className='d-flex justify-content-between align-items-center'>
-                                        <i className="fas fa-pen mx-2"></i>
-                                        <p className='my-0' style={{ cursor: 'pointer' }} onClick={viewComment}>viết đánh giá</p>
+                                    <div>
+                                        Giá: <strong style={{ color: 'red', fontSize: '20px' }}>{product.price?.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</strong>
                                     </div>
-                                </Card.Text>
-                                <Card.Text>
-                                    Giá: <strong style={{ color: 'red', fontSize: '20px' }}>{product.price?.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</strong>
+                                    <div className='d-flex justify-content-between align-items-center'>
+                                        <Rate value={product.rating} />
+                                        <p className='my-0' style={{ cursor: 'pointer' }} onClick={viewComment}>(Xem {product.reviews?.length} đánh giá)</p>
+                                        <p className='my-0 mx-2'> | </p>
+                                        <p className='my-0'>Đã bán <strong>{product.sold}</strong></p>
+                                    </div>
                                 </Card.Text>
                                 <Card.Text>
                                     <h6 className='my-2' style={{ fontSize: '15px' }}>Mô tả sản phẩm:</h6>
@@ -140,9 +141,6 @@ const ProductDetailScreen = () => {
                                 </Card.Text>
                                 <Card.Text>
                                     Trạng thái: {(product.quantity) > 0 ? <strong style={{ color: 'green' }}>Còn hàng</strong> : <strong style={{ color: 'red' }}>Hết hàng</strong>}
-                                </Card.Text>
-                                <Card.Text>
-                                    Đã bán: <strong style={{ color: 'red' }}>{product.sold} sản phẩm</strong>
                                 </Card.Text>
                                 <Row className='d-flex justify-content-between align-items-center'>
                                     <Col xl={4} className='d-flex justify-content-between align-items-center mt-3'>
@@ -178,7 +176,7 @@ const ProductDetailScreen = () => {
                 <h4 className='pt-5 pb-3'>Đánh giá sản phẩm ({product.reviews?.length})</h4>
                 {userInfo && <Form>
                     <Box component="fieldset" mb={3} borderColor="transparent">
-                        <Typography component="legend">
+                        <Typography component="legend" className='py-3'>
                             Vui lòng chọn đánh giá
                         </Typography>
                         <Rating

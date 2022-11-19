@@ -1,9 +1,10 @@
-import { React, useState } from 'react'
+import { React, useState, useEffect } from 'react'
 import TextField from '@material-ui/core/TextField';
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { Button } from 'react-bootstrap'
+import { listProducts } from '../actions/productActions';
 
 const Search = () => {
 
@@ -17,6 +18,11 @@ const Search = () => {
             myOptions.push(prod.name)
         })
     }
+
+    const dispatch = useDispatch()
+    useEffect(() => {
+        dispatch(listProducts())
+    }, [])
 
     const navigate = useNavigate()
 
