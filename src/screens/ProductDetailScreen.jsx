@@ -99,8 +99,8 @@ const ProductDetailScreen = () => {
     }
 
     return (
-        <Container style={{ background: '#ffffff' }} className='pt-1'>
-            <Link to='/product' style={{ textDecoration: 'none' }}>
+        <Container style={{ background: '#ffffff' }} className='pt-2'>
+            <Link to='/product' style={{ textDecoration: 'none' }} className='d-flex'>
                 <Button variant="outline-success" className='mt-3 d-flex justify-content-center align-items-center'>
                     <i className="fas fa-chevron-left"></i>
                     <p className='my-0' style={{ marginLeft: '10px' }}>Quay lại</p>
@@ -143,14 +143,10 @@ const ProductDetailScreen = () => {
                                     Trạng thái: {(product.quantity) > 0 ? <strong style={{ color: 'green' }}>Còn hàng</strong> : <strong style={{ color: 'red' }}>Hết hàng</strong>}
                                 </Card.Text>
                                 <Row className='d-flex justify-content-between align-items-center'>
-                                    <Col xl={4} className='d-flex justify-content-between align-items-center mt-3'>
-                                        {/* <Form.Control style={{ width: '50%' }} as='select' value={qty} onChange={(e) => setQty(e.target.value)}>
-                                            {
-                                                arrStock.map(x => (
-                                                    <option value={x}>{x}</option>
-                                                ))
-                                            }
-                                        </Form.Control> */}
+                                    <Col xl={2} className='d-flex justify-content-center align-items-center mt-3'>
+                                        <h6 className='my-0'>Số lượng:</h6>
+                                    </Col>
+                                    <Col xl={4} className='d-flex justify-content-center align-items-center mt-3'>
                                         <Row className="d-flex justify-content-between">
                                             <Button className='py-0' variant="outline-success" style={{ width: '40px', height: '40px', fontSize: '20px' }} onClick={decreaseQty}>-</Button>
 
@@ -159,7 +155,7 @@ const ProductDetailScreen = () => {
                                             <Button className='py-0' variant="outline-success" style={{ width: '40px', height: '40px', fontSize: '20px' }} onClick={increaseQty}>+</Button>
                                         </Row>
                                     </Col>
-                                    <Col xl={8} className='d-flex justify-content-center align-items-center mt-3'>
+                                    <Col xl={6} className='d-flex justify-content-center align-items-center mt-3'>
                                         <Button className='py-2' onClick={addToCartHandler} variant="success" type='button' disabled={product.quantity === 0}>
                                             <div className='d-flex justify-content-between'>
                                                 <i className="fas fa-cart-arrow-down" style={{ fontSize: '25px', marginRight: '10px' }}></i>
@@ -173,7 +169,7 @@ const ProductDetailScreen = () => {
                     </Col>
                 </Row>}
             <Row id="comment">
-                <h4 className='pt-5 pb-3'>Đánh giá sản phẩm ({product.reviews?.length})</h4>
+                <h5 className='pt-5 pb-3'>Đánh giá sản phẩm ({product.reviews?.length})</h5>
                 {userInfo && <Form>
                     <Box component="fieldset" mb={3} borderColor="transparent">
                         <Typography component="legend" className='py-3'>

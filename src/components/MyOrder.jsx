@@ -9,12 +9,13 @@ const MyOrder = () => {
     const userLogin = useSelector(state => state.userLogin)
     const { userInfo } = userLogin
     const orderList = useSelector(state => state.orderList)
-    const { loading, error, orders } = orderList
+    const { orders } = orderList
+    console.log('==', orders);
 
     let arrOrder = []
     const getOrderById = () => {
-        orders.forEach(item => {
-            if (item.user._id === userInfo.user._id) {
+        orders?.forEach(item => {
+            if (item?.user?._id === userInfo?.user?._id) {
                 arrOrder.push(item)
             }
         });
