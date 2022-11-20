@@ -11,7 +11,7 @@ import { cartReducer } from './reducers/cartReducers'
 import {
     userLoginReducer, userRegisterReducer, userDetailsReducer,
     userUpdateProfileReducer, userChangePasswordReducer, userForgotPasswordReducer,
-    userListReducer, userDeleteReducer, userUpdateReducer
+    userListReducer, userDeleteReducer, userUpdateReducer, userVerifyReducer,
 } from './reducers/userReducers'
 import { orderCreateReducer, getOrderReducer, orderDeleteReducer, orderUpdateReducer, orderDetailsReducer, totalPayPalReducer } from './reducers/orderReducers'
 import { incomeListReducer } from './reducers/statisticalReducers'
@@ -27,6 +27,7 @@ const reducer = combineReducers({
     commentCreate: commentCreateReducer,
     cart: cartReducer,
     userLogin: userLoginReducer,
+    userVerify: userVerifyReducer,
     userRegister: userRegisterReducer,
     userDetails: userDetailsReducer,
     userUpdateProfile: userUpdateProfileReducer,

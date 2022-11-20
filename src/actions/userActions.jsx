@@ -6,7 +6,7 @@ import {
     USER_CHANGEPASSWORD_REQUEST, USER_CHANGEPASSWORD_SUCCESS, USER_CHANGEPASSWORD_FAIL,
     USER_FORGOTPASSWORD_REQUEST, USER_FORGOTPASSWORD_SUCCESS, USER_FORGOTPASSWORD_FAIL,
     USER_UPDATE_PROFILE_REQUEST, USER_UPDATE_PROFILE_SUCCESS, USER_UPDATE_PROFILE_FAIL,
-    USER_LIST_REQUEST, USER_LIST_SUCCESS, USER_LIST_FAIL, USER_LIST_RESET, USER_DELETE_REQUEST, USER_DELETE_SUCCESS, USER_DELETE_FAIL, USER_UPDATE_REQUEST, USER_UPDATE_SUCCESS, USER_UPDATE_FAIL
+    USER_LIST_REQUEST, USER_LIST_SUCCESS, USER_LIST_FAIL, USER_LIST_RESET, USER_DELETE_REQUEST, USER_DELETE_SUCCESS, USER_DELETE_FAIL, USER_UPDATE_REQUEST, USER_UPDATE_SUCCESS, USER_UPDATE_FAIL, USER_VERIFY_REQUEST, USER_VERIFY_SUCCESS, USER_VERIFY_FAIL
 } from "../constants/userConstants";
 
 import axios from 'axios'
@@ -70,10 +70,39 @@ export const register = (name, email, password) => async (dispatch) => {
             payload: data
         })
 
-        localStorage.setItem('userInfo', JSON.stringify(data))
+        // localStorage.setItem('userInfo', JSON.stringify(data))
     } catch (error) {
         dispatch({
             type: USER_REGISTER_FAIL,
+            payload: error.response && error.response.data.error ? error.response.data.error : error.error,
+        })
+    }
+}
+
+// verify
+export const verify = (id) => async (dispatch) => {
+    try {
+        dispatch({
+            type: USER_VERIFY_REQUEST
+        })
+
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                "Accept": "application/json"
+            }
+        }
+
+        const { data } = await axios.get(`http://localhost:5000/api/verify/${id}`, config)
+
+        dispatch({
+            type: USER_VERIFY_SUCCESS,
+            payload: data
+        })
+
+    } catch (error) {
+        dispatch({
+            type: USER_VERIFY_FAIL,
             payload: error.response && error.response.data.error ? error.response.data.error : error.error,
         })
     }

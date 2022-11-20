@@ -21,6 +21,7 @@ import EventScreen from '../screens/EventScreen';
 import ScrollTop from '../components/ScrollTop';
 import BlogScreen from '../screens/BlogScreen';
 import ContactScreen from '../screens/ContactScreen';
+import VerifyScreen from '../screens/VerifyScreen';
 
 const ClientRouter = () => {
   return (
@@ -35,6 +36,7 @@ const ClientRouter = () => {
           <Route path='/cart/:id' element={<CartScreen />} />
           <Route path='/cart/' element={<CartScreen />} />
           <Route path='/login' element={<LoginScreen />} />
+          <Route path='/verify/:id' element={<VerifyScreen />} />
           <Route path='/register' element={<RegisterScreen />} />
           <Route path='/changepassword' element={<ChangePassword />} />
           <Route path='/forgotpassword' element={<ForgotPassword />} />

@@ -17,7 +17,7 @@ const RegisterScreen = () => {
     const navigate = useNavigate();
 
     const userRegister = useSelector(state => state.userRegister)
-    const { loading, error, userInfo } = userRegister
+    const { loading, error, success } = userRegister
 
     // Check showpassword
     const [passwordShown, setPasswordShown] = useState(false);
@@ -25,12 +25,11 @@ const RegisterScreen = () => {
         setPasswordShown(passwordShown ? false : true);
     };
 
-    useEffect(() => {
-        if (userInfo) {
-            navigate('/')
-            window.location.reload()
-        }
-    }, [navigate, userInfo])
+    // useEffect(() => {
+    //     if (userInfo) {
+    //         check = true
+    //     }
+    // }, [userInfo])
 
     //Check level Password
     let level = 0
@@ -69,65 +68,66 @@ const RegisterScreen = () => {
 
     return (
         <Row className='px-3 mx-0 d-flex justify-content-center align-items-center'>
-            <Col xl={4} md={5} sm={7} style={{ background: '#f5f5f5', margin: '20px', padding: '0 40px', borderRadius: '20px' }} className='shadow rounded'>
-                <h3 className='d-flex justify-content-center pt-5 pb-3'>Đăng ký</h3>
-                <p style={{ color: 'red', textAlign: 'center' }}>{message}</p>
-                {loading && <Loader />}
-                <Form onSubmit={submitHandler}>
-                    <Form.Group controlId='username'>
-                        <Form.Label>Tên người dùng</Form.Label>
-                        <Form.Control type='name' placeholder='Nhập tên người dùng' value={name} onChange={(e) => setName(e.target.value)}></Form.Control>
-                    </Form.Group>
-                    <Form.Group controlId='email' className='py-3'>
-                        <Form.Label>Email</Form.Label>
-                        <Form.Control type='email' placeholder='Nhập email' value={email} onChange={(e) => setEmail(e.target.value)}></Form.Control>
-                    </Form.Group>
-                    <Form.Group controlId='password' className='pb-1'>
-                        <Form.Label>Mật khẩu</Form.Label>
-                        <Form.Control type={passwordShown ? "text" : "password"} placeholder='Nhập mật khẩu' value={password} onChange={(e) => setPassword(e.target.value)}></Form.Control>
-                    </Form.Group>
-                    {
-                        password.trim().length !== 0 &&
-                        <div className='mt-1'>
-                            <p className='my-0 mb-1' >*Sử dụng các ký tự tăng độ bảo mật: ABC123!@#</p>
-                            {
-                                level <= 33 && <p>Độ bảo mật: <span style={{color: 'red'}}>Yếu</span></p>
-                            }
-                            {
-                                (level > 33 && level <= 66) && <p>Độ bảo mật: <span style={{color: '#f5b800'}}>Trung bình</span></p>
-                            }
-                            {
-                                level > 66 && <p>Độ bảo mật: <span style={{color: 'green'}}>Cao</span></p>
-                            }
-                            <ProgressBar style={{ height: '5px' }} className='mb-3'>
+            {!success ?
+                <Col xl={4} md={5} sm={7} style={{ background: '#f5f5f5', margin: '20px', padding: '0 40px', borderRadius: '20px' }} className='shadow rounded'>
+                    <h3 className='d-flex justify-content-center pt-5 pb-3'>Đăng ký</h3>
+                    <p style={{ color: 'red', textAlign: 'center' }}>{message}</p>
+                    {loading && <Loader />}
+                    <Form onSubmit={submitHandler}>
+                        <Form.Group controlId='username'>
+                            <Form.Label>Tên người dùng</Form.Label>
+                            <Form.Control type='name' placeholder='Nhập tên người dùng' value={name} onChange={(e) => setName(e.target.value)}></Form.Control>
+                        </Form.Group>
+                        <Form.Group controlId='email' className='py-3'>
+                            <Form.Label>Email</Form.Label>
+                            <Form.Control type='email' placeholder='Nhập email' value={email} onChange={(e) => setEmail(e.target.value)}></Form.Control>
+                        </Form.Group>
+                        <Form.Group controlId='password' className='pb-1'>
+                            <Form.Label>Mật khẩu</Form.Label>
+                            <Form.Control type={passwordShown ? "text" : "password"} placeholder='Nhập mật khẩu' value={password} onChange={(e) => setPassword(e.target.value)}></Form.Control>
+                        </Form.Group>
+                        {
+                            password.trim().length !== 0 &&
+                            <div className='mt-1'>
+                                <p className='my-0 mb-1' >*Sử dụng các ký tự tăng độ bảo mật: ABC123!@#</p>
                                 {
-                                    level <= 33 && <ProgressBar variant="danger" now={level} key={1} />
+                                    level <= 33 && <p>Độ bảo mật: <span style={{ color: 'red' }}>Yếu</span></p>
                                 }
                                 {
-                                    (level > 33 && level <= 66) && <ProgressBar variant="warning" now={level} key={2} />
+                                    (level > 33 && level <= 66) && <p>Độ bảo mật: <span style={{ color: '#f5b800' }}>Trung bình</span></p>
                                 }
                                 {
-                                    level > 66 && <ProgressBar variant="success" now={level} key={3} />
+                                    level > 66 && <p>Độ bảo mật: <span style={{ color: 'green' }}>Cao</span></p>
                                 }
-                            </ProgressBar>
-                        </div>
-                    }
-                    <Form.Group className='mt-2'>
-                        <Form>
-                            <div key='default-checkbox' className="mb-3">
-                                <Form.Check
-                                    type='checkbox'
-                                    id='default-checkbox'
-                                    label='Hiển thị mật khẩu'
-                                    onClick={togglePasswordVisiblity}
-                                />
+                                <ProgressBar style={{ height: '5px' }} className='mb-3'>
+                                    {
+                                        level <= 33 && <ProgressBar variant="danger" now={level} key={1} />
+                                    }
+                                    {
+                                        (level > 33 && level <= 66) && <ProgressBar variant="warning" now={level} key={2} />
+                                    }
+                                    {
+                                        level > 66 && <ProgressBar variant="success" now={level} key={3} />
+                                    }
+                                </ProgressBar>
                             </div>
-                        </Form>
-                    </Form.Group>
-                    <Form.Group className='d-flex justify-content-center pt-3'>
-                        <Button style={{ width: '100%' }} type='submit' variant='success'>Đăng ký</Button>
-                    </Form.Group>
-                    {/* <Form.Group className='d-flex justify-content-center pt-3'>
+                        }
+                        <Form.Group className='mt-2'>
+                            <Form>
+                                <div key='default-checkbox' className="mb-3">
+                                    <Form.Check
+                                        type='checkbox'
+                                        id='default-checkbox'
+                                        label='Hiển thị mật khẩu'
+                                        onClick={togglePasswordVisiblity}
+                                    />
+                                </div>
+                            </Form>
+                        </Form.Group>
+                        <Form.Group className='d-flex justify-content-center pt-3'>
+                            <Button style={{ width: '100%' }} type='submit' variant='success'>Đăng ký</Button>
+                        </Form.Group>
+                        {/* <Form.Group className='d-flex justify-content-center pt-3'>
                         <p className='textCenter'>Hoặc</p>
                     </Form.Group>
                     <Form.Group className='d-flex justify-content-center align-items-center py-2 shadow-sm rounded' style={{ width: '100%', background: 'white', margin: '10px 0 20px 0', borderRadius: '30px', cursor: 'pointer' }}>
@@ -136,17 +136,21 @@ const RegisterScreen = () => {
                             Đăng ký với Google
                         </a>
                     </Form.Group> */}
-                </Form>
+                    </Form>
 
-                <Row>
-                    <Col className='d-flex justify-content-center py-4'>
-                        Bạn đã có tài khoản?{' '}
-                        <Link style={{ textDecoration: 'none', color: 'green', marginLeft: '5px' }} to='/login'>
-                            <strong>Đăng nhập</strong>
-                        </Link>
-                    </Col>
+                    <Row>
+                        <Col className='d-flex justify-content-center py-4'>
+                            Bạn đã có tài khoản?{' '}
+                            <Link style={{ textDecoration: 'none', color: 'green', marginLeft: '5px' }} to='/login'>
+                                <strong>Đăng nhập</strong>
+                            </Link>
+                        </Col>
+                    </Row>
+                </Col> :
+                <Row className='d-flex justify-content-center align-items-center'>
+                    <p style={{background: '#ffffff', width: 'auto'}} className='d-flex justify-content-center align-items-center my-5 py-5 px-5'>Vui lòng kiểm tra Email để hoàn tất đăng ký!!!</p>
                 </Row>
-            </Col>
+            }
         </Row>
     )
 }
