@@ -289,7 +289,7 @@ export const createCommentProduct = (id, commentProduct) => async (dispatch, get
                 Authorization: `Bearer ${userInfo.token}`
             }
         }
-        const { data } = await axios.put(`${process.env.BASE_URL}/comment/${id}`, commentProduct, config)
+        const { data } = await axios.put(`http://localhost:5000/api/comment/${id}`, commentProduct, config)
 
         dispatch({
             type: PRODUCT_COMMENT_SUCCESS,

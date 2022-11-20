@@ -12,6 +12,7 @@ import Loader from '../components/Loader'
 import Message from '../components/Message'
 import { listProductDetails, createCommentProduct } from '../actions/productActions'
 import { addToCart } from '../actions/cartActions';
+import { getOrder } from '../actions/orderActions';
 
 const ProductDetailScreen = () => {
     const [quantity, setQuantity] = useState(1)
@@ -32,9 +33,39 @@ const ProductDetailScreen = () => {
     const { loading, error, product } = productDetails
     // console.log('==', product);
 
+    const orderList = useSelector(state => state.orderList)
+    const { orders } = orderList
+    console.log('==', orders);
+
+    // get All order with status = "DONE"
+    let arrOrder = []
+    const getOrderById = () => {
+        orders?.forEach(item => {
+            if (item?.user?._id === userInfo?.user?._id && item.status === 'DONE') {
+                arrOrder.push(item)
+            }
+        });
+    }
+    getOrderById()
+    console.log('==order', arrOrder)
+
+    // check id product
+    let arrCheckIdProduct = []
+    const checkIdProduct = (arrOrder) => {
+        arrOrder?.forEach(item => {
+            item?.products?.forEach(product => {
+                if (product.product === productId) {
+                    arrCheckIdProduct.push(product)
+                }
+            })
+        });
+    }
+    checkIdProduct(arrOrder)
+    console.log('==order1', arrCheckIdProduct)
+
     const cart = useSelector(state => state.cart)
     const { cartItems } = cart
-    console.log('==', cartItems);
+    // console.log('==', cartItems);
 
     let stock = product?.supplier?.quantityImport - product.sold
     const arrStock = []
@@ -44,6 +75,7 @@ const ProductDetailScreen = () => {
     // console.log('==', arrStock)
 
     useEffect(() => {
+        dispatch(getOrder())
         dispatch(listProductDetails(productId))
         window.scrollTo(0, 0)
     }, [dispatch, productId])
@@ -75,7 +107,7 @@ const ProductDetailScreen = () => {
             dispatch(createCommentProduct(productId, commentProduct))
             window.location.reload()
         }
-        // console.log('==', commentProduct)
+        console.log('==', commentProduct)
     }
 
     // Add to cart
@@ -170,30 +202,34 @@ const ProductDetailScreen = () => {
                 </Row>}
             <Row id="comment">
                 <h5 className='pt-5 pb-3'>Đánh giá sản phẩm ({product.reviews?.length})</h5>
-                {userInfo && <Form>
-                    <Box component="fieldset" mb={3} borderColor="transparent">
-                        <Typography component="legend" className='py-3'>
-                            Vui lòng chọn đánh giá
-                        </Typography>
-                        <Rating
-                            name="Rating Label"
-                            value={rating}
-                            onChange={(event, newValue) => {
-                                setRating(newValue);
-                            }}
-                        />
-                    </Box>
-                    <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-                        <p style={{ color: 'red' }}>{alert}</p>
-                    </Form.Group>
-                    <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-                        <Form.Label>Bình luận của bạn về sản phẩm</Form.Label>
-                        <Form.Control placeholder='Viết bình luận của bạn' value={comment} onChange={(e) => setComment(e.target.value)} as="textarea" rows={3} />
-                    </Form.Group>
-                    <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-                        <Button onClick={submitComment}>Đăng bình luận</Button>
-                    </Form.Group>
-                </Form>}
+                {
+                    (userInfo && arrCheckIdProduct?.length > 0) ? <Form>
+                        <Box component="fieldset" mb={3} borderColor="transparent">
+                            <Typography component="legend" className='py-3'>
+                                Vui lòng chọn đánh giá
+                            </Typography>
+                            <Rating
+                                name="Rating Label"
+                                value={rating}
+                                onChange={(event, newValue) => {
+                                    setRating(newValue);
+                                }}
+                            />
+                        </Box>
+                        <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+                            <p style={{ color: 'red' }}>{alert}</p>
+                        </Form.Group>
+                        <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+                            <Form.Label>Bình luận của bạn về sản phẩm</Form.Label>
+                            <Form.Control placeholder='Viết bình luận của bạn' value={comment} onChange={(e) => setComment(e.target.value)} as="textarea" rows={3} />
+                        </Form.Group>
+                        <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+                            <Button onClick={submitComment}>Đăng bình luận</Button>
+                        </Form.Group>
+                    </Form>
+                        :
+                        <p>Vui lòng mua hàng và thanh toán thành công sản phẩm, bạn sẽ được mở khóa đánh giá</p>
+                }
                 <Row className='pt-3 d-flex align-items-center justify-content-end'>
                     <h4 className='pb-4'>Các bình luận</h4>
                     {product.reviews?.length === 0 ?
