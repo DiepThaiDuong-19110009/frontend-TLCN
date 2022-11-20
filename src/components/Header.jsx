@@ -5,6 +5,7 @@ import { LinkContainer } from 'react-router-bootstrap'
 import { Container, Navbar, Nav, NavDropdown, Row, Col } from 'react-bootstrap'
 import { logout } from '../actions/userActions'
 import Search from './Search'
+import { resetCart } from '../actions/orderActions'
 
 const Header = () => {
     const navigate = useNavigate();
@@ -16,6 +17,7 @@ const Header = () => {
 
     const logoutHandler = () => {
         dispatch(logout())
+        dispatch(resetCart())
         navigate('/')
         window.location.reload()
     }
