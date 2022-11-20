@@ -1,4 +1,4 @@
-import { ORDER_CREATE_REQUEST, ORDER_CREATE_SUCCESS, ORDER_CREATE_FAIL, GET_ORDER_REQUEST, GET_ORDER_SUCCESS, GET_ORDER_FAIL, ORDER_DELETE_REQUEST, ORDER_DELETE_SUCCESS, ORDER_DELETE_FAIL, ORDER_UPDATE_REQUEST, ORDER_UPDATE_SUCCESS, ORDER_UPDATE_FAIL, ORDER_UPDATE_RESET, ORDER_DETAILS_REQUEST, ORDER_DETAILS_SUCCESS, ORDER_DETAILS_FAIL } from "../constants/orderConstants";
+import { ORDER_CREATE_REQUEST, ORDER_CREATE_SUCCESS, ORDER_CREATE_FAIL, GET_ORDER_REQUEST, GET_ORDER_SUCCESS, GET_ORDER_FAIL, ORDER_DELETE_REQUEST, ORDER_DELETE_SUCCESS, ORDER_DELETE_FAIL, ORDER_UPDATE_REQUEST, ORDER_UPDATE_SUCCESS, ORDER_UPDATE_FAIL, ORDER_UPDATE_RESET, ORDER_DETAILS_REQUEST, ORDER_DETAILS_SUCCESS, ORDER_DETAILS_FAIL, SET_TOTAL_PAYPAL_ORDER_REQUEST, SET_TOTAL_PAYPAL_ORDER_SUCCESS, SET_TOTAL_PAYPAL_ORDER_FAIL } from "../constants/orderConstants";
 
 export const orderCreateReducer = (state = {}, action) => {
     switch (action.type) {
@@ -33,6 +33,19 @@ export const orderDetailsReducer = (state = { order: {} }, action) => {
         case ORDER_DETAILS_SUCCESS:
             return { loading: false, order: action.payload }
         case ORDER_DETAILS_FAIL:
+            return { loading: false, error: action.payload }
+        default:
+            return state
+    }
+}
+
+export const totalPayPalReducer = (state = { total: {} }, action) => {
+    switch (action.type) {
+        case SET_TOTAL_PAYPAL_ORDER_REQUEST:
+            return { loading: true, ...state }
+        case SET_TOTAL_PAYPAL_ORDER_SUCCESS:
+            return { loading: false, total: action.payload }
+        case SET_TOTAL_PAYPAL_ORDER_FAIL:
             return { loading: false, error: action.payload }
         default:
             return state

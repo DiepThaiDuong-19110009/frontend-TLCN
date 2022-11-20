@@ -16,7 +16,7 @@ const LoginScreen = () => {
     const navigate = useNavigate();
 
     const userLogin = useSelector(state => state.userLogin)
-    const { loading, error = 200, userInfo } = userLogin
+    const { loading, error, userInfo } = userLogin
     console.log('==', error)
 
     let location = useLocation();
@@ -33,7 +33,7 @@ const LoginScreen = () => {
             navigate(redirect)
             window.location.reload()
         }
-    }, [navigate, userInfo, redirect])
+    }, [navigate, userInfo, error])
 
     const submitHandler = (e) => {
         e.preventDefault()

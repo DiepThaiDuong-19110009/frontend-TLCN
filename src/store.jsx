@@ -13,7 +13,7 @@ import {
     userUpdateProfileReducer, userChangePasswordReducer, userForgotPasswordReducer,
     userListReducer, userDeleteReducer, userUpdateReducer
 } from './reducers/userReducers'
-import { orderCreateReducer, getOrderReducer, orderDeleteReducer, orderUpdateReducer, orderDetailsReducer } from './reducers/orderReducers'
+import { orderCreateReducer, getOrderReducer, orderDeleteReducer, orderUpdateReducer, orderDetailsReducer, totalPayPalReducer } from './reducers/orderReducers'
 import { incomeListReducer } from './reducers/statisticalReducers'
 import { supplierListReducer, supllierDetailsReducer, supplierCreateReducer, supplierDeleteReducer, supplierUpdateReducer } from './reducers/supplierReducers'
 
@@ -33,6 +33,7 @@ const reducer = combineReducers({
     userChangePassword: userChangePasswordReducer,
     userForgotPassword: userForgotPasswordReducer,
     orderCreate: orderCreateReducer,
+    totalPayPal: totalPayPalReducer,
     orderList: getOrderReducer,
     orderDetails: orderDetailsReducer,
     // Admin
