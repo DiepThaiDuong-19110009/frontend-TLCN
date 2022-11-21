@@ -48,6 +48,7 @@ const PlaceOrderScreen = () => {
     if (success && cart.paymentMethod === 'Tiền mặt') {
       navigate('/ordersuccess');
       dispatch(resetCart());
+      window.location.reload()
     } else if (success && cart.paymentMethod === 'PayPal') {
       dispatch(resetCart());
     }
