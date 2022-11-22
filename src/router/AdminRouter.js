@@ -47,7 +47,6 @@ const AdminRouter = () => {
       </div>
       <div style={{ maxWidth: '82%' }} className='px-0'>
         <div style={{ height: '10vh' }} className='d-flex justify-content-end align-items-center shadow-sm px-4'>
-          
           <HeaderAdmin />
         </div>
         <div ref={ref} style={{ height: '90vh' }}>

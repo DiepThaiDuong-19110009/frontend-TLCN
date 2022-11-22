@@ -1,8 +1,9 @@
 import { React, useEffect, useState } from 'react'
-import { Button, ListGroup, Accordion, Row, Col, Container, Tabs, Tab } from 'react-bootstrap'
+import { Button, ListGroup, Accordion, Row, Col, Container, Tabs, Tab, Image, Modal } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { getOrder, updateOrder } from '../actions/orderActions'
 import Table from 'react-bootstrap/Table';
+import { listProducts } from '../actions/productActions';
 
 const MyOrder = () => {
     const [key, setKey] = useState('ALL');
@@ -11,8 +12,13 @@ const MyOrder = () => {
     const orderList = useSelector(state => state.orderList)
     const { orders } = orderList
     // console.log('==', orders);
+    const productList = useSelector(state => state.productList)
+    const { products } = productList
+    // console.log('==', products);
+    const orderUpdate = useSelector(state => state.orderUpdate)
+    const { success: updateSuccess } = orderUpdate
 
-    // array Processing
+    // array All order
     let arrOrderAll = []
     const getOrderAll = () => {
         orders?.forEach(item => {
@@ -48,7 +54,7 @@ const MyOrder = () => {
             }
         });
     }
-    // array Processing
+    // array Done
     let arrOrderDone = []
     const getOrderDone = () => {
         orders?.forEach(item => {
@@ -57,7 +63,7 @@ const MyOrder = () => {
             }
         });
     }
-    // array Processing
+    // array Cancel
     let arrOrderCancel = []
     const getOrderCancel = () => {
         orders?.forEach(item => {
@@ -78,19 +84,39 @@ const MyOrder = () => {
 
     useEffect(() => {
         dispatch(getOrder())
-    }, [dispatch])
+        dispatch(listProducts())
+    }, [dispatch, updateSuccess])
 
-    // cancle Order
-    const status = 'CANCEL'
-    const cancleOrder = (id) => {
-        if (window.confirm('Bạn có chắc chắn muốn hủy đơn hàng này không?')) {
-            dispatch(updateOrder(id, status))
-            window.location.reload()
-        }
+    // Get image product
+    const getImage = (id) => {
+        var src = ''
+        products.forEach(product => {
+            if (id === product._id) {
+                src = product.photo
+                // return product.photo
+            }
+        })
+        console.log('===', typeof (src))
+        return src
+    }
+
+    //Alert delete order
+    // Comfirm Remove
+    const removeOrderHandler = (id) => {
+        const status = 'CANCEL'
+        dispatch(updateOrder(id, status))
+        setShowAlert(false)
+    }
+    const [idOrder, setIdOrder] = useState('')
+    const [showAlert, setShowAlert] = useState(false);
+    const handleCloseAlert = () => setShowAlert(false);
+    const handleDeleteOrder = (id) => {
+        setShowAlert(true);
+        setIdOrder(id)
     }
 
     return (
-        <Container style={{ background: 'white' }}>
+        <Container>
             <Tabs
                 style={{ color: 'black', background: 'white' }}
                 id="controlled-tab-order"
@@ -103,14 +129,14 @@ const MyOrder = () => {
                         {
                             (arrOrderAll.length > 0) ?
                                 arrOrderAll.reverse().map(item => (
-                                    <Row className='pt-4'>
+                                    <Row className='pt-4 mb-3 mx-0' style={{ background: 'white' }}>
                                         <Row>
                                             <Col>
                                                 <p>Ngày đặt hàng: {item.createdAt.slice(0, 10)}</p>
                                             </Col>
                                             <Col className='d-flex justify-content-end'>
                                                 {
-                                                    item.status === "PROCESSING" && <Button onClick={() => cancleOrder(item._id)} variant="danger">Hủy đơn hàng</Button>
+                                                    item.status === "PROCESSING" && <Button onClick={() => handleDeleteOrder(item._id)} variant="danger">Hủy đơn hàng</Button>
                                                 }
                                             </Col>
                                         </Row>
@@ -119,44 +145,29 @@ const MyOrder = () => {
                                             <p>Trạng thái đơn hàng:
                                                 {
                                                     item.status === "PROCESSING" ?
-                                                    <strong style={{ color: '#00cc00' }}> Đang xác nhận</strong> :
-                                                    item.status === "CONFIRMED" ?
-                                                    <strong style={{ color: '#00cc00' }}> Đã xác nhận</strong> :
-                                                    item.status === "DELIVERING" ?
-                                                    <strong style={{ color: '#00cc00' }}> Đang giao hàng</strong> :
-                                                    item.status === "DONE" ?
-                                                    <strong style={{ color: '#00cc00' }}> Đã nhận</strong> :
-                                                    // item.status === "CANCEL" ?
-                                                    <strong style={{ color: 'red' }}> Đã hủy</strong> 
+                                                        <strong style={{ color: '#00cc00' }}> Đang xác nhận</strong> :
+                                                        item.status === "CONFIRMED" ?
+                                                            <strong style={{ color: '#00cc00' }}> Đã xác nhận</strong> :
+                                                            item.status === "DELIVERING" ?
+                                                                <strong style={{ color: '#00cc00' }}> Đang giao hàng</strong> :
+                                                                item.status === "DONE" ?
+                                                                    <strong style={{ color: '#00cc00' }}> Đã nhận</strong> :
+                                                                    // item.status === "CANCEL" ?
+                                                                    <strong style={{ color: 'red' }}> Đã hủy</strong>
                                                 }
-                                                </p>
+                                            </p>
                                             <h5>Tổng tiền thanh toán: {(item.total).toLocaleString('vi', { style: 'currency', currency: 'VND' })}</h5>
                                         </Row>
-                                        <Accordion className='pb-5' defaultActiveKey="0">
-                                            <Accordion.Item eventKey="1">
-                                                <Accordion.Header>Chi tiết đơn hàng</Accordion.Header>
-                                                <Accordion.Body>
-                                                    <Table>
-                                                        <thead>
-                                                            <tr>
-                                                                <th>Tên sản phẩm</th>
-                                                                <th>Số lượng</th>
-                                                                <th>Thành tiền</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            {item.products.map(productItem => (
-                                                                <tr>
-                                                                    <td>{productItem.name}</td>
-                                                                    <td>{productItem.count}</td>
-                                                                    <td>{`${(productItem.count * productItem.price).toLocaleString('vi', { style: 'currency', currency: 'VND' })}`}</td>
-                                                                </tr>
-                                                            ))}
-                                                        </tbody>
-                                                    </Table>
-                                                </Accordion.Body>
-                                            </Accordion.Item>
-                                        </Accordion>
+                                        {item?.products?.map(productItem => (
+                                            <Row className='d-flex justify-content-start align-items-center flex-wrap'>
+                                                <Col xl={3} className='d-flex justify-content-center align-items-center'>
+                                                    <Image style={{ width: '100px' }} src={getImage(productItem.product)} alt={productItem.name}></Image>
+                                                </Col>
+                                                <Col className='d-flex justify-content-start align-items-center'>{productItem.name}</Col>
+                                                <Col className='text-center d-flex justify-content-start align-items-center'>{productItem.price.toLocaleString('vi', { style: 'currency', currency: 'VND' })} x {productItem.count}</Col>
+                                                <Col className='d-flex justify-content-end align-items-center' style={{ color: 'green' }}>{`${(productItem.count * productItem.price).toLocaleString('vi', { style: 'currency', currency: 'VND' })}`}</Col>
+                                            </Row>
+                                        ))}
                                     </Row>
                                 ))
                                 :
@@ -168,47 +179,32 @@ const MyOrder = () => {
                         {
                             (arrOrderProcessing.length > 0) ?
                                 arrOrderProcessing.reverse().map(item => (
-                                    <Row className='pt-4'>
+                                    <Row className='pt-4 mb-3 mx-0' style={{ background: 'white' }}>
                                         <Row>
                                             <Col>
                                                 <p>Ngày đặt hàng: {item.createdAt.slice(0, 10)}</p>
                                             </Col>
                                             <Col className='d-flex justify-content-end'>
                                                 {
-                                                    item.status === "PROCESSING" && <Button onClick={() => cancleOrder(item._id)} variant="danger">Hủy đơn hàng</Button>
+                                                    item.status === "PROCESSING" && <Button onClick={() => handleDeleteOrder(item._id)} variant="danger">Hủy đơn hàng</Button>
                                                 }
                                             </Col>
                                         </Row>
                                         <Row className='pb-3'>
                                             <p>Địa chỉ giao hàng: <span style={{ color: 'red' }}>{item.address}</span></p>
-                                            <p>Trạng thái đơn hàng: <strong style={{ color: '#00cc00' }}>Đang xác nhận</strong></p>
+                                            <p>Trạng thái đơn hàng: <strong style={{ color: '#00cc00' }}> Chờ xác nhận</strong></p>
                                             <h5>Tổng tiền thanh toán: {(item.total).toLocaleString('vi', { style: 'currency', currency: 'VND' })}</h5>
                                         </Row>
-                                        <Accordion className='pb-5' defaultActiveKey="0">
-                                            <Accordion.Item eventKey="1">
-                                                <Accordion.Header>Chi tiết đơn hàng</Accordion.Header>
-                                                <Accordion.Body>
-                                                    <Table>
-                                                        <thead>
-                                                            <tr>
-                                                                <th>Tên sản phẩm</th>
-                                                                <th>Số lượng</th>
-                                                                <th>Thành tiền</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            {item.products.map(productItem => (
-                                                                <tr>
-                                                                    <td>{productItem.name}</td>
-                                                                    <td>{productItem.count}</td>
-                                                                    <td>{`${(productItem.count * productItem.price).toLocaleString('vi', { style: 'currency', currency: 'VND' })}`}</td>
-                                                                </tr>
-                                                            ))}
-                                                        </tbody>
-                                                    </Table>
-                                                </Accordion.Body>
-                                            </Accordion.Item>
-                                        </Accordion>
+                                        {item?.products?.map(productItem => (
+                                            <Row className='d-flex justify-content-start align-items-center flex-wrap'>
+                                                <Col xl={3} className='d-flex justify-content-center align-items-center'>
+                                                    <Image style={{ width: '100px' }} src={getImage(productItem.product)} alt={productItem.name}></Image>
+                                                </Col>
+                                                <Col className='d-flex justify-content-start align-items-center'>{productItem.name}</Col>
+                                                <Col className='text-center d-flex justify-content-start align-items-center'>{productItem.price.toLocaleString('vi', { style: 'currency', currency: 'VND' })} x {productItem.count}</Col>
+                                                <Col className='d-flex justify-content-end align-items-center' style={{ color: 'green' }}>{`${(productItem.count * productItem.price).toLocaleString('vi', { style: 'currency', currency: 'VND' })}`}</Col>
+                                            </Row>
+                                        ))}
                                     </Row>
                                 ))
                                 :
@@ -220,47 +216,27 @@ const MyOrder = () => {
                         {
                             (arrOrderConfirmed.length > 0) ?
                                 arrOrderConfirmed.reverse().map(item => (
-                                    <Row className='pt-4'>
+                                    <Row className='pt-4 mb-3 mx-0' style={{ background: 'white' }}>
                                         <Row>
                                             <Col>
                                                 <p>Ngày đặt hàng: {item.createdAt.slice(0, 10)}</p>
                                             </Col>
-                                            <Col className='d-flex justify-content-end'>
-                                                {
-                                                    item.status === "PROCESSING" && <Button onClick={() => cancleOrder(item._id)} variant="danger">Hủy đơn hàng</Button>
-                                                }
-                                            </Col>
                                         </Row>
                                         <Row className='pb-3'>
                                             <p>Địa chỉ giao hàng: <span style={{ color: 'red' }}>{item.address}</span></p>
-                                            <p>Trạng thái đơn hàng: <strong style={{ color: '#00cc00' }}>Đã xác nhận</strong></p>
+                                            <p>Trạng thái đơn hàng: <strong style={{ color: '#00cc00' }}> Đã xác nhận</strong></p>
                                             <h5>Tổng tiền thanh toán: {(item.total).toLocaleString('vi', { style: 'currency', currency: 'VND' })}</h5>
                                         </Row>
-                                        <Accordion className='pb-5' defaultActiveKey="0">
-                                            <Accordion.Item eventKey="1">
-                                                <Accordion.Header>Chi tiết đơn hàng</Accordion.Header>
-                                                <Accordion.Body>
-                                                    <Table>
-                                                        <thead>
-                                                            <tr>
-                                                                <th>Tên sản phẩm</th>
-                                                                <th>Số lượng</th>
-                                                                <th>Thành tiền</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            {item.products.map(productItem => (
-                                                                <tr>
-                                                                    <td>{productItem.name}</td>
-                                                                    <td>{productItem.count}</td>
-                                                                    <td>{`${(productItem.count * productItem.price).toLocaleString('vi', { style: 'currency', currency: 'VND' })}`}</td>
-                                                                </tr>
-                                                            ))}
-                                                        </tbody>
-                                                    </Table>
-                                                </Accordion.Body>
-                                            </Accordion.Item>
-                                        </Accordion>
+                                        {item?.products?.map(productItem => (
+                                            <Row className='d-flex justify-content-start align-items-center flex-wrap'>
+                                                <Col xl={3} className='d-flex justify-content-center align-items-center'>
+                                                    <Image style={{ width: '100px' }} src={getImage(productItem.product)} alt={productItem.name}></Image>
+                                                </Col>
+                                                <Col className='d-flex justify-content-start align-items-center'>{productItem.name}</Col>
+                                                <Col className='text-center d-flex justify-content-start align-items-center'>{productItem.price.toLocaleString('vi', { style: 'currency', currency: 'VND' })} x {productItem.count}</Col>
+                                                <Col className='d-flex justify-content-end align-items-center' style={{ color: 'green' }}>{`${(productItem.count * productItem.price).toLocaleString('vi', { style: 'currency', currency: 'VND' })}`}</Col>
+                                            </Row>
+                                        ))}
                                     </Row>
                                 ))
                                 :
@@ -272,47 +248,27 @@ const MyOrder = () => {
                         {
                             (arrOrderDelivering.length > 0) ?
                                 arrOrderDelivering.reverse().map(item => (
-                                    <Row className='pt-4'>
+                                    <Row className='pt-4 mb-3 mx-0' style={{ background: 'white' }}>
                                         <Row>
                                             <Col>
                                                 <p>Ngày đặt hàng: {item.createdAt.slice(0, 10)}</p>
                                             </Col>
-                                            <Col className='d-flex justify-content-end'>
-                                                {
-                                                    item.status === "PROCESSING" && <Button onClick={() => cancleOrder(item._id)} variant="danger">Hủy đơn hàng</Button>
-                                                }
-                                            </Col>
                                         </Row>
                                         <Row className='pb-3'>
                                             <p>Địa chỉ giao hàng: <span style={{ color: 'red' }}>{item.address}</span></p>
-                                            <p>Trạng thái đơn hàng: <strong style={{ color: '#00cc00' }}>Đang giao hàng</strong></p>
+                                            <p>Trạng thái đơn hàng: <strong style={{ color: '#00cc00' }}> Đang giao hàng</strong></p>
                                             <h5>Tổng tiền thanh toán: {(item.total).toLocaleString('vi', { style: 'currency', currency: 'VND' })}</h5>
                                         </Row>
-                                        <Accordion className='pb-5' defaultActiveKey="0">
-                                            <Accordion.Item eventKey="1">
-                                                <Accordion.Header>Chi tiết đơn hàng</Accordion.Header>
-                                                <Accordion.Body>
-                                                    <Table>
-                                                        <thead>
-                                                            <tr>
-                                                                <th>Tên sản phẩm</th>
-                                                                <th>Số lượng</th>
-                                                                <th>Thành tiền</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            {item.products.map(productItem => (
-                                                                <tr>
-                                                                    <td>{productItem.name}</td>
-                                                                    <td>{productItem.count}</td>
-                                                                    <td>{`${(productItem.count * productItem.price).toLocaleString('vi', { style: 'currency', currency: 'VND' })}`}</td>
-                                                                </tr>
-                                                            ))}
-                                                        </tbody>
-                                                    </Table>
-                                                </Accordion.Body>
-                                            </Accordion.Item>
-                                        </Accordion>
+                                        {item?.products?.map(productItem => (
+                                            <Row className='d-flex justify-content-start align-items-center flex-wrap'>
+                                                <Col xl={3} className='d-flex justify-content-center align-items-center'>
+                                                    <Image style={{ width: '100px' }} src={getImage(productItem.product)} alt={productItem.name}></Image>
+                                                </Col>
+                                                <Col className='d-flex justify-content-start align-items-center'>{productItem.name}</Col>
+                                                <Col className='text-center d-flex justify-content-start align-items-center'>{productItem.price.toLocaleString('vi', { style: 'currency', currency: 'VND' })} x {productItem.count}</Col>
+                                                <Col className='d-flex justify-content-end align-items-center' style={{ color: 'green' }}>{`${(productItem.count * productItem.price).toLocaleString('vi', { style: 'currency', currency: 'VND' })}`}</Col>
+                                            </Row>
+                                        ))}
                                     </Row>
                                 ))
                                 :
@@ -324,47 +280,27 @@ const MyOrder = () => {
                         {
                             (arrOrderDone.length > 0) ?
                                 arrOrderDone.reverse().map(item => (
-                                    <Row className='pt-4'>
+                                    <Row className='pt-4 mb-3 mx-0' style={{ background: 'white' }}>
                                         <Row>
                                             <Col>
                                                 <p>Ngày đặt hàng: {item.createdAt.slice(0, 10)}</p>
                                             </Col>
-                                            <Col className='d-flex justify-content-end'>
-                                                {
-                                                    item.status === "PROCESSING" && <Button onClick={() => cancleOrder(item._id)} variant="danger">Hủy đơn hàng</Button>
-                                                }
-                                            </Col>
                                         </Row>
                                         <Row className='pb-3'>
                                             <p>Địa chỉ giao hàng: <span style={{ color: 'red' }}>{item.address}</span></p>
-                                            <p>Trạng thái đơn hàng: <strong style={{ color: '#00cc00' }}>Đã thanh toán</strong></p>
+                                            <p>Trạng thái đơn hàng: <strong style={{ color: '#00cc00' }}> Đã nhận</strong></p>
                                             <h5>Tổng tiền thanh toán: {(item.total).toLocaleString('vi', { style: 'currency', currency: 'VND' })}</h5>
                                         </Row>
-                                        <Accordion className='pb-5' defaultActiveKey="0">
-                                            <Accordion.Item eventKey="1">
-                                                <Accordion.Header>Chi tiết đơn hàng</Accordion.Header>
-                                                <Accordion.Body>
-                                                    <Table>
-                                                        <thead>
-                                                            <tr>
-                                                                <th>Tên sản phẩm</th>
-                                                                <th>Số lượng</th>
-                                                                <th>Thành tiền</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            {item.products.map(productItem => (
-                                                                <tr>
-                                                                    <td>{productItem.name}</td>
-                                                                    <td>{productItem.count}</td>
-                                                                    <td>{`${(productItem.count * productItem.price).toLocaleString('vi', { style: 'currency', currency: 'VND' })}`}</td>
-                                                                </tr>
-                                                            ))}
-                                                        </tbody>
-                                                    </Table>
-                                                </Accordion.Body>
-                                            </Accordion.Item>
-                                        </Accordion>
+                                        {item?.products?.map(productItem => (
+                                            <Row className='d-flex justify-content-start align-items-center flex-wrap'>
+                                                <Col xl={3} className='d-flex justify-content-center align-items-center'>
+                                                    <Image style={{ width: '100px' }} src={getImage(productItem.product)} alt={productItem.name}></Image>
+                                                </Col>
+                                                <Col className='d-flex justify-content-start align-items-center'>{productItem.name}</Col>
+                                                <Col className='text-center d-flex justify-content-start align-items-center'>{productItem.price.toLocaleString('vi', { style: 'currency', currency: 'VND' })} x {productItem.count}</Col>
+                                                <Col className='d-flex justify-content-end align-items-center' style={{ color: 'green' }}>{`${(productItem.count * productItem.price).toLocaleString('vi', { style: 'currency', currency: 'VND' })}`}</Col>
+                                            </Row>
+                                        ))}
                                     </Row>
                                 ))
                                 :
@@ -376,47 +312,27 @@ const MyOrder = () => {
                         {
                             (arrOrderCancel.length > 0) ?
                                 arrOrderCancel.reverse().map(item => (
-                                    <Row className='pt-4'>
+                                    <Row className='pt-4 mb-3 mx-0' style={{ background: 'white' }}>
                                         <Row>
                                             <Col>
                                                 <p>Ngày đặt hàng: {item.createdAt.slice(0, 10)}</p>
                                             </Col>
-                                            <Col className='d-flex justify-content-end'>
-                                                {
-                                                    item.status === "PROCESSING" && <Button onClick={() => cancleOrder(item._id)} variant="danger">Hủy đơn hàng</Button>
-                                                }
-                                            </Col>
                                         </Row>
                                         <Row className='pb-3'>
                                             <p>Địa chỉ giao hàng: <span style={{ color: 'red' }}>{item.address}</span></p>
-                                            <p>Trạng thái đơn hàng: <strong style={{ color: 'red' }}>Đã hủy</strong></p>
+                                            <p>Trạng thái đơn hàng: <strong style={{ color: '#00cc00' }}> Đã hủy</strong></p>
                                             <h5>Tổng tiền thanh toán: {(item.total).toLocaleString('vi', { style: 'currency', currency: 'VND' })}</h5>
                                         </Row>
-                                        <Accordion className='pb-5' defaultActiveKey="0">
-                                            <Accordion.Item eventKey="1">
-                                                <Accordion.Header>Chi tiết đơn hàng</Accordion.Header>
-                                                <Accordion.Body>
-                                                    <Table>
-                                                        <thead>
-                                                            <tr>
-                                                                <th>Tên sản phẩm</th>
-                                                                <th>Số lượng</th>
-                                                                <th>Thành tiền</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            {item.products.map(productItem => (
-                                                                <tr>
-                                                                    <td>{productItem.name}</td>
-                                                                    <td>{productItem.count}</td>
-                                                                    <td>{`${(productItem.count * productItem.price).toLocaleString('vi', { style: 'currency', currency: 'VND' })}`}</td>
-                                                                </tr>
-                                                            ))}
-                                                        </tbody>
-                                                    </Table>
-                                                </Accordion.Body>
-                                            </Accordion.Item>
-                                        </Accordion>
+                                        {item?.products?.map(productItem => (
+                                            <Row className='d-flex justify-content-start align-items-center flex-wrap'>
+                                                <Col xl={3} className='d-flex justify-content-center align-items-center'>
+                                                    <Image style={{ width: '100px' }} src={getImage(productItem.product)} alt={productItem.name}></Image>
+                                                </Col>
+                                                <Col className='d-flex justify-content-start align-items-center'>{productItem.name}</Col>
+                                                <Col className='text-center d-flex justify-content-start align-items-center'>{productItem.price.toLocaleString('vi', { style: 'currency', currency: 'VND' })} x {productItem.count}</Col>
+                                                <Col className='d-flex justify-content-end align-items-center' style={{ color: 'green' }}>{`${(productItem.count * productItem.price).toLocaleString('vi', { style: 'currency', currency: 'VND' })}`}</Col>
+                                            </Row>
+                                        ))}
                                     </Row>
                                 ))
                                 :
@@ -424,6 +340,26 @@ const MyOrder = () => {
                     </ListGroup>
                 </Tab>
             </Tabs>
+            {/* Delete Order */}
+            <Modal
+                show={showAlert}
+                onHide={handleCloseAlert}
+                backdrop="static"
+                keyboard={false}
+            >
+                <Modal.Header closeButton>
+                    <Modal.Title>Hủy đơn hàng</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    Bạn có chắc chắn muốn hủy đơn hàng này không?
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleCloseAlert}>
+                        Hủy
+                    </Button>
+                    <Button variant="danger" onClick={() => removeOrderHandler(idOrder)}>Đồng ý</Button>
+                </Modal.Footer>
+            </Modal>
         </Container>
     )
 }
