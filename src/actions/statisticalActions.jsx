@@ -5,7 +5,7 @@ export const getIncome = () => async (dispatch) => {
     try {
         dispatch({ type: STATISTICAL_INCOME_REQUEST })
 
-        const { data } = await axios.get('http://localhost:5000/api/income')
+        const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/income`)
 
         dispatch({
             type: STATISTICAL_INCOME_SUCCESS,

@@ -25,7 +25,7 @@ export const login = (email, password) => async (dispatch) => {
             }
         }
 
-        const { data } = await axios.post('http://localhost:5000/api/signin', { email, password }, config)
+        const { data } = await axios.post(`${process.env.REACT_APP_API_URL}/signin`, { email, password }, config)
 
         dispatch({
             type: USER_LOGIN_SUCCESS,
@@ -38,7 +38,6 @@ export const login = (email, password) => async (dispatch) => {
             type: USER_LOGIN_FAIL,
             payload: error?.response?.status
         })
-        // console.log('==', error.response?.status)
     }
 }
 
@@ -63,7 +62,7 @@ export const register = (name, email, password) => async (dispatch) => {
             }
         }
 
-        const { data } = await axios.post('http://localhost:5000/api/signup', { name, email, password }, config)
+        const { data } = await axios.post(`${process.env.REACT_APP_API_URL}/signup`, { name, email, password }, config)
 
         dispatch({
             type: USER_REGISTER_SUCCESS,
@@ -93,7 +92,7 @@ export const verify = (id) => async (dispatch) => {
             }
         }
 
-        const { data } = await axios.get(`http://localhost:5000/api/verify/${id}`, config)
+      const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/verify/${id}`, config)
 
         dispatch({
             type: USER_VERIFY_SUCCESS,
@@ -124,7 +123,7 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
             }
         }
 
-        const { data } = await axios.get(`http://localhost:5000/api/user/${id}`, config)
+        const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/user/${id}`, config)
 
         dispatch({
             type: USER_DETAILS_SUCCESS,
@@ -155,7 +154,7 @@ export const updateUserProfile = (id, user) => async (dispatch, getState) => {
             }
         }
 
-        const { data } = await axios.put(`http://localhost:5000/api/user/${id}`, user, config)
+        const { data } = await axios.put(`${process.env.REACT_APP_API_URL}/user/${id}`, user, config)
 
         dispatch({
             type: USER_UPDATE_PROFILE_SUCCESS,
@@ -184,7 +183,7 @@ export const changePassword = (email, oldPassword, newPassword) => async (dispat
             }
         }
 
-        const { data } = await axios.post('http://localhost:5000/api/change-password', { email, oldPassword, newPassword }, config)
+      const { data } = await axios.post(`${process.env.REACT_APP_API_URL}/change-password`, { email, oldPassword, newPassword }, config)
 
         dispatch({
             type: USER_CHANGEPASSWORD_SUCCESS,
@@ -196,7 +195,6 @@ export const changePassword = (email, oldPassword, newPassword) => async (dispat
             type: USER_CHANGEPASSWORD_FAIL,
             payload: error.response && error.response.data.error ? error.response.data.error : error.response.data.message,
         })
-        console.log('==', error.response);
     }
 }
 
@@ -214,7 +212,7 @@ export const forgotPassword = (email) => async (dispatch) => {
             }
         }
 
-        const { data } = await axios.post('http://localhost:5000/api/forgot-password', { email }, config)
+        const { data } = await axios.post(`${process.env.REACT_APP_API_URL}/forgot-password`, { email }, config)
 
         dispatch({
             type: USER_FORGOTPASSWORD_SUCCESS,
@@ -244,7 +242,7 @@ export const listUsers = () => async (dispatch, getState) => {
             }
         }
 
-        const { data } = await axios.get('http://localhost:5000/api/user', config)
+        const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/user`, config)
 
         dispatch({
             type: USER_LIST_SUCCESS,
@@ -261,7 +259,6 @@ export const listUsers = () => async (dispatch, getState) => {
 
 //Delete user Admin
 export const blockUser = (id, status) => async (dispatch, getState) => {
-    console.log('==', id, status)
     try {
         dispatch({
             type: USER_DELETE_REQUEST
@@ -275,7 +272,7 @@ export const blockUser = (id, status) => async (dispatch, getState) => {
             }
         }
 
-        const { data } = await axios.put(`http://localhost:5000/api/user/${id}`, status, config)
+      const { data } = await axios.put(`${process.env.REACT_APP_API_URL}/user/${id}`, status, config)
 
         dispatch({
             type: USER_DELETE_SUCCESS,
@@ -306,7 +303,7 @@ export const updateUser = (user) => async (dispatch, getState) => {
             }
         }
 
-        const { data } = await axios.put(`http://localhost:5000/api/user/${user._id}`, user, config)
+        const { data } = await axios.put(`${process.env.REACT_APP_API_URL}/user/${user._id}`, user, config)
 
         dispatch({
             type: USER_UPDATE_SUCCESS

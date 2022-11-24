@@ -5,7 +5,7 @@ export const listSupplier = () => async (dispatch) => {
     try {
         dispatch({ type: PRODUCT_SUPPLIER_REQUEST })
 
-        const { data } = await axios.get('http://localhost:5000/api/organizer')
+        const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/organizer`)
 
         dispatch({
             type: PRODUCT_SUPPLIER_SUCCESS,
@@ -23,7 +23,7 @@ export const listSuppllierDetails = (id) => async (dispatch) => {
     try {
         dispatch({ type: PRODUCT_SUPPLIER_DETAILS_REQUEST })
 
-        const { data } = await axios.get(`http://localhost:5000/api/organizer/${id}`)
+        const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/organizer/${id}`)
 
         dispatch({
             type: PRODUCT_SUPPLIER_DETAILS_SUCCESS,
@@ -52,7 +52,7 @@ export const deleteSupplier = (id) => async (dispatch, getState) => {
             }
         }
 
-        await axios.delete(`http://localhost:5000/api/organizer/${id}`, config)
+        await axios.delete(`${process.env.REACT_APP_API_URL}/organizer/${id}`, config)
 
         dispatch({
             type: SUPPLIER_DELETE_SUCCESS
@@ -80,7 +80,7 @@ export const createSupplier = () => async (dispatch, getState) => {
             }
         }
 
-        const { data } = await axios.post(`http://localhost:5000/api/organizer`, {name: "new SUPPLIER"}, config)
+        const { data } = await axios.post(`${process.env.REACT_APP_API_URL}/organizer`, {name: "new SUPPLIER"}, config)
 
         dispatch({
             type: SUPPLIER_CREATE_SUCCESS,
@@ -110,7 +110,7 @@ export const updateSupplier = (supplier) => async (dispatch, getState) => {
             }
         }
 
-        const { data } = await axios.put(`http://localhost:5000/api/organizer/${supplier._id}`, supplier, config)
+        const { data } = await axios.put(`${process.env.REACT_APP_API_URL}/organizer/${supplier._id}`, supplier, config)
 
         dispatch({
             type: SUPPLIER_UPDATE_SUCCESS,

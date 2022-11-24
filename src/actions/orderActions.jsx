@@ -39,7 +39,7 @@ export const createOrders = (order) => async (dispatch, getState) => {
     };
 
     const { data } = await axios.post(
-      'http://localhost:5000/api/order',
+      `${process.env.REACT_APP_API_URL}/order`,
       order,
       config
     );
@@ -48,7 +48,6 @@ export const createOrders = (order) => async (dispatch, getState) => {
       type: ORDER_CREATE_SUCCESS,
       payload: data,
     });
-    // console.log('==', data)
   } catch (error) {
     dispatch({
       type: ORDER_CREATE_FAIL,
@@ -57,7 +56,6 @@ export const createOrders = (order) => async (dispatch, getState) => {
           ? error.response.data.error
           : error.error,
     });
-    console.log('==', error);
   }
 };
 
@@ -71,14 +69,13 @@ export const setTotalOrderPayPal = (total) => async (dispatch, getState) => {
       userLogin: { userInfo },
     } = getState();
 
-    console.log('==tttt', total);
     var data = JSON.stringify({
       total: (total / 25000).toString(),
     });
 
     var config = {
       method: 'post',
-      url: 'http://localhost:5000/api/pay',
+      url: `${process.env.REACT_APP_API_URL}/pay`,
       headers: {
         Authorization: `Bearer ${userInfo.token}`,
         'Content-Type': 'application/json',
@@ -90,15 +87,12 @@ export const setTotalOrderPayPal = (total) => async (dispatch, getState) => {
     };
 
     axios(config).then(function (response) {
-      console.log(JSON.stringify('data', response));
-      console.log('===data', response.data);
       dispatch({
         type: SET_TOTAL_PAYPAL_ORDER_SUCCESS,
         payload: response.data,
       });
     });
 
-    // console.log('==', data)
   } catch (error) {
     dispatch({
       type: SET_TOTAL_PAYPAL_ORDER_FAIL,
@@ -107,7 +101,6 @@ export const setTotalOrderPayPal = (total) => async (dispatch, getState) => {
           ? error.response.data.error
           : error.error,
     });
-    console.log('==', error);
   }
 };
 
@@ -122,7 +115,7 @@ export const getOrder = () => async (dispatch) => {
       type: GET_ORDER_REQUEST,
     });
 
-    const { data } = await axios.get('http://localhost:5000/api/order');
+    const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/order`);
 
     dispatch({
       type: GET_ORDER_SUCCESS,
@@ -143,7 +136,7 @@ export const listOrderDetails = (id) => async (dispatch) => {
   try {
     dispatch({ type: ORDER_DETAILS_REQUEST });
 
-    const { data } = await axios.get(`http://localhost:5000/api/order/${id}`);
+    const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/order/${id}`);
 
     dispatch({
       type: ORDER_DETAILS_SUCCESS,
@@ -178,7 +171,7 @@ export const deleteOrder = (id) => async (dispatch, getState) => {
       },
     };
 
-    await axios.delete(`http://localhost:5000/api/order/${id}`, config);
+    await axios.delete(`${process.env.REACT_APP_API_URL}/order/${id}`, config);
 
     dispatch({
       type: ORDER_DELETE_SUCCESS,
@@ -212,11 +205,10 @@ export const updateOrder = (id, status) => async (dispatch, getState) => {
     };
 
     const { data } = await axios.put(
-      `http://localhost:5000/api/order/${id}`,
+      `${process.env.REACT_APP_API_URL}/order/${id}`,
       { status },
       config
     );
-    // console.log('==', data);
 
     dispatch({
       type: ORDER_UPDATE_SUCCESS,

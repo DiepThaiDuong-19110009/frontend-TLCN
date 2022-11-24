@@ -12,19 +12,16 @@ const OrderDetailScreen = () => {
     const [isCopied, setIsCopied] = useState(false);
 
     const orderId = useParams().id
-    console.log('==', orderId)
 
     const dispatch = useDispatch()
 
     const { loading, error, order } = useSelector(state => state.orderDetails)
-    console.log('==', order)
 
 
     useEffect(() => {
         dispatch(listOrderDetails(orderId))
     }, [dispatch, orderId])
 
-    // Copy Text
     const onCopyText = () => {
         setIsCopied(true);
         setTimeout(() => {

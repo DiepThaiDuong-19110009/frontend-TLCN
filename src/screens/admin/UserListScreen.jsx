@@ -13,7 +13,6 @@ const UserListScreen = () => {
 
     const userList = useSelector(state => state.userList)
     const { loading, error, users } = userList
-    console.log('==', users)
 
     const userLogin = useSelector(state => state.userLogin)
     const { userInfo } = userLogin
@@ -29,10 +28,8 @@ const UserListScreen = () => {
         } else {
             navigate('/login')
         }
-        //eslint-disable-next-line 
     }, [dispatch, navigate, successUpdate, userInfo])
 
-    // Filter User
     const arrFilterUser = []
     const FilterUser = (check) => {
         if (check === 'Admin') {
@@ -55,11 +52,8 @@ const UserListScreen = () => {
     }
 
     FilterUser(filter)
-    // console.log('==', filter)
-
-    // Alert
-    //Delete user
-    const deleteHandler = (userId) => {
+  
+  const deleteHandler = (userId) => {
         dispatch(updateUser({ _id: userId, status: 0 }))
         setShow(false)
     }

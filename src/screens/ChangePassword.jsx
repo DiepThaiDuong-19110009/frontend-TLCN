@@ -3,7 +3,6 @@ import { Link, useNavigate } from 'react-router-dom'
 import { Button, Form, Row, Col, ProgressBar } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../components/Loader'
-import Message from '../components/Message'
 import { changePassword } from '../actions/userActions'
 
 const ChangePassword = () => {

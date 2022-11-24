@@ -12,19 +12,16 @@ const UserDetailScreen = () => {
     const [isCopied, setIsCopied] = useState(false);
 
     const userId = useParams().id
-    console.log('==', userId)
 
     const dispatch = useDispatch()
 
     const { loading, error, user } = useSelector(state => state.userDetails)
-    console.log('==', user)
 
 
     useEffect(() => {
         dispatch(getUserDetails(userId))
     }, [dispatch, userId])
 
-    // Copy Text
     const onCopyText = () => {
         setIsCopied(true);
         setTimeout(() => {

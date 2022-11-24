@@ -23,12 +23,11 @@ import {
 import { PRODUCT_LIST_REQUEST, PRODUCT_LIST_SUCCESS, PRODUCT_LIST_FAIL } from '../constants/productConstants'
 import { PRODUCT_DETAILS_REQUEST, PRODUCT_DETAILS_SUCCESS, PRODUCT_DETAILS_FAIL } from '../constants/productConstants'
 
-// console.log('====env', process.env.BASE_URL)
 export const listCategory = () => async (dispatch) => {
     try {
         dispatch({ type: PRODUCT_CATEGORY_REQUEST })
 
-        const { data } = await axios.get('http://localhost:5000/api/category')
+        const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/category`)
 
         dispatch({
             type: PRODUCT_CATEGORY_SUCCESS,
@@ -46,8 +45,7 @@ export const listProducts = () => async (dispatch) => {
     try {
         dispatch({ type: PRODUCT_LIST_REQUEST })
 
-        const { data } = await axios.get(`http://localhost:5000/api/product`)
-        console.log('==', data.products);
+      const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/product`)
 
         dispatch({
             type: PRODUCT_LIST_SUCCESS,
@@ -65,7 +63,7 @@ export const listProductDetails = (id) => async (dispatch) => {
     try {
         dispatch({ type: PRODUCT_DETAILS_REQUEST })
 
-        const { data } = await axios.get(`http://localhost:5000/api/product/${id}`)
+        const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/product/${id}`)
 
         dispatch({
             type: PRODUCT_DETAILS_SUCCESS,
@@ -83,7 +81,7 @@ export const listCategoryDetails = (id) => async (dispatch) => {
     try {
         dispatch({ type: CATEGORY_DETAILS_REQUEST })
 
-        const { data } = await axios.get(`http://localhost:5000/api/category/${id}`)
+      const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/category/${id}`)
 
         dispatch({
             type: CATEGORY_DETAILS_SUCCESS,
@@ -113,7 +111,7 @@ export const deleteProduct = (id) => async (dispatch, getState) => {
             }
         }
 
-        await axios.delete(`http://localhost:5000/api/product/${id}`, config)
+        await axios.delete(`${process.env.REACT_APP_API_URL}/product/${id}`, config)
 
         dispatch({
             type: PRODUCT_DELETE_SUCCESS
@@ -141,7 +139,7 @@ export const createProduct = () => async (dispatch, getState) => {
             }
         }
 
-        const { data } = await axios.post(`http://localhost:5000/api/product`, { name: 'new', description: 'new', price: 0, 
+        const { data } = await axios.post(`${process.env.REACT_APP_API_URL}/product`, { name: 'new', description: 'new', price: 0, 
         category: '6335529689e225ab4f354271' }, config)
 
         dispatch({
@@ -172,7 +170,7 @@ export const updateProduct = (product) => async (dispatch, getState) => {
             }
         }
 
-        const { data } = await axios.put(`http://localhost:5000/api/product/${product._id}`, product, config)
+        const { data } = await axios.put(`${process.env.REACT_APP_API_URL}/product/${product._id}`, product, config)
 
         dispatch({
             type: PRODUCT_UPDATE_SUCCESS,
@@ -202,7 +200,7 @@ export const deleteCategory = (id) => async (dispatch, getState) => {
             }
         }
 
-        await axios.delete(`http://localhost:5000/api/category/${id}`, config)
+        await axios.delete(`${process.env.REACT_APP_API_URL}/category/${id}`, config)
 
         dispatch({
             type: CATEGORY_DELETE_SUCCESS
@@ -230,7 +228,7 @@ export const createCategory = () => async (dispatch, getState) => {
             }
         }
 
-        const { data } = await axios.post(`http://localhost:5000/api/category`, {name: "new category"}, config)
+        const { data } = await axios.post(`${process.env.REACT_APP_API_URL}/category`, {name: "new category"}, config)
 
         dispatch({
             type: CATEGORY_CREATE_SUCCESS,
@@ -260,7 +258,7 @@ export const updateCategory = (category) => async (dispatch, getState) => {
             }
         }
 
-        const { data } = await axios.put(`http://localhost:5000/api/category/${category._id}`, category, config)
+        const { data } = await axios.put(`${process.env.REACT_APP_API_URL}/category/${category._id}`, category, config)
 
         dispatch({
             type: CATEGORY_UPDATE_SUCCESS,
@@ -289,7 +287,7 @@ export const createCommentProduct = (id, commentProduct) => async (dispatch, get
                 Authorization: `Bearer ${userInfo.token}`
             }
         }
-        const { data } = await axios.put(`http://localhost:5000/api/comment/${id}`, commentProduct, config)
+        const { data } = await axios.put(`${process.env.REACT_APP_API_URL}/comment/${id}`, commentProduct, config)
 
         dispatch({
             type: PRODUCT_COMMENT_SUCCESS,

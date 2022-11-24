@@ -17,14 +17,12 @@ const SupplierDetailAdminScreen = () => {
     const dispatch = useDispatch()
 
     const { loading, error, supplier } = useSelector(state => state.supllierDetail)
-    console.log('==', supplier)
 
 
     useEffect(() => {
         dispatch(listSuppllierDetails(supplierId))
     }, [dispatch, supplierId])
 
-    // Copy Text
     const onCopyText = () => {
         setIsCopied(true);
         setTimeout(() => {

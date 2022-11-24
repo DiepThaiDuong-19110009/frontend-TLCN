@@ -8,18 +8,15 @@ const BlogScreen = () => {
         height: "390",
         width: "640",
         playerVars: {
-            // https://developers.google.com/youtube/player_parameters
             autoplay: 0
         }
     };
     const _onReady = event => {
         console.log("_onReady");
         cElement = event;
-        // event.target.playVideo();
     };
 
     const _onStateChange = event => {
-        // event.target.pauseVideo()
     };
     return (
         <Container className='py-4'>

@@ -2,7 +2,7 @@ import { React, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { LinkContainer } from 'react-router-bootstrap'
-import { Container, Navbar, Nav, NavDropdown, Row, Col } from 'react-bootstrap'
+import { Navbar, Nav, NavDropdown, Row, Col } from 'react-bootstrap'
 import { logout } from '../actions/userActions'
 import Search from './Search'
 import { resetCart } from '../actions/orderActions'
@@ -13,7 +13,6 @@ const Header = () => {
 
     const userLogin = useSelector(state => state.userLogin)
     const { userInfo } = userLogin
-    // console.log('==', userInfo)
 
     const logoutHandler = () => {
         dispatch(logout())
@@ -29,7 +28,6 @@ const Header = () => {
     // Scroll page
     const [sticky, setSticky] = useState("");
 
-    // on render, set listener
     useEffect(() => {
         window.addEventListener("scroll", isSticky);
         return () => {
@@ -38,7 +36,6 @@ const Header = () => {
     }, []);
 
     const isSticky = () => {
-        /* Method that will fix header after a specific scrollable */
         const scrollTop = window.scrollY;
         const stickyClass = scrollTop >= 50 ? "is-sticky" : "";
         setSticky(stickyClass);

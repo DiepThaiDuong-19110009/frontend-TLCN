@@ -17,7 +17,6 @@ const ProductListScreen = () => {
 
     const productList = useSelector(state => state.productList)
     const { loading, error, products } = productList
-    console.log('==', products)
 
     const productDelete = useSelector(state => state.productDelete)
     const { loading: loadingDelete, error: errorDelete, success: successDelete } = productDelete
@@ -38,15 +37,12 @@ const ProductListScreen = () => {
         else {
             dispatch(listProducts())
         }
-        //eslint-disable-next-line 
     }, [dispatch, navigate, userInfo, successDelete, successCreate, createdProduct])
 
-    // Create product
     const createProductHandler = () => {
         dispatch(createProduct())
     }
 
-    //Delete product
     const deleteHandler = (idDelete) => {
         dispatch(deleteProduct(idDelete))
         setShow(false)
@@ -88,8 +84,6 @@ const ProductListScreen = () => {
         setShow(true);
         setIdDelete(id)
     }
-
-    // console.log('==', idDelete);
 
     return (
         <div style={{ overflowY: 'scroll', height: '100%', width: '100%', fontSize: '14px' }} className='py-4 px-5'>

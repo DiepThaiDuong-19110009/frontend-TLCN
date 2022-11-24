@@ -27,7 +27,6 @@ const PaymentScreen = () => {
         navigate('/placeorder')
     }
 
-    // Chọn phương thức
     const payWithCash = () => {
         setPaymentMethod('Tiền mặt')
         setPayPal(false)
@@ -39,8 +38,6 @@ const PaymentScreen = () => {
         setCash(false)
         setPayPal(true)
     }
-
-    // console.log('==', paymentMethod);
 
     return (
         <Container>

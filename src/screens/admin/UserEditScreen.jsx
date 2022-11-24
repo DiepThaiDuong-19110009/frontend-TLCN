@@ -21,7 +21,6 @@ const UserEditScreen = () => {
 
     const userDetails = useSelector(state => state.userDetails)
     const { error, user } = userDetails
-    // console.log('==', user)
 
     const userUpdate = useSelector(state => state.userUpdate)
     const { loading: loadingUpdate, error: errorUpdate, success: successUpdate } = userUpdate

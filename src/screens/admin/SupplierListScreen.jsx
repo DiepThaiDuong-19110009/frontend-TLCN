@@ -17,7 +17,6 @@ const SupplierListScreen = () => {
     const { loading: loadingCreate, error: errorCreate, success: successCreate, product: createSuppliers } = supplierCreate
 
     const { loading, error, suppliers } = useSelector(state => state.supplierList)
-    console.log('==', suppliers)
 
     const userLogin = useSelector(state => state.userLogin)
     const { userInfo } = userLogin
@@ -31,30 +30,18 @@ const SupplierListScreen = () => {
         else {
             dispatch(listSupplier())
         }
-        //eslint-disable-next-line 
     }, [dispatch, navigate, userInfo, successCreate, successDelete, createSuppliers])
 
     const createSupplierHandler = () => {
         dispatch(createSupplier())
         window.location.reload()
     }
-
-    // Init Data
-    // const arrSupplier = []
-    // const InitData = () => {
-    //     suppliers?.forEach(supplier => {
-    //         arrSupplier.push(supplier)
-    //     })
-    // }
-    // InitData()
-
-    //Delete user
-    const deleteHandler = (supplierId) => {
+  
+  const deleteHandler = (supplierId) => {
         dispatch(deleteSupplier(supplierId))
         setShow(false)
     }
 
-    // Alert
     const [idDelete, setIdDelete] = useState('')
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);

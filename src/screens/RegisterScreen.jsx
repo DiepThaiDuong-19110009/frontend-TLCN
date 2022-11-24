@@ -52,9 +52,7 @@ const RegisterScreen = () => {
         }
     }
     checkLevel(password)
-    // console.log('==', message);
 
-    //Submit Login
     const submitHandler = (e) => {
         e.preventDefault()
         dispatch(register(name, email, password))

@@ -17,14 +17,11 @@ const CategoryDetailAdminScreen = () => {
     const dispatch = useDispatch()
 
     const { loading, error, category } = useSelector(state => state.categoryDetails)
-    console.log('==', category)
-
 
     useEffect(() => {
         dispatch(listCategoryDetails(categoryId))
     }, [dispatch, categoryId])
 
-    // Copy Text
     const onCopyText = () => {
         setIsCopied(true);
         setTimeout(() => {

@@ -10,17 +10,14 @@ import { ORDER_UPDATE_RESET } from '../../constants/orderConstants'
 
 const OrderEditScreen = () => {
     const [status, setStatus] = useState('')
-    // console.log('==', status)
 
     const orderId = useParams().id
-    // console.log('==', orderId)
 
     const dispatch = useDispatch()
 
     const navigate = useNavigate();
 
     const { error, order } = useSelector(state => state.orderDetails)
-    console.log('==', order)
 
     const { loading: loadingUpdate, error: errorUpdate, success: successUpdate } = useSelector(state => state.orderUpdate)
 
@@ -40,7 +37,6 @@ const OrderEditScreen = () => {
 
     const submitHandler = (e) => {
         e.preventDefault()
-        console.log('==status', status);
         dispatch(updateOrder(orderId, status))
     }
 

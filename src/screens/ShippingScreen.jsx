@@ -9,12 +9,10 @@ const ShippingScreen = () => {
     const cart = useSelector(state => state.cart)
     const { shippingAddress } = cart
     const [message, setMessage] = useState('')
-    console.log('==', message);
 
     const navigate = useNavigate();
 
     const [address, setAddress] = useState(shippingAddress.address)
-    // console.log('==', address.trim().length);
     const [city, setCity] = useState(shippingAddress.city)
     const [country, setCountry] = useState(shippingAddress.country)
     const [phone, setPhone] = useState(shippingAddress.phone)

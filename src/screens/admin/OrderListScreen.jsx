@@ -16,12 +16,9 @@ const OrderListScreen = () => {
   const [filter, setFilter] = useState('ALL')
   const [startDay, setStartDay] = useState('')
   const [endDay, setEndDay] = useState('')
-  console.log('==', startDay)
-  console.log('==', endDay)
   const dispatch = useDispatch()
 
   const { loading, error, orders } = useSelector(state => state.orderList)
-  console.log('==', orders)
 
   const userLogin = useSelector(state => state.userLogin)
   const { userInfo } = userLogin
@@ -36,10 +33,8 @@ const OrderListScreen = () => {
     else {
       dispatch(getOrder())
     }
-    //eslint-disable-next-line 
   }, [dispatch, navigate, userInfo])
 
-  //Delete user
   const deleteHandler = (categoryId) => {
     if (window.confirm('Bạn có chắc chắn muốn xóa đơn hàng này không?')) {
       dispatch(deleteOrder(categoryId))
@@ -60,10 +55,7 @@ const OrderListScreen = () => {
   }
 
   FilterStatus(filter)
-  // console.log('==', filter)
-  // console.log('==', arrFilterOrder)
-
-  // Alert
+  
   const [idDelete, setIdDelete] = useState('')
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);

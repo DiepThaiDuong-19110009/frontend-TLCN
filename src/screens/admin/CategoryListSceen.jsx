@@ -18,7 +18,6 @@ const CategoryListScreen = () => {
 
     const categoryList = useSelector(state => state.categoryList)
     const { loading, error, categories } = categoryList
-    console.log('==', categories)
 
     const userLogin = useSelector(state => state.userLogin)
     const { userInfo } = userLogin
@@ -32,7 +31,6 @@ const CategoryListScreen = () => {
         else {
             dispatch(listCategory())
         }
-        //eslint-disable-next-line 
     }, [dispatch, navigate, userInfo, successDelete, successCreate, createCategorys])
 
     const createCategoryHandler = () => {
@@ -40,7 +38,6 @@ const CategoryListScreen = () => {
         window.location.reload()
     }
 
-    // Init Data
     const arrCategory = []
     const InitData = () => {
         categories?.forEach(category => {
@@ -49,13 +46,11 @@ const CategoryListScreen = () => {
     }
     InitData()
 
-    //Delete user
     const deleteHandler = (categoryId) => {
         dispatch(deleteCategory(categoryId))
         setShow(false)
     }
 
-    // Alert
     const [idDelete, setIdDelete] = useState('')
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);

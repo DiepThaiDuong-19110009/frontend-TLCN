@@ -13,11 +13,9 @@ const HeaderAdmin = () => {
     const dispatch = useDispatch()
 
     const { loading, error, orders } = useSelector(state => state.orderList)
-    // console.log('==', orders)
 
     const userLogin = useSelector(state => state.userLogin)
     const { userInfo } = userLogin
-    // console.log('==', userInfo)
 
     const logoutHandler = () => {
         dispatch(logout())
@@ -25,7 +23,6 @@ const HeaderAdmin = () => {
         window.location.reload()
     }
 
-    // load page
     const loadpage = () => {
         window.location.reload(false)
     }
@@ -43,7 +40,6 @@ const HeaderAdmin = () => {
 
     useEffect(() => {
         dispatch(getOrder())
-        //eslint-disable-next-line 
     }, [dispatch])
 
     // confirm All Order
@@ -57,7 +53,6 @@ const HeaderAdmin = () => {
         window.location.reload(false)
     }
 
-    // Confirm Order
     const status = 'CONFIRMED'
     const confirmOrder = (idOrder) => {
         dispatch(updateOrder(idOrder, status))

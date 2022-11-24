@@ -1,9 +1,7 @@
-import { React, useState, useEffect } from 'react'
-import { Link, useParams, useNavigate } from 'react-router-dom'
-import { Row, Col, Button, Form, Image } from 'react-bootstrap'
+import { React, useEffect } from 'react'
+import {  useParams, useNavigate } from 'react-router-dom'
+import { Row, Col, Button, Form } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
-import Loader from '../components/Loader'
-import Message from '../components/Message'
 import { verify } from '../actions/userActions'
 
 const VerifyScreen = () => {
@@ -27,7 +25,6 @@ const VerifyScreen = () => {
         e.preventDefault()
         dispatch(verify(userId))
     }
-    // console.log('==', error);
 
     return (
         <Row className='px-3 mx-0 d-flex justify-content-center align-items-center'>

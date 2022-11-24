@@ -2,7 +2,6 @@ import { React, useEffect, useState } from 'react'
 import { Link, useParams, useNavigate, useLocation } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { Row, Col, Image, ListGroup, Card, Button, Form, Container, Modal } from 'react-bootstrap'
-import Message from '../components/Message'
 import { addToCart, removeFormCart } from '../actions/cartActions'
 
 const CartScreen = () => {
@@ -16,15 +15,11 @@ const CartScreen = () => {
 
   const cart = useSelector(state => state.cart)
   const { cartItems } = cart
-  // console.log('==', cartItems);
-
-  // check cart
   
   useEffect(() => {
     if (productId) {
       dispatch(addToCart(productId, quantity))
     }
-    //eslint-disable-next-line 
   }, [dispatch])
 
   const userLogin = useSelector((state) => state.userLogin)
@@ -38,7 +33,6 @@ const CartScreen = () => {
     }
   }
 
-  // Add to cart
   const increaseQty = (id, count, quantity) => {
     const newQty = count + 1;
     if (newQty > quantity) return;
@@ -52,8 +46,6 @@ const CartScreen = () => {
 
   }
 
-  //Alert delete product
-  // Comfirm Remove
   const removeFromCartHandler = (id) => {
     dispatch(removeFormCart(id))
     setShowAlert(false)

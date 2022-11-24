@@ -19,7 +19,6 @@ const ProductDetailScreen = () => {
     const [rating, setRating] = useState(5)
     const [comment, setComment] = useState('')
     const [alert, setAlert] = useState('')
-    // console.log('==', comment);
 
     const navigate = useNavigate();
 
@@ -28,16 +27,12 @@ const ProductDetailScreen = () => {
 
     const userLogin = useSelector(state => state.userLogin)
     const { userInfo } = userLogin
-    // console.log('==', userInfo);
     const productDetails = useSelector(state => state.productDetails)
     const { loading, error, product } = productDetails
-    // console.log('==', product);
 
     const orderList = useSelector(state => state.orderList)
     const { orders } = orderList
-    console.log('==', orders);
 
-    // get All order with status = "DONE"
     let arrOrder = []
     const getOrderById = () => {
         orders?.forEach(item => {
@@ -47,9 +42,7 @@ const ProductDetailScreen = () => {
         });
     }
     getOrderById()
-    console.log('==order', arrOrder)
 
-    // check id product
     let arrCheckIdProduct = []
     const checkIdProduct = (arrOrder) => {
         arrOrder?.forEach(item => {
@@ -61,18 +54,15 @@ const ProductDetailScreen = () => {
         });
     }
     checkIdProduct(arrOrder)
-    console.log('==order1', arrCheckIdProduct)
 
     const cart = useSelector(state => state.cart)
     const { cartItems } = cart
-    // console.log('==', cartItems);
 
     let stock = product?.supplier?.quantityImport - product.sold
     const arrStock = []
     for (let i = 1; i <= stock; i++) {
         arrStock.push(i)
     }
-    // console.log('==', arrStock)
 
     useEffect(() => {
         dispatch(getOrder())
@@ -80,7 +70,6 @@ const ProductDetailScreen = () => {
         window.scrollTo(0, 0)
     }, [dispatch, productId])
 
-    //Event add to cart
     const addToCartHandler = () => {
         let check = false
         cartItems.forEach(x => {
@@ -97,7 +86,6 @@ const ProductDetailScreen = () => {
         }
     }
 
-    // submit Comment
     const submitComment = () => {
         const commentProduct = { user: userInfo.user._id, rating, comment }
         if (comment === '') {
@@ -107,7 +95,6 @@ const ProductDetailScreen = () => {
             dispatch(createCommentProduct(productId, commentProduct))
             window.location.reload()
         }
-        console.log('==', commentProduct)
     }
 
     // Add to cart
@@ -125,7 +112,6 @@ const ProductDetailScreen = () => {
         setQuantity(qty)
     }
 
-    // view Comment
     const viewComment = () => {
         window.location.href = '#comment'
     }

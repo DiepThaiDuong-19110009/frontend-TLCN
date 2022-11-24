@@ -17,12 +17,10 @@ const LoginScreen = () => {
 
     const userLogin = useSelector(state => state.userLogin)
     const { loading, error, userInfo } = userLogin
-    console.log('==', error)
 
     let location = useLocation();
     const redirect = location.search ? location.search.split('=')[1] : '/'
 
-    // Check showpassword
     const [passwordShown, setPasswordShown] = useState(false);
     const togglePasswordVisiblity = () => {
         setPasswordShown(passwordShown ? false : true);

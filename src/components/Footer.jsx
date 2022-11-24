@@ -9,16 +9,16 @@ const Footer = () => {
           <span>Theo dõi HDKMart thông qua các mạng xã hội</span>
         </Col>
         <Col>
-          <a href="" class="me-4 link-secondary">
+          <a href="/" class="me-4 link-secondary">
             <i class="fab fa-facebook-f"></i>
           </a>
-          <a href="" class="me-4 link-secondary">
+          <a href="/" class="me-4 link-secondary">
             <i class="fab fa-twitter"></i>
           </a>
-          <a href="" class="me-4 link-secondary">
+          <a href="/" class="me-4 link-secondary">
             <i class="fab fa-google"></i>
           </a>
-          <a href="" class="me-4 link-secondary">
+          <a href="/" class="me-4 link-secondary">
             <i class="fab fa-instagram"></i>
           </a>
         </Col>
@@ -80,7 +80,7 @@ const Footer = () => {
       <Row>
         <Col className='d-flex justify-content-center py-3'>
           © 2022 Copyright:
-          <a style={{ textDecoration: 'none', marginLeft: '5px', color: 'green' }} href="#"> HDKMart</a>
+          <a style={{ textDecoration: 'none', marginLeft: '5px', color: 'green' }} href="/"> HDKMart</a>
         </Col>
       </Row>
     </Container>

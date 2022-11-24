@@ -6,7 +6,6 @@ import Loader from '../components/Loader'
 import Message from '../components/Message'
 import { listProducts, listCategory } from '../actions/productActions'
 import Slider from '../components/Slider'
-import Search from '../components/Search'
 
 
 const ProductScreen = () => {
@@ -18,11 +17,9 @@ const ProductScreen = () => {
 
   const productList = useSelector(state => state.productList)
   const { loading, error, products } = productList
-  // console.log('==', products);
 
   const categoryList = useSelector(state => state.categoryList)
   const { categories } = categoryList
-  // console.log('==', categories);
 
   useEffect(() => {
     dispatch(listProducts())

@@ -1,8 +1,7 @@
 import { React, useEffect, useState } from 'react'
-import { Button, ListGroup, Accordion, Row, Col, Container, Tabs, Tab, Image, Modal } from 'react-bootstrap'
+import { Button, ListGroup, Row, Col, Container, Tabs, Tab, Image, Modal } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { getOrder, updateOrder } from '../actions/orderActions'
-import Table from 'react-bootstrap/Table';
 import { listProducts } from '../actions/productActions';
 
 const MyOrder = () => {
@@ -11,14 +10,11 @@ const MyOrder = () => {
     const { userInfo } = userLogin
     const orderList = useSelector(state => state.orderList)
     const { orders } = orderList
-    // console.log('==', orders);
     const productList = useSelector(state => state.productList)
     const { products } = productList
-    // console.log('==', products);
     const orderUpdate = useSelector(state => state.orderUpdate)
     const { success: updateSuccess } = orderUpdate
 
-    // array All order
     let arrOrderAll = []
     const getOrderAll = () => {
         orders?.forEach(item => {
@@ -27,7 +23,7 @@ const MyOrder = () => {
             }
         });
     }
-    // array Processing
+
     let arrOrderProcessing = []
     const getOrderProcessing = () => {
         orders?.forEach(item => {
@@ -36,8 +32,8 @@ const MyOrder = () => {
             }
         });
     }
-    // array Confirmed
-    let arrOrderConfirmed = []
+  
+  let arrOrderConfirmed = []
     const getOrderConfirmed = () => {
         orders?.forEach(item => {
             if (item?.user?._id === userInfo?.user?._id && item?.status === 'CONFIRMED') {
@@ -45,8 +41,8 @@ const MyOrder = () => {
             }
         });
     }
-    // array Delivering
-    let arrOrderDelivering = []
+  
+  let arrOrderDelivering = []
     const getOrderDelivering = () => {
         orders?.forEach(item => {
             if (item?.user?._id === userInfo?.user?._id && item?.status === 'DELIVERING') {
@@ -54,8 +50,8 @@ const MyOrder = () => {
             }
         });
     }
-    // array Done
-    let arrOrderDone = []
+  
+  let arrOrderDone = []
     const getOrderDone = () => {
         orders?.forEach(item => {
             if (item?.user?._id === userInfo?.user?._id && item?.status === 'DONE') {
@@ -63,8 +59,8 @@ const MyOrder = () => {
             }
         });
     }
-    // array Cancel
-    let arrOrderCancel = []
+  
+  let arrOrderCancel = []
     const getOrderCancel = () => {
         orders?.forEach(item => {
             if (item?.user?._id === userInfo?.user?._id && item?.status === 'CANCEL') {
@@ -87,21 +83,16 @@ const MyOrder = () => {
         dispatch(listProducts())
     }, [dispatch, updateSuccess])
 
-    // Get image product
     const getImage = (id) => {
         var src = ''
         products.forEach(product => {
             if (id === product._id) {
                 src = product.photo
-                // return product.photo
             }
         })
-        console.log('===', typeof (src))
         return src
     }
 
-    //Alert delete order
-    // Comfirm Remove
     const removeOrderHandler = (id) => {
         const status = 'CANCEL'
         dispatch(updateOrder(id, status))

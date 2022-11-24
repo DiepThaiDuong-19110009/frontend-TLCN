@@ -18,7 +18,6 @@ const SupplierEditScreen = () => {
     const navigate = useNavigate();
 
     const { loading, error, supplier } = useSelector(state => state.supllierDetail)
-    console.log('==', supplierId)
 
     const { loading: loadingUpdate, error: errorUpdate, success: successUpdate } = useSelector(state => state.supplierUpdate)
 

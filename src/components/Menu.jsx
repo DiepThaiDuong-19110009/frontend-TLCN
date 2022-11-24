@@ -10,7 +10,6 @@ function Menu() {
     const userLogin = useSelector(state => state.userLogin)
     const { userInfo } = userLogin
 
-    // on render, set listener
     useEffect(() => {
         window.addEventListener("scroll", isSticky);
         return () => {
@@ -19,7 +18,6 @@ function Menu() {
     }, []);
 
     const isSticky = () => {
-        /* Method that will fix header after a specific scrollable */
         const scrollTop = window.scrollY;
         const stickyClass = scrollTop >= 50 ? "is-sticky" : "";
         setSticky(stickyClass);

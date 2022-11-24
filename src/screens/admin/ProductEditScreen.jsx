@@ -30,18 +30,14 @@ const ProductEditScreen = () => {
     const navigate = useNavigate();
 
     const { categories } = useSelector(state => state.categoryList)
-    // console.log('==', categories)
 
     const { suppliers } = useSelector(state => state.supplierList)
-    // console.log('==', suppliers)
 
     const { error, product } = useSelector(state => state.productDetails)
-    // console.log('==', product)
 
     const productUpdate = useSelector(state => state.productUpdate)
     const { loading: loadingUpdate, error: errorUpdate, success: successUpdate } = productUpdate
 
-    // Get ID Category
     let arrGetCateId = []
     const getCategoryId = () => {
         categories.forEach(cate => {
@@ -53,9 +49,7 @@ const ProductEditScreen = () => {
 
     getCategoryId()
     let category = arrGetCateId[0]
-    // console.log('==', category);
 
-    // Get ID Supplier
     let arrGetSupplierId = []
     const getSupplierId = () => {
         suppliers.forEach(supplier => {
@@ -67,7 +61,6 @@ const ProductEditScreen = () => {
 
     getSupplierId()
     let supplier = arrGetSupplierId[0]
-    console.log('==', supplier);
 
     useEffect(() => {
         if (successUpdate) {

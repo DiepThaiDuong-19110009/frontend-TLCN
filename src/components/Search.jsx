@@ -11,7 +11,6 @@ const Search = () => {
     const productList = useSelector(state => state.productList)
     const { products } = productList
 
-    // Search
     const myOptions = [];
     const getDataSearch = (product) => {
         product.forEach(prod => {
@@ -31,7 +30,6 @@ const Search = () => {
     const [selectedOptions, setSelectedOptions] = useState('');
 
     const handleSubmit = () => {
-        // console.log('==', selectedOptions);
         products.find(prod => {
             if (prod.name === selectedOptions) {
                 navigate(`/product/${prod._id}`)

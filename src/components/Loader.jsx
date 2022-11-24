@@ -13,7 +13,7 @@ const Loader = () => {
                     aria-hidden="true"
                     style={{marginRight: '10px'}}
                 />
-                Đang lấy dữ liệu...
+                Đang tải...
             </Button>
         </div>
     )

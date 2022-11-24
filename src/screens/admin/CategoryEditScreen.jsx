@@ -18,7 +18,6 @@ const CategoryEditScreen = () => {
     const navigate = useNavigate();
 
     const { loading, error, category } = useSelector(state => state.categoryDetails)
-    // console.log('==', product)
 
     const { loading: loadingUpdate, error: errorUpdate, success: successUpdate } = useSelector(state => state.categoryUpdate)
 
