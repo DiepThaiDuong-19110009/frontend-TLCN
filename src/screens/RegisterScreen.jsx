@@ -1,9 +1,8 @@
-import { React, useState, useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import { Row, Col, Button, Form, Image, ProgressBar } from 'react-bootstrap'
+import { React, useState } from 'react'
+import { Link } from 'react-router-dom'
+import { Row, Col, Button, Form, ProgressBar } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../components/Loader'
-import Message from '../components/Message'
 import { register } from '../actions/userActions'
 
 const RegisterScreen = () => {
@@ -13,8 +12,6 @@ const RegisterScreen = () => {
     const [message, setMessage] = useState(null)
 
     const dispatch = useDispatch()
-
-    const navigate = useNavigate();
 
     const userRegister = useSelector(state => state.userRegister)
     const { loading, error, success } = userRegister

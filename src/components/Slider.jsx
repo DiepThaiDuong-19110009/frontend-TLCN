@@ -1,6 +1,5 @@
 import React from 'react'
 import Carousel from 'react-bootstrap/Carousel';
-import { Link } from 'react-router-dom';
 
 const Slider = () => {
     return (
@@ -8,7 +7,8 @@ const Slider = () => {
             <Carousel.Item>
                 <img
                     className="d-block w-100"
-                    src="https://scontent.fsgn8-4.fna.fbcdn.net/v/t1.15752-9/314080531_650185179927291_7635782716441580856_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=ae9488&_nc_ohc=OVXH_GaXxVQAX8uLBR4&_nc_ht=scontent.fsgn8-4.fna&oh=03_AdSze6z0-zRil8gOYv11nFNe_nGoVcrzS1tkEbdN37Txkw&oe=63A06322" alt="slider 1"
+                    src="https://res.cloudinary.com/disyupqea/image/upload/v1669380530/samples/314080531_650185179927291_7635782716441580856_n_iky47m.jpg?fbclid=IwAR0RlAuP4-NsmUeM2Pbk6k-tQzYCkJ4F23ZAoWB6tOTeihVDnSszDXZHO7g"
+                    alt="slider 1"
                 />
                 {/* <Carousel.Caption style={{ background: 'white', width: '200px', margin: '0 auto' }}>
                     <Link to='/product' style={{ color: ' black', textDecoration: 'none' }}>Mua ngay</Link>
@@ -17,8 +17,8 @@ const Slider = () => {
             <Carousel.Item>
                 <img
                     className="d-block w-100"
-                    src="https://scontent.fsgn13-2.fna.fbcdn.net/v/t1.15752-9/312603814_439453235046097_7890864319024743328_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=ae9488&_nc_ohc=VAWknaE6LiYAX_n_JG2&_nc_ht=scontent.fsgn13-2.fna&oh=03_AdT87VVBZFIfIs4dhtY5etitcdYyAB4Yh4ADzJFogJYO7A&oe=63A060A7"
-                    alt="Second slide"
+                    src="https://res.cloudinary.com/disyupqea/image/upload/v1669380520/samples/312603814_439453235046097_7890864319024743328_n_frvp39.jpg?fbclid=IwAR0zifybEciGEv90STWNSZTk1de7BiLLF_3SGKjwDTGIRgBDHrk2p6LU8Ew"
+                    alt="slide 2"
                 />
                 {/* <Carousel.Caption style={{ background: 'white', width: '200px', margin: '0 auto' }}>
                     <Link style={{ color: ' black', textDecoration: 'none' }}>Mua ngay</Link>

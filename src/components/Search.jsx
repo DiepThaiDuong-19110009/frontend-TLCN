@@ -21,6 +21,7 @@ const Search = () => {
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(listProducts())
+        //eslint-disable-next-line 
     }, [])
 
     const navigate = useNavigate()
@@ -30,7 +31,7 @@ const Search = () => {
     const [selectedOptions, setSelectedOptions] = useState('');
 
     const handleSubmit = () => {
-        products.find(prod => {
+        products?.forEach(prod => {
             if (prod.name === selectedOptions) {
                 navigate(`/product/${prod._id}`)
             }

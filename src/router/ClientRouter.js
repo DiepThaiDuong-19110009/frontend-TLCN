@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import Menu from '../components/Menu';
@@ -17,7 +17,6 @@ import OrderSuccessScreen from '../screens/OrderSuccessScreen';
 import ChangePassword from '../screens/ChangePassword';
 import ForgotPassword from '../screens/ForgotPassword';
 import MyOrderScreen from '../screens/MyOrderScreen';
-import EventScreen from '../screens/EventScreen';
 import ScrollTop from '../components/ScrollTop';
 import BlogScreen from '../screens/BlogScreen';
 import ContactScreen from '../screens/ContactScreen';
@@ -46,7 +45,6 @@ const ClientRouter = () => {
           <Route path='/placeorder' element={<PlaceOrderScreen />} />
           <Route path='/ordersuccess' element={<OrderSuccessScreen />} />
           <Route path='/myorder' element={<MyOrderScreen />} />
-          <Route path='/event' element={<EventScreen />} />
           <Route path='/blog' element={<BlogScreen />} />
           <Route path='/contact' element={<ContactScreen />} />
         </Routes>

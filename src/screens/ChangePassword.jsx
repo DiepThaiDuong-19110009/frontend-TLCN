@@ -16,7 +16,7 @@ const ChangePassword = () => {
     const navigate = useNavigate();
 
     const userChangePassword = useSelector(state => state.userChangePassword)
-    const { loading, error, userChangePass } = userChangePassword
+    const { loading, userChangePass } = userChangePassword
 
     const [passwordShown, setPasswordShown] = useState(false);
     const togglePasswordVisiblity = () => {

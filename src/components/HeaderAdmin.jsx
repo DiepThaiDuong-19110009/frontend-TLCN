@@ -12,7 +12,7 @@ const HeaderAdmin = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch()
 
-    const { loading, error, orders } = useSelector(state => state.orderList)
+    const { orders } = useSelector(state => state.orderList)
 
     const userLogin = useSelector(state => state.userLogin)
     const { userInfo } = userLogin

@@ -1,4 +1,4 @@
-import { React, useEffect, useState } from 'react'
+import { React, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { ResponsiveContainer, LineChart, Line, BarChart, Bar, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from 'recharts';
 import { getIncome } from '../../actions/statisticalActions';
@@ -24,6 +24,7 @@ const StatisticScreen = () => {
         dispatch(listProducts())
         dispatch(listUsers())
         dispatch(getOrder())
+        //eslint-disable-next-line 
     }, [dispatch, getIncome])
 
     return (

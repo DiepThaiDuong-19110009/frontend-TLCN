@@ -5,14 +5,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 import { getUserDetails, updateUserProfile } from '../actions/userActions'
-import MyOrder from '../components/MyOrder'
 
 const ProfileScreen = () => {
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [phone, setPhone] = useState('')
     const [address, setAddress] = useState('')
-    const [message, setMessage] = useState(null)
 
     const dispatch = useDispatch()
 
@@ -53,7 +51,6 @@ const ProfileScreen = () => {
         <Row className='d-flex justify-content-center mx-0 py-5'>
             <Col md={6}>
                 <h3 className='d-flex justify-content-center'>Thông tin người dùng</h3>
-                {message && <Message variant='danger'>{message}</Message>}
                 {error && <Message variant='danger'>{error}</Message>}
                 {success && <Message variant='success'>Cập nhật thành công</Message>}
                 {loading && <Loader />}

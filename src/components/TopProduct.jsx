@@ -1,30 +1,18 @@
-import { React, useEffect, useState } from 'react'
-import { Row, Col, Container, ListGroup, Button } from 'react-bootstrap'
+import { React, useEffect } from 'react'
+import { Row, Col } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Product from '../components/Product'
-import Loader from '../components/Loader'
-import Message from '../components/Message'
-import { listProducts, listCategory } from '../actions/productActions'
+import { listProducts } from '../actions/productActions'
 
 const TopProduct = () => {
     const dispatch = useDispatch()
 
     const productList = useSelector(state => state.productList)
-    const { loading, error, products } = productList
+    const { products } = productList
 
     useEffect(() => {
         dispatch(listProducts())
     }, [dispatch])
-
-    const arrTopProduct = []
-    const getTopProduct = () => {
-        let soldMax = products[0].sold
-        products.forEach(product => {
-            if (product.sold > soldMax) {
-
-            }
-        })
-    }
 
     return (
         <div>

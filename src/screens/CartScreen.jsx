@@ -20,6 +20,7 @@ const CartScreen = () => {
     if (productId) {
       dispatch(addToCart(productId, quantity))
     }
+    //eslint-disable-next-line 
   }, [dispatch])
 
   const userLogin = useSelector((state) => state.userLogin)

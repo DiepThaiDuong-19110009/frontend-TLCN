@@ -1,29 +1,14 @@
-import { React, useEffect, useState } from 'react'
+import { React } from 'react'
 import { useSelector } from 'react-redux'
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 
 function Menu() {
-    const [sticky, setSticky] = useState("");
 
     const userLogin = useSelector(state => state.userLogin)
     const { userInfo } = userLogin
 
-    useEffect(() => {
-        window.addEventListener("scroll", isSticky);
-        return () => {
-            window.removeEventListener("scroll", isSticky);
-        };
-    }, []);
-
-    const isSticky = () => {
-        const scrollTop = window.scrollY;
-        const stickyClass = scrollTop >= 50 ? "is-sticky" : "";
-        setSticky(stickyClass);
-    };
-
-    const classes = `header-section ${sticky}`;
     return (
         <header >
             <Navbar className='py-2 shadow-sm bg-white' expand="lg">

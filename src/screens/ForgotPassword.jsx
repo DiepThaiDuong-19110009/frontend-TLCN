@@ -8,7 +8,6 @@ import { forgotPassword } from '../actions/userActions'
 
 const ForgotPassword = () => {
     const [email, setEmail] = useState('')
-    const [message, setMessage] = useState(null)
 
     const dispatch = useDispatch()
 
@@ -22,6 +21,7 @@ const ForgotPassword = () => {
             navigate('/login')
             window.location.reload()
         }
+        //eslint-disable-next-line 
     }, [navigate, userForgotPass])
 
     const submitHandler = (e) => {
