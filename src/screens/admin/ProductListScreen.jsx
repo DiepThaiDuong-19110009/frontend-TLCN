@@ -1,11 +1,11 @@
 import { React, useEffect, useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
-import { Table, Button, Row, Col, Modal, Accordion } from 'react-bootstrap'
+import { Table, Button, Row, Col } from 'react-bootstrap'
 import ReactTooltip from 'react-tooltip'
 import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../../components/Loader'
 import Message from '../../components/Message'
-import { listProducts, deleteProduct, createProduct } from '../../actions/productActions'
+import { listProducts, createProduct } from '../../actions/productActions'
 import { PRODUCT_CREATE_RESET } from '../../constants/productConstants'
 
 const ProductListScreen = () => {
@@ -43,10 +43,10 @@ const ProductListScreen = () => {
         dispatch(createProduct())
     }
 
-    const deleteHandler = (idDelete) => {
-        dispatch(deleteProduct(idDelete))
-        setShow(false)
-    }
+    // const deleteHandler = (idDelete) => {
+    //     dispatch(deleteProduct(idDelete))
+    //     setShow(false)
+    // }
 
     //filter Product
     let idCategory = ''
@@ -71,19 +71,14 @@ const ProductListScreen = () => {
     }
     checkFilter()
 
-    // load page
-    const loadpage = () => {
-        window.location.reload(false)
-    }
-
     // Alert
-    const [idDelete, setIdDelete] = useState('')
-    const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
-    const handleShow = (id) => {
-        setShow(true);
-        setIdDelete(id)
-    }
+    // const [idDelete, setIdDelete] = useState('')
+    // const [show, setShow] = useState(false);
+    // const handleClose = () => setShow(false);
+    // const handleShow = (id) => {
+    //     setShow(true);
+    //     setIdDelete(id)
+    // }
 
     return (
         <div style={{ overflowY: 'scroll', height: '100%', width: '100%', fontSize: '14px' }} className='py-4 px-5'>
@@ -179,7 +174,7 @@ const ProductListScreen = () => {
                         </tbody>
                     </Table>
                 )}
-            <Modal
+            {/* <Modal
                 show={show}
                 onHide={handleClose}
                 backdrop="static"
@@ -197,7 +192,7 @@ const ProductListScreen = () => {
                     </Button>
                     <Button variant="danger" onClick={() => deleteHandler(idDelete)}>Xóa sản phẩm</Button>
                 </Modal.Footer>
-            </Modal>
+            </Modal> */}
         </div>
     )
 }

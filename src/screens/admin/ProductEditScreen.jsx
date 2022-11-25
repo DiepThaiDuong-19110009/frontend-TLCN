@@ -1,6 +1,6 @@
 import { React, useState, useEffect } from 'react'
 import { Link, useParams, useNavigate } from 'react-router-dom'
-import { Button, Form, Card, Row, Col } from 'react-bootstrap'
+import { Button, Form, Card, Row } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import 'react-medium-image-zoom/dist/styles.css'
 import Zoom from 'react-medium-image-zoom'

@@ -1,21 +1,15 @@
 import { React, useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { Table, Button, Row, Col, Modal, Accordion } from 'react-bootstrap'
+import { Table, Button, Row, Col } from 'react-bootstrap'
 import ReactTooltip from 'react-tooltip'
-import {
-  RangeDatePicker,
-  SingleDatePicker
-} from "react-google-flight-datepicker";
 import "react-google-flight-datepicker/dist/main.css";
 import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../../components/Loader'
 import Message from '../../components/Message'
-import { deleteOrder, getOrder, updateOrder } from '../../actions/orderActions'
+import { getOrder } from '../../actions/orderActions'
 
 const OrderListScreen = () => {
   const [filter, setFilter] = useState('ALL')
-  const [startDay, setStartDay] = useState('')
-  const [endDay, setEndDay] = useState('')
   const dispatch = useDispatch()
 
   const { loading, error, orders } = useSelector(state => state.orderList)
@@ -33,14 +27,15 @@ const OrderListScreen = () => {
     else {
       dispatch(getOrder())
     }
+    // eslint-disable-next-line
   }, [dispatch, navigate, userInfo])
 
-  const deleteHandler = (categoryId) => {
-    if (window.confirm('Bạn có chắc chắn muốn xóa đơn hàng này không?')) {
-      dispatch(deleteOrder(categoryId))
-      window.location.reload()
-    }
-  }
+  // const deleteHandler = (categoryId) => {
+  //   if (window.confirm('Bạn có chắc chắn muốn xóa đơn hàng này không?')) {
+  //     dispatch(deleteOrder(categoryId))
+  //     window.location.reload()
+  //   }
+  // }
 
   // Filter Status
   const arrFilterOrder = []
@@ -56,13 +51,13 @@ const OrderListScreen = () => {
 
   FilterStatus(filter)
   
-  const [idDelete, setIdDelete] = useState('')
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = (id) => {
-    setShow(true);
-    setIdDelete(id)
-  }
+  // const [idDelete, setIdDelete] = useState('')
+  // const [show, setShow] = useState(false);
+  // const handleClose = () => setShow(false);
+  // const handleShow = (id) => {
+  //   setShow(true);
+  //   setIdDelete(id)
+  // }
 
   return (
     <div style={{ overflowY: 'scroll', height: '100%', width: '100%', fontSize: '14px' }} className='py-4 px-5'>
@@ -151,7 +146,7 @@ const OrderListScreen = () => {
           </Table>
         )}
       {arrFilterOrder.length === 0 ? <p className='text-center'>Không có đơn hàng nào ở trạng thái ({filter})</p> : <p></p>}
-      <Modal
+      {/* <Modal
         show={show}
         onHide={handleClose}
         backdrop="static"
@@ -169,7 +164,7 @@ const OrderListScreen = () => {
           </Button>
           <Button variant="danger" onClick={() => deleteHandler(idDelete)}>Xóa nhà cung cấp</Button>
         </Modal.Footer>
-      </Modal>
+      </Modal> */}
     </div>
   )
 }

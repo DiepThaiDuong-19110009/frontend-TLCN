@@ -1,6 +1,6 @@
 import { React, useState, useEffect } from 'react'
 import { Link, useParams, useNavigate } from 'react-router-dom'
-import { Button, Form, Row, Col, Card } from 'react-bootstrap'
+import { Button, Form, Row,Card } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../../components/Loader'
 import Message from '../../components/Message'
@@ -17,7 +17,7 @@ const CategoryEditScreen = () => {
 
     const navigate = useNavigate();
 
-    const { loading, error, category } = useSelector(state => state.categoryDetails)
+    const { error, category } = useSelector(state => state.categoryDetails)
 
     const { loading: loadingUpdate, error: errorUpdate, success: successUpdate } = useSelector(state => state.categoryUpdate)
 

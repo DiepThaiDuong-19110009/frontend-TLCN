@@ -7,7 +7,6 @@ import Loader from '../../components/Loader'
 import Message from '../../components/Message'
 import FormContainer from '../../components/FormContainer'
 import { listCategoryDetails } from '../../actions/productActions'
-import { CATEGORY_UPDATE_RESET } from '../../constants/productConstants'
 
 const CategoryDetailAdminScreen = () => {
     const [isCopied, setIsCopied] = useState(false);
