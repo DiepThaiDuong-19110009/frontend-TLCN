@@ -46,16 +46,16 @@ const ShippingScreen = () => {
                             <Form.Control type='text' placeholder='Nhập địa chỉ' value={address} onChange={(e) => setAddress(e.target.value)}></Form.Control>
                         </Form.Group>
                         <Form.Group className='mb-3'>
-                            <Form.Label>Thành phố</Form.Label>
-                            <Form.Control type='text' placeholder='Nhập tên thành phố' value={city} onChange={(e) => setCity(e.target.value)}></Form.Control>
+                            <Form.Label>Quận/Huyện/Thành phố</Form.Label>
+                            <Form.Control type='text' placeholder='Nhập tên quận/huyện/thành phố' value={city} onChange={(e) => setCity(e.target.value)}></Form.Control>
                         </Form.Group>
                         <Form.Group className='mb-3'>
-                            <Form.Label>Tỉnh</Form.Label>
-                            <Form.Control type='text' placeholder='Nhập tên tỉnh' value={country} onChange={(e) => setCountry(e.target.value)}></Form.Control>
+                            <Form.Label>Tỉnh/Thành phố</Form.Label>
+                            <Form.Control type='text' placeholder='Nhập tên tỉnh/thành phố' value={country} onChange={(e) => setCountry(e.target.value)}></Form.Control>
                         </Form.Group>
                         <Form.Group className='mb-3'>
                             <Form.Label>Số điện thoại người nhận</Form.Label>
-                            <Form.Control type='number' placeholder='Nhập số điện thoại' value={phone} onChange={(e) => setPhone(e.target.value)}></Form.Control>
+                            <Form.Control type='text' placeholder='Nhập số điện thoại' value={phone} onChange={(e) => setPhone(e.target.value)}></Form.Control>
                         </Form.Group>
 
                         <Row className='py-3 d-flex justify-content-center align-items-center'>
