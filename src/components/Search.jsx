@@ -54,7 +54,7 @@ const Search = () => {
                 </div>
                 <div>
                     <Button onClick={handleSubmit} style={{ background: 'transparent', border: 'none' }}>
-                        <i style={{ color: 'green' }} class="fas fa-search py-2"></i>
+                        <i style={{ color: 'green' }} className="fas fa-search py-2"></i>
                     </Button>
                 </div>
             </div>
