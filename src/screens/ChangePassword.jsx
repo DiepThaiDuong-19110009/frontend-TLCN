@@ -54,7 +54,7 @@ const ChangePassword = () => {
     const submitHandler = (e) => {
         e.preventDefault()
         dispatch(changePassword(email, oldPassword, newPassword))
-        if (newPassword.trim().length === 0|| oldPassword.trim().length === 0) {
+        if (email.trim().length === 0 || newPassword.trim().length === 0 || oldPassword.trim().length === 0) {
             setMessage('Vui lòng điền đủ thông tin')
         } else if (newPassword === oldPassword) {
             setMessage('Mật khẩu mới không được trùng mật khẩu cũ')

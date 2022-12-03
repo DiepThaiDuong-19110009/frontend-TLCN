@@ -81,32 +81,6 @@ const RegisterScreen = () => {
                             <Form.Label>Mật khẩu</Form.Label>
                             <Form.Control type={passwordShown ? "text" : "password"} placeholder='Nhập mật khẩu' value={password} onChange={(e) => setPassword(e.target.value)}></Form.Control>
                         </Form.Group>
-                        {
-                            password.trim().length !== 0 &&
-                            <div className='mt-1'>
-                                <p className='my-0 mb-1' >*Sử dụng các ký tự tăng độ bảo mật: ABC123!@#</p>
-                                {
-                                    level <= 33 && <p>Độ bảo mật: <span style={{ color: 'red' }}>Yếu</span></p>
-                                }
-                                {
-                                    (level > 33 && level <= 66) && <p>Độ bảo mật: <span style={{ color: '#f5b800' }}>Trung bình</span></p>
-                                }
-                                {
-                                    level > 66 && <p>Độ bảo mật: <span style={{ color: 'green' }}>Cao</span></p>
-                                }
-                                <ProgressBar style={{ height: '5px' }} className='mb-3'>
-                                    {
-                                        level <= 33 && <ProgressBar variant="danger" now={level} key={1} />
-                                    }
-                                    {
-                                        (level > 33 && level <= 66) && <ProgressBar variant="warning" now={level} key={2} />
-                                    }
-                                    {
-                                        level > 66 && <ProgressBar variant="success" now={level} key={3} />
-                                    }
-                                </ProgressBar>
-                            </div>
-                        }
                         <Form.Group className='mt-2'>
                             <Form>
                                 <div key='default-checkbox' className="mb-3">
@@ -119,8 +93,15 @@ const RegisterScreen = () => {
                                 </div>
                             </Form>
                         </Form.Group>
+                        <Form.Group className='py-3'>
+                            <p style={{fontSize: '12px'}}><i style={{ color: (password.length < 8 || password.length > 20 ? 'red' : 'green'), fontSize: "15px" }} class="fa fa-check-circle" aria-hidden="true"></i> Lớn hơn 8 và nhỏ hơn 20 ký tự</p>
+                            <p style={{fontSize: '12px'}}><i style={{ color: (!password.match(/[A-Z]/) ? 'red' : 'green'), fontSize: "15px" }} class="fa fa-check-circle" aria-hidden="true"></i> Ít nhất 1 ký tự viết HOA</p>
+                            <p style={{fontSize: '12px'}}><i style={{ color: (!password.match(/[a-z]/) ? 'red' : 'green'), fontSize: "15px" }} class="fa fa-check-circle" aria-hidden="true"></i> Ít nhất 1 ký tự viết THƯỜNG</p>
+                            <p style={{fontSize: '12px'}}><i style={{ color: (!password.match(/[\`~!@#$%\^&*()+=|;:'",.<>\/?\\\-]/) ? 'red' : 'green'), fontSize: "15px" }} class="fa fa-check-circle" aria-hidden="true"></i> Ít nhất 1 ký tự đặc biệt</p>
+                            <p style={{fontSize: '12px'}}><i style={{ color: (!password.match(/[\d]/) ? 'red' : 'green'), fontSize: "15px" }} class="fa fa-check-circle" aria-hidden="true"></i> Ít nhất 1 ký tự số</p>
+                        </Form.Group>
                         <Form.Group className='d-flex justify-content-center pt-3'>
-                            <Button style={{ width: '100%' }} type='submit' variant='success'>Đăng ký</Button>
+                            <Button disabled={((password.length < 8 || password.length > 20) || !password.match(/[A-Z]/) || !password.match(/[a-z]/) || !password.match(/[\`~!@#$%\^&*()+=|;:'",.<>\/?\\\-]/) || !password.match(/[\d]/)) ? 'true' : ''} style={{ width: '100%' }} type='submit' variant='success'>Đăng ký</Button>
                         </Form.Group>
                         {/* <Form.Group className='d-flex justify-content-center pt-3'>
                         <p className='textCenter'>Hoặc</p>
@@ -143,7 +124,7 @@ const RegisterScreen = () => {
                     </Row>
                 </Col> :
                 <Row className='d-flex justify-content-center align-items-center'>
-                    <p style={{background: '#ffffff', width: 'auto'}} className='d-flex justify-content-center align-items-center my-5 py-5 px-5'>Vui lòng kiểm tra Email để hoàn tất đăng ký!!!</p>
+                    <p style={{ background: '#ffffff', width: 'auto' }} className='d-flex justify-content-center align-items-center my-5 py-5 px-5'>Vui lòng kiểm tra Email để hoàn tất đăng ký!!!</p>
                 </Row>
             }
         </Row>
