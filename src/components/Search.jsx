@@ -3,7 +3,7 @@ import TextField from '@material-ui/core/TextField';
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import { Button } from 'react-bootstrap'
+import { Button, Row } from 'react-bootstrap'
 import { listProducts } from '../actions/productActions';
 
 const Search = () => {
@@ -39,8 +39,8 @@ const Search = () => {
     }
 
     return (
-        <>
-            <div className='d-flex align-items-center py-0 px-3 shadow-sm  bg-white rounded' style={{ background: '#ffffff', borderRadius: '10px', border: 'solid 1px #3CB371' }}>
+        <Row className='mx-1'>
+            <div className='d-flex align-items-center py-0 px-0 shadow-sm bg-white' style={{ background: '#ffffff', border: 'solid 1px green', borderRadius: '0px' }}>
                 <div className='w-100'>
                     <Autocomplete disablePortal options={myOptions.sort()} onChange={(event, value) => setSelectedOptions(value)}
                         renderInput={(params) => (
@@ -48,17 +48,18 @@ const Search = () => {
                                 {...params}
                                 InputProps={{ ...params.InputProps, disableUnderline: true }}
                                 placeholder='Nhập tên sản phẩm cần tìm, ví dụ: Cà chua'
+                                style={{paddingLeft: '20px'}}
                             />
                         )}
                     />
                 </div>
-                <div>
-                    <Button onClick={handleSubmit} style={{ background: 'transparent', border: 'none' }}>
-                        <i style={{ color: 'green' }} className="fas fa-search py-2"></i>
+                <div style={{background: 'green'}}>
+                    <Button className='my-0 mx-0' onClick={handleSubmit} style={{ background: 'green', border: 'solid 1px green', borderRadius: '0px' }}>
+                        <i style={{ color: 'white' }} className="fas fa-search py-2"></i>
                     </Button>
                 </div>
             </div>
-        </>
+        </Row>
     )
 }
 
