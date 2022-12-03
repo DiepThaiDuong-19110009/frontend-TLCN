@@ -50,7 +50,6 @@ const ProfileScreen = () => {
             dispatch(updateUserProfile(userInfo?.user?._id, { name: name, email: email, phone: phone, address: address }))
             const user = JSON.parse(localStorage.getItem('userInfo')).user
             localStorage.setItem('userInfo', JSON.stringify({token: userInfo.token, user: {...user, name: name, email: email, phone: phone, address: address }}))
-            console.log('===', user)
             window.location.reload()
         }
     }
