@@ -48,12 +48,12 @@ const PaymentScreen = () => {
                 <Form.Group>
                     {/* <Form.Label as='h6'>Chọn phương thức thanh toán</Form.Label> */}
                     <Row className='py-5 mx-3 d-flex justify-content-center align-items-center'>
-                        <Col xl={3} onClick={payWithCash} className='shadow-sm py-3 mx-3 my-1 d-flex justify-content-center align-items-center' style={cash === true ? { border: '1px solid gray', cursor: 'pointer', borderRadius: '5px', position: 'relative' } : {}}>
+                        <Col xl={3} onClick={payWithCash} className='shadow-sm py-3 mx-3 my-1 d-flex justify-content-center align-items-center' style={cash === true ? { border: '1px solid gray', cursor: 'pointer', borderRadius: '5px', position: 'relative', background: 'white' } : {background: 'white'}}>
                             <Image style={{ height: '40px' }} src='https://cdn.pixabay.com/photo/2016/03/31/21/41/cash-1296585_960_720.png' alt='paypal'></Image>
                             <h5 className='my-0 mx-3'>Tiền mặt</h5>
                             {cash === true ? <i style={{ fontSize: '15px', position: 'absolute', top: '0', right: '0', background: 'green', padding: '8px', color: 'white', borderRadius: '50px', translate: '25% -25%' }} className="fas fa-check"></i> : <></>}
                         </Col>
-                        <Col xl={3} onClick={payWithPayPal} className='shadow-sm py-3 mx-3 my-1 d-flex justify-content-center align-items-center' style={payPal === true ? { border: '1px solid gray', cursor: 'pointer', borderRadius: '5px', position: 'relative' } : {}}>
+                        <Col xl={3} onClick={payWithPayPal} className='shadow-sm py-3 mx-3 my-1 d-flex justify-content-center align-items-center' style={payPal === true ? { border: '1px solid gray', cursor: 'pointer', borderRadius: '5px', position: 'relative', background: 'white' } : {background: 'white'}}>
                             <Image style={{ height: '40px' }} src='https://quyetdao.com/wp-content/uploads/2019/04/paypal-logo.png' alt='paypal'></Image>
                             {payPal === true ? <i style={{ fontSize: '15px', position: 'absolute', top: '0', right: '0', background: 'green', padding: '8px', color: 'white', borderRadius: '50px', translate: '25% -25%' }} className="fas fa-check"></i> : <></>}
                         </Col>

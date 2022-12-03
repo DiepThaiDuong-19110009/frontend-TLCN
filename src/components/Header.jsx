@@ -54,7 +54,7 @@ const Header = () => {
                         </Navbar.Brand>
                     </LinkContainer>
                 </Col>
-                <Col xl={5} style={{ margin: '0 auto', padding: 'auto', height: 'auto' }} className='py-3'>
+                <Col xl={6} style={{ margin: '0 auto', padding: 'auto', height: 'auto' }} className='py-3'>
                     <Search />
                 </Col>
                 <Col xl={3} className='d-flex justify-content-evenly align-items-center'>
