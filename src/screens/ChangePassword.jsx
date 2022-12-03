@@ -6,7 +6,6 @@ import Loader from '../components/Loader'
 import { changePassword } from '../actions/userActions'
 
 const ChangePassword = () => {
-    const [email, setEmail] = useState('')
     const [oldPassword, setOldPassword] = useState('')
     const [newPassword, setNewPassword] = useState('')
     const [message, setMessage] = useState(null)
@@ -18,12 +17,17 @@ const ChangePassword = () => {
     const userChangePassword = useSelector(state => state.userChangePassword)
     const { loading, userChangePass } = userChangePassword
 
+    const userLogin = useSelector(state => state.userLogin)
+    const { userInfo } = userLogin
+    console.log('===', userInfo)
+
     const [passwordShown, setPasswordShown] = useState(false);
     const togglePasswordVisiblity = () => {
         setPasswordShown(passwordShown ? false : true);
     };
 
     useEffect(() => {
+        
         if (userChangePass) {
             navigate('/')
         }
@@ -53,8 +57,8 @@ const ChangePassword = () => {
 
     const submitHandler = (e) => {
         e.preventDefault()
-        dispatch(changePassword(email, oldPassword, newPassword))
-        if (email.trim().length === 0 || newPassword.trim().length === 0 || oldPassword.trim().length === 0) {
+        dispatch(changePassword(userInfo?.user?.email, oldPassword, newPassword))
+        if (newPassword.trim().length === 0 || oldPassword.trim().length === 0) {
             setMessage('Vui lòng điền đủ thông tin')
         } else if (newPassword === oldPassword) {
             setMessage('Mật khẩu mới không được trùng mật khẩu cũ')
@@ -68,10 +72,6 @@ const ChangePassword = () => {
                 <p style={{ color: 'red', textAlign: 'center' }}>{message}</p>
                 {loading && <Loader />}
                 <Form onSubmit={submitHandler} >
-                    <Form.Group controlId='email'>
-                        <Form.Label>Email</Form.Label>
-                        <Form.Control type='email' placeholder='Nhập email' value={email} onChange={(e) => setEmail(e.target.value)}></Form.Control>
-                    </Form.Group>
                     <Form.Group controlId='password' className='py-3'>
                         <Form.Label>Mật khẩu cũ</Form.Label>
                         <Form.Control type={passwordShown ? "text" : "password"} placeholder='Nhập mật khẩu cũ' value={oldPassword} onChange={(e) => setOldPassword(e.target.value)}></Form.Control>
@@ -92,14 +92,14 @@ const ChangePassword = () => {
                             </div>
                         </Form>
                     </Form.Group>
-                    <Form.Group className='py-3'>
+                    <Form.Group className='pt-3'>
                             <p style={{fontSize: '12px'}}><i style={{ color: (newPassword.length < 8 || newPassword.length > 20 ? 'red' : 'green'), fontSize: "15px" }} class="fa fa-check-circle" aria-hidden="true"></i> Lớn hơn 8 và nhỏ hơn 20 ký tự</p>
                             <p style={{fontSize: '12px'}}><i style={{ color: (!newPassword.match(/[A-Z]/) ? 'red' : 'green'), fontSize: "15px" }} class="fa fa-check-circle" aria-hidden="true"></i> Ít nhất 1 ký tự viết HOA</p>
                             <p style={{fontSize: '12px'}}><i style={{ color: (!newPassword.match(/[a-z]/) ? 'red' : 'green'), fontSize: "15px" }} class="fa fa-check-circle" aria-hidden="true"></i> Ít nhất 1 ký tự viết THƯỜNG</p>
                             <p style={{fontSize: '12px'}}><i style={{ color: (!newPassword.match(/[\`~!@#$%\^&*()+=|;:'",.<>\/?\\\-]/) ? 'red' : 'green'), fontSize: "15px" }} class="fa fa-check-circle" aria-hidden="true"></i> Ít nhất 1 ký tự đặc biệt</p>
                             <p style={{fontSize: '12px'}}><i style={{ color: (!newPassword.match(/[\d]/) ? 'red' : 'green'), fontSize: "15px" }} class="fa fa-check-circle" aria-hidden="true"></i> Ít nhất 1 ký tự số</p>
                         </Form.Group>
-                    <Form.Group className='d-flex justify-content-between pb-5 pt-4' >
+                    <Form.Group className='d-flex justify-content-between pb-5 pt-2' >
                         <Button disabled={((newPassword.length < 8 || newPassword.length > 20) || !newPassword.match(/[A-Z]/) || !newPassword.match(/[a-z]/) || !newPassword.match(/[\`~!@#$%\^&*()+=|;:'",.<>\/?\\\-]/) || !newPassword.match(/[\d]/)) ? 'true' : ''} style={{ width: '100%' }} type='submit' variant='success'>Đổi mật khẩu</Button>
                     </Form.Group>
                 </Form>

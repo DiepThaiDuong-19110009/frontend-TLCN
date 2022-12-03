@@ -54,40 +54,57 @@ const Header = () => {
                         </Navbar.Brand>
                     </LinkContainer>
                 </Col>
-                <Col xl={6} style={{ margin: '0 auto', padding: 'auto', height: 'auto' }} className='py-3'>
+                <Col xl={5} style={{ margin: '0 auto', padding: 'auto', height: 'auto' }} className='py-3'>
                     <Search />
                 </Col>
-                <Col xl={3} className='d-flex justify-content-center align-items-center'>
+                <Col xl={3} className='d-flex justify-content-evenly align-items-center'>
                     <LinkContainer style={{ color: 'white' }} to='/cart' className='px-3'>
-                        <Nav.Link className='text-success'>
-                            <i style={{ fontSize: '30px' }} className='fas fa-shopping-cart'></i> <strong style={
-                                { fontSize: '20px' }}>
-                                {
-                                    cartItems.length > 0 && `(${cartItems.length})`
-                                }
-                            </strong>
+                        <Nav.Link className='text-success d-flex justify-content-center align-items-center'>
+                            <i style={{ fontSize: '34px' }} className='fas fa-shopping-cart me-2'></i>
+                            <div className='d-flex flex-column'>
+                                <strong>Giỏ hàng</strong>
+                                <strong style={
+                                    { fontSize: '11px' }}>
+                                    {
+                                        cartItems.length > 0 && `(${cartItems.length} sản phẩm)`
+                                    }
+                                </strong>
+                            </div>
                         </Nav.Link>
                     </LinkContainer>
                     {userInfo ? (
-                        <NavDropdown title={`${userInfo.user.name}`} id='nav-dropdown' >
-                            {userInfo && userInfo.user.isAdmin && (
-                                <LinkContainer to='/admin/statistic'>
-                                    <NavDropdown.Item>Quản lý hệ thống</NavDropdown.Item>
+                        <div className='d-flex flex-column text-success'>
+                            <strong style={{ fontSize: '13px' }}>Xin chào,</strong>
+                            <NavDropdown title={`${userInfo.user.name}`} id='nav-dropdown' >
+                                {userInfo && userInfo.user.isAdmin && (
+                                    <LinkContainer to='/admin/statistic'>
+                                        <NavDropdown.Item>Quản lý hệ thống</NavDropdown.Item>
+                                    </LinkContainer>
+                                )}
+                                <LinkContainer to='/profile'>
+                                    <NavDropdown.Item>Thông tin</NavDropdown.Item>
                                 </LinkContainer>
-                            )}
-                            <LinkContainer to='/profile'>
-                                <NavDropdown.Item>Thông tin</NavDropdown.Item>
+                                <LinkContainer to='/changepassword'>
+                                    <NavDropdown.Item>Đổi mật khẩu</NavDropdown.Item>
+                                </LinkContainer>
+                                <NavDropdown.Item onClick={logoutHandler}>Đăng xuất</NavDropdown.Item>
+                            </NavDropdown>
+                        </div>
+                    ) :
+                        <div className='d-flex justify-content-evenly align-items-center'>
+                            <LinkContainer to='/login'>
+                                <Nav.Link className='text-success'>
+                                    <strong>Đăng nhập</strong>
+                                </Nav.Link>
                             </LinkContainer>
-                            <LinkContainer to='/changepassword'>
-                                <NavDropdown.Item>Đổi mật khẩu</NavDropdown.Item>
+                            <p className='my-0 mx-2 text-success'> / </p>
+                            <LinkContainer to='/register'>
+                                <Nav.Link className='text-success'>
+                                    Đăng ký
+                                </Nav.Link>
                             </LinkContainer>
-                            <NavDropdown.Item onClick={logoutHandler}>Đăng xuất</NavDropdown.Item>
-                        </NavDropdown>
-                    ) : <LinkContainer to='/login'>
-                        <Nav.Link className='text-success'>
-                            <i className='fas fa-user'></i> Đăng nhập
-                        </Nav.Link>
-                    </LinkContainer>}
+                        </div>
+                    }
                 </Col>
             </Row>
         </div>
