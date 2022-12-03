@@ -11,6 +11,7 @@ const ProfileScreen = () => {
     const [email, setEmail] = useState('')
     const [phone, setPhone] = useState('')
     const [address, setAddress] = useState('')
+    const [message, setMessage] = useState('')
 
     const dispatch = useDispatch()
 
@@ -43,14 +44,22 @@ const ProfileScreen = () => {
 
     const submitHandler = (e) => {
         e.preventDefault()
-        dispatch(updateUserProfile(user._id, {name, email, phone, address}))
-        window.location.reload()
+        if (name.trim().length === 0 || phone.trim().length === 0 || address.trim().length === 0) {
+            setMessage("Vui lòng điền đủ thông tin")
+        } else {
+            dispatch(updateUserProfile(userInfo?.user?._id, { name: name, email: email, phone: phone, address: address }))
+            const user = JSON.parse(localStorage.getItem('userInfo')).user
+            localStorage.setItem('userInfo', JSON.stringify({token: userInfo.token, user: {...user, name: name, email: email, phone: phone, address: address }}))
+            console.log('===', user)
+            window.location.reload()
+        }
     }
 
     return (
         <Row className='d-flex justify-content-center mx-0 py-5'>
             <Col md={6}>
                 <h3 className='d-flex justify-content-center'>Thông tin người dùng</h3>
+                <p className='text-center' style={{ color: 'red' }}>{message}</p>
                 {error && <Message variant='danger'>{error}</Message>}
                 {success && <Message variant='success'>Cập nhật thành công</Message>}
                 {loading && <Loader />}
