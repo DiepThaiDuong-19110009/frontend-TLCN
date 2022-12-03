@@ -33,7 +33,7 @@ const ForgotPassword = () => {
         <Row className='p-4 d-flex justify-content-center align-items-center'>
             <Col xl={4} md={5} sm={7} style={{ background: '#f5f5f5', margin: '20px', padding: '0 40px', borderRadius: '20px' }} className='shadow rounded'>
                 <h3 className='d-flex justify-content-center py-3'>Quên mật khẩu</h3>
-                {error && <Message variant='danger'>{error}</Message>}
+                {error && <p style={{ color: 'red', textAlign: 'center' }}>Vui lòng nhập Email</p>}
                 {loading && <Loader />}
                 <Form onSubmit={submitHandler} >
                     <Form.Group controlId='email'>

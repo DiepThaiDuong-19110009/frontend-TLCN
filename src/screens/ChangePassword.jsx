@@ -80,32 +80,6 @@ const ChangePassword = () => {
                         <Form.Label>Mật khẩu mới</Form.Label>
                         <Form.Control type={passwordShown ? "text" : "password"} placeholder='Nhập mật khẩu mới' value={newPassword} onChange={(e) => setNewPassword(e.target.value)}></Form.Control>
                     </Form.Group>
-                    {
-                        newPassword.trim().length !== 0 &&
-                        <div className='mt-1'>
-                            <p className='my-0 mb-1' >*Sử dụng các ký tự tăng độ bảo mật: ABC123!@#</p>
-                            {
-                                level <= 33 && <p>Độ bảo mật: <span style={{color: 'red'}}>Yếu</span></p>
-                            }
-                            {
-                                (level > 33 && level <= 66) && <p>Độ bảo mật: <span style={{color: '#f5b800'}}>Trung bình</span></p>
-                            }
-                            {
-                                level > 66 && <p>Độ bảo mật: <span style={{color: 'green'}}>Cao</span></p>
-                            }
-                            <ProgressBar style={{ height: '5px' }} className='mb-3'>
-                                {
-                                    level <= 33 && <ProgressBar variant="danger" now={level} key={1} />
-                                }
-                                {
-                                    (level > 33 && level <= 66) && <ProgressBar variant="warning" now={level} key={2} />
-                                }
-                                {
-                                    level > 66 && <ProgressBar variant="success" now={level} key={3} />
-                                }
-                            </ProgressBar>
-                        </div>
-                    }
                     <Form.Group className='py-2'>
                         <Form>
                             <div key='default-checkbox'>
@@ -118,8 +92,15 @@ const ChangePassword = () => {
                             </div>
                         </Form>
                     </Form.Group>
+                    <Form.Group className='py-3'>
+                            <p style={{fontSize: '12px'}}><i style={{ color: (newPassword.length < 8 || newPassword.length > 20 ? 'red' : 'green'), fontSize: "15px" }} class="fa fa-check-circle" aria-hidden="true"></i> Lớn hơn 8 và nhỏ hơn 20 ký tự</p>
+                            <p style={{fontSize: '12px'}}><i style={{ color: (!newPassword.match(/[A-Z]/) ? 'red' : 'green'), fontSize: "15px" }} class="fa fa-check-circle" aria-hidden="true"></i> Ít nhất 1 ký tự viết HOA</p>
+                            <p style={{fontSize: '12px'}}><i style={{ color: (!newPassword.match(/[a-z]/) ? 'red' : 'green'), fontSize: "15px" }} class="fa fa-check-circle" aria-hidden="true"></i> Ít nhất 1 ký tự viết THƯỜNG</p>
+                            <p style={{fontSize: '12px'}}><i style={{ color: (!newPassword.match(/[\`~!@#$%\^&*()+=|;:'",.<>\/?\\\-]/) ? 'red' : 'green'), fontSize: "15px" }} class="fa fa-check-circle" aria-hidden="true"></i> Ít nhất 1 ký tự đặc biệt</p>
+                            <p style={{fontSize: '12px'}}><i style={{ color: (!newPassword.match(/[\d]/) ? 'red' : 'green'), fontSize: "15px" }} class="fa fa-check-circle" aria-hidden="true"></i> Ít nhất 1 ký tự số</p>
+                        </Form.Group>
                     <Form.Group className='d-flex justify-content-between pb-5 pt-4' >
-                        <Button style={{ width: '100%' }} type='submit' variant='success'>Đổi mật khẩu</Button>
+                        <Button disabled={((newPassword.length < 8 || newPassword.length > 20) || !newPassword.match(/[A-Z]/) || !newPassword.match(/[a-z]/) || !newPassword.match(/[\`~!@#$%\^&*()+=|;:'",.<>\/?\\\-]/) || !newPassword.match(/[\d]/)) ? 'true' : ''} style={{ width: '100%' }} type='submit' variant='success'>Đổi mật khẩu</Button>
                     </Form.Group>
                 </Form>
             </Col>
