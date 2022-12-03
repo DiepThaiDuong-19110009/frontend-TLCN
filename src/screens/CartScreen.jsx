@@ -134,7 +134,7 @@ const CartScreen = () => {
           <Modal.Title>Xóa sản phẩm</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          Bạn có chắc chắn muốn xóa sản phẩm dùng này không?
+          Bạn có chắc chắn muốn xóa sản phẩm này không?
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleCloseAlert}>
