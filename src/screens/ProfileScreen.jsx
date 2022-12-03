@@ -19,38 +19,38 @@ const ProfileScreen = () => {
 
     const userDetails = useSelector(state => state.userDetails)
     const { loading, error, user } = userDetails
+    console.log('===', user)
 
     const userLogin = useSelector(state => state.userLogin)
     const { userInfo } = userLogin
 
-    const userUpdateProfile = useSelector(state => state.userUpdateProfile )
+    const userUpdateProfile = useSelector(state => state.userUpdateProfile)
     const { success } = userUpdateProfile
 
     useEffect(() => {
-        if(!userInfo){
+        if (!userInfo) {
             navigate('/login')
+        } else if (success) {
+            window.location.reload()
+        } else if (!user.name) {
+            dispatch(getUserDetails(userInfo.user._id))
         } else {
-            if(!user.name) {
-                dispatch(getUserDetails(userInfo.user._id))
-            } else {
-                setName(user.name)
-                setEmail(user.email)
-                setPhone(user.phone)
-                setAddress(user.address)
-            }
+            setName(user.name)
+            setEmail(user.email)
+            setPhone(user.phone)
+            setAddress(user.address)
         }
         //eslint-disable-next-line 
-    }, [dispatch, userInfo, user])
+    }, [dispatch, userInfo, user, success])
 
     const submitHandler = (e) => {
         e.preventDefault()
         if (name.trim().length === 0 || phone.trim().length === 0 || address.trim().length === 0) {
             setMessage("Vui lòng điền đủ thông tin")
         } else {
-            dispatch(updateUserProfile(userInfo?.user?._id, { name: name, email: email, phone: phone, address: address }))
-            const user = JSON.parse(localStorage.getItem('userInfo')).user
-            localStorage.setItem('userInfo', JSON.stringify({token: userInfo.token, user: {...user, name: name, email: email, phone: phone, address: address }}))
-            window.location.reload()
+            dispatch(updateUserProfile(user._id, { name: name, email: email, phone: phone, address: address }))
+            const userProfile = JSON.parse(localStorage.getItem('userInfo')).user
+            localStorage.setItem('userInfo', JSON.stringify({ token: userInfo.token, user: { ...userProfile, name: name, email: email, phone: phone, address: address } }))
         }
     }
 
