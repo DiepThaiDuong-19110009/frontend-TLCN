@@ -100,7 +100,7 @@ const PlaceOrderScreen = () => {
       <Row>
         <h3 className="d-flex justify-content-center pb-3">Đặt hàng</h3>
         <p className="d-flex justify-content-center pb-4">
-          Vui lòng kiểm tra đầy đủ thông tin trước khi tiến hành thanh toán
+          Vui lòng kiểm tra đầy đủ thông tin trước khi tiến hành đặt hàng
         </p>
       </Row>
       <Row>
@@ -233,7 +233,7 @@ const PlaceOrderScreen = () => {
                     disabled={cart.cartItems === 0}
                     onClick={placeOrderHandler}
                   >
-                    Thanh toán
+                    Đặt hàng
                   </Button>
                 ) : (
                   <Button

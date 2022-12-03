@@ -1,25 +1,34 @@
 import React from 'react';
+import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import Alert from 'react-bootstrap/Alert';
-import { Container } from 'react-bootstrap';
+import { Card, Container } from 'react-bootstrap';
 
 const OrderSuccessScreen = () => {
 
+    const userLogin = useSelector(state => state.userLogin)
+    const { userInfo } = userLogin
+
     return (
         <Container className='my-5'>
-            <Alert variant="success">
-                <Alert.Heading>Đặt hàng thành công</Alert.Heading>
-                <p>
-                    Cám ơn bạn đã tin dùng và mua sắm tại HDKMart, bạn vui lòng kiểm tra Email để
-                    kiểm tra lại đơn hàng. HDKMart chúc bạn thật nhiều sức khỏe !!!
-                </p>
-                <hr />
-                <div className="d-flex justify-content-end">
-                    <Link style={{textDecoration: 'none', color: 'black'}} to='/'>
-                        Quay lại trang chủ
-                    </Link>
-                </div>
-            </Alert>
+            <Card style={{ width: '100%' }}>
+                <Card.Body>
+                    <Card.Title style={{color: 'green', fontSize: '27px'}} className='d-flex justify-content-center align-items-center mb-4'>
+                        <i className="fa fa-check-circle me-3"></i>
+                        <strong>Đặt hàng thành công</strong>
+                    </Card.Title>
+                    <Card.Text style={{color: 'green', fontSize: '20px'}} className='d-flex justify-content-center align-items-center'>
+                        HDKMart chân thành cám ơn quý khách đã tin tưởng và mua hàng của cửa hàng chúng tôi. Chúc quý khách thật nhiều sức khỏe !!!
+                    </Card.Text>
+                    <div className="d-flex justify-content-end">
+                        <Link style={{ textDecoration: 'none', color: 'black' }} to='/'>
+                            Quay lại trang chủ
+                        </Link>
+                        {userInfo &&
+                                <Link style={{ textDecoration: 'none', color: 'green' }} className='px-4' to="/myorder">Đơn hàng của tôi</Link>
+                            }
+                    </div>
+                </Card.Body>
+            </Card>
         </Container>
     );
 }
