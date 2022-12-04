@@ -78,7 +78,7 @@ const Footer = () => {
         </Col>
       </Row>
       <Row className='mx-0'>
-        <Col className='d-flex justify-content-center py-3'>
+        <Col className='d-flex justify-content-center pt-3'>
           © 2022 Copyright:
           <a style={{ textDecoration: 'none', marginLeft: '5px', color: 'green' }} href="/"> HDKMart</a>
         </Col>

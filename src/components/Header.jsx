@@ -96,6 +96,7 @@ const Header = () => {
                         <div className='d-flex justify-content-evenly align-items-center'>
                             <LinkContainer to='/login'>
                                 <Nav.Link className='text-success'>
+                                    <i className='fas fa-user me-2'></i>
                                     <strong>Đăng nhập</strong>
                                 </Nav.Link>
                             </LinkContainer>

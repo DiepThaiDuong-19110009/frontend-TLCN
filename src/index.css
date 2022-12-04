@@ -106,3 +106,40 @@ h3 {
 #sidebaritem:hover {
   background-color: rgba(174, 174, 174, 0.163);
 }
+
+/* Hiệu ứng chạy chữ */
+.marquee {
+  height: 40px;
+  width: 100%;
+
+  overflow: hidden;
+  position: relative;
+}
+
+.marquee div {
+  display: block;
+  width: 200%;
+  height: 30px;
+
+  position: absolute;
+  overflow: hidden;
+
+  animation: marquee 35s linear infinite;
+}
+
+.marquee span {
+  float: left;
+  width: 50%;
+}
+
+@keyframes marquee {
+  0% { left: 0; }
+  100% { left: -100%; }
+}
+
+/* responsive */
+@media only screen and (max-width: 850px) {
+  #table-cart {
+    display: none;
+  }
+}

@@ -85,12 +85,12 @@ const ProductScreen = () => {
             </Col>
             <Col className='d-flex flex-column justify-content-between' xl={9} >
               <Slider />
-              <Row style={{ border: 'solid 2px #dddddd', borderRadius: '5px', width: '100%', margin: '0 auto' }} className='py-4'>
+              <Row id='productlist' style={{ border: 'solid 2px #dddddd', borderRadius: '5px', width: '100%', margin: '0 auto' }} className='py-4'>
                 <Introduce />
               </Row>
             </Col>
           </Row>
-          <Row id='productlist'>
+          <Row>
             <Col sm={0} md={0} lg={8} xl={8}>
               <h5 className='mt-5 mb-4'>Danh sách sản phẩm</h5>
             </Col>

@@ -186,7 +186,7 @@ const ProductDetailScreen = () => {
                         </Card>
                     </Col>
                 </Row>}
-            <Row id="comment">
+            <Row id="comment" className='mb-2'>
                 <h5 className='pt-5 pb-3'>Đánh giá sản phẩm ({product.reviews?.length})</h5>
                 {
                     (userInfo && arrCheckIdProduct?.length > 0) ? <Form>
@@ -214,7 +214,7 @@ const ProductDetailScreen = () => {
                         </Form.Group>
                     </Form>
                         :
-                        <p>Vui lòng mua hàng và thanh toán thành công sản phẩm, bạn sẽ được mở khóa đánh giá</p>
+                        <p>Vui lòng mua hàng và thanh toán thành công sản phẩm, bạn sẽ được mở khóa đánh giá.</p>
                 }
                 <Row className='pt-3 d-flex align-items-center justify-content-end'>
                     <h4 className='pb-4'>Các bình luận</h4>

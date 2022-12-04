@@ -103,7 +103,7 @@ const PlaceOrderScreen = () => {
           Vui lòng kiểm tra đầy đủ thông tin trước khi tiến hành đặt hàng
         </p>
       </Row>
-      <Row>
+      <Row className='mb-2'>
         <Col md={8}>
           <ListGroup>
             <ListGroup.Item>
@@ -206,12 +206,6 @@ const PlaceOrderScreen = () => {
                   </Col>
                 </Row>
               </ListGroup.Item>
-              {/* <ListGroup.Item>
-                                <Row>
-                                    <Col>Thuế (5%)</Col>
-                                    <Col>{(cart.taxPrice).toLocaleString('vi', { style: 'currency', currency: 'VND' })}</Col>
-                                </Row>
-                            </ListGroup.Item> */}
               <ListGroup.Item>
                 <Row>
                   <Col>Tổng thanh toán</Col>
@@ -223,7 +217,6 @@ const PlaceOrderScreen = () => {
                   </Col>
                 </Row>
               </ListGroup.Item>
-              {/* <ListGroup.Item>{error && <Message>{error}</Message>}</ListGroup.Item> */}
               <ListGroup.Item className="d-flex justify-content-center py-4">
                 {cart.paymentMethod === 'Tiền mặt' ? (
                   <Button
@@ -255,7 +248,6 @@ const PlaceOrderScreen = () => {
                     </h5>
                   </Button>
                 )}
-                {/* action='http://localhost:5000/api/pay' */}
               </ListGroup.Item>
             </ListGroup>
           </Card>
