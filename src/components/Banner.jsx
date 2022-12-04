@@ -7,8 +7,8 @@ const Banner = () => {
     <Row className='mx-0'>
       <Col xl={4} className='my-1'>
         <Card className="bg-dark text-white">
-          <Card.Img src="https://www.studytienganh.vn/upload/2022/02/110558.jpg" alt="Hải sản" />
-          <Card.ImgOverlay>
+          <Card.Img src="https://res.cloudinary.com/dkzuyi8fq/image/upload/v1670151647/110558_fnyksq.jpg" alt="Hải sản" />
+          <Card.ImgOverlay style={{background: 'rgba(99, 99, 99, 0.5)'}}>
             <Card.Title>Cá hồi</Card.Title>
             <Card.Text>
             Trong khẩu phần ăn cá hồi chiếm khoảng 85-113 gam cho 200 calo. Đây là loại cá rất ít chất béo bão hòa đồng thời là nguồn protein tốt.
@@ -23,8 +23,8 @@ const Banner = () => {
       </Col>
       <Col xl={4} className='my-1' >
         <Card className="bg-dark text-white">
-          <Card.Img src="https://songkhoe.medplus.vn/wp-content/uploads/2019/09/Thi%E1%BA%BFt-k%E1%BA%BF-kh%C3%B4ng-t%C3%AAn-28-9.png" alt="Rau củ" />
-          <Card.ImgOverlay>
+          <Card.Img src="https://res.cloudinary.com/dkzuyi8fq/image/upload/v1670151743/Thi%E1%BA%BFt-k%E1%BA%BF-kh%C3%B4ng-t%C3%AAn-28-9_slwxnc.png" alt="Rau củ" />
+          <Card.ImgOverlay style={{background: 'rgba(99, 99, 99, 0.5)'}}> 
             <Card.Title>Cà rốt</Card.Title>
             <Card.Text>
             Cà rốt là một loại rau củ tốt cho sức khỏe, với độ giòn, vị ngon và chứa rất nhiều beta carotene, chất xơ, vitamin K1, kali cũng như chất chống oxy hóa.
@@ -39,8 +39,8 @@ const Banner = () => {
       </Col>
       <Col xl={4} className='my-1'>
         <Card className="bg-dark text-white">
-          <Card.Img src="https://tejedasmarkets.com/wp-content/uploads/2019/08/beef-steak-food-photography-recipe-idea-FKJ9GVN-900x500.jpg" alt="Thịt" />
-          <Card.ImgOverlay>
+          <Card.Img src="https://res.cloudinary.com/dkzuyi8fq/image/upload/v1670151685/beef-steak-food-photography-recipe-idea-FKJ9GVN-900x500_tzvw99.jpg" alt="Thịt" />
+          <Card.ImgOverlay style={{background: 'rgba(99, 99, 99, 0.5)'}}>
             <Card.Title>Thịt heo</Card.Title>
             <Card.Text>
               Thịt heo giúp đóng góp vào cơ thể rất nhiều loại vitamin và khoáng chất khác nhau như photpho, kali, nicaxin, vitamin B6, vitamin B12, kẽm...
