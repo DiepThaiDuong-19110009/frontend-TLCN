@@ -3,23 +3,23 @@ import { Row, Col } from 'react-bootstrap'
 
 const Footer = () => {
   return (
-    <div className='py-5 px-0' style={{background: '#ffffff'}}>
+    <div className='py-5 px-5' style={{background: '#ffffff'}}>
       <Row className='d-flex justify-content-center justify-content-lg-between mx-0 px-0 border-bottom'>
         <Col xl={9} class="me-5 d-none d-lg-block">
           <span>Theo dõi HDKMart thông qua các mạng xã hội</span>
         </Col>
         <Col>
-          <a href="/" class="me-4 link-secondary">
+          <a href="https://www.facebook.com/profile.php?id=100087882044476" class="me-4 link-secondary">
             <i class="fab fa-facebook-f"></i>
           </a>
-          <a href="/" class="me-4 link-secondary">
+          <a href="https://twitter.com/?lang=vi" class="me-4 link-secondary">
             <i class="fab fa-twitter"></i>
           </a>
-          <a href="/" class="me-4 link-secondary">
-            <i class="fab fa-google"></i>
-          </a>
-          <a href="/" class="me-4 link-secondary">
+          <a href="https://www.instagram.com/" class="me-4 link-secondary">
             <i class="fab fa-instagram"></i>
+          </a>
+          <a href="https://www.google.com/" class="me-4 link-secondary">
+            <i class="fab fa-google"></i>
           </a>
         </Col>
       </Row>
