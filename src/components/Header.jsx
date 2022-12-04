@@ -24,8 +24,6 @@ const Header = () => {
     const cart = useSelector(state => state.cart)
     const { cartItems } = cart
 
-    console.log('===', cartItems);
-
     // Scroll page
     const [sticky, setSticky] = useState("");
 
@@ -101,7 +99,7 @@ const Header = () => {
                                     <strong>Đăng nhập</strong>
                                 </Nav.Link>
                             </LinkContainer>
-                            <p className='my-0 mx-2 text-success'> / </p>
+                            <p className='my-0 mx-2 text-success'> | </p>
                             <LinkContainer to='/register'>
                                 <Nav.Link className='text-success'>
                                     Đăng ký

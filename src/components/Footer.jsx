@@ -1,10 +1,10 @@
 import React from 'react'
-import { Container, Row, Col } from 'react-bootstrap'
+import { Row, Col } from 'react-bootstrap'
 
 const Footer = () => {
   return (
-    <Container className='py-5' style={{background: '#ffffff'}}>
-      <Row className='d-flex justify-content-center justify-content-lg-between p-4 border-bottom'>
+    <div className='py-5 px-0' style={{background: '#ffffff'}}>
+      <Row className='d-flex justify-content-center justify-content-lg-between mx-0 px-0 border-bottom'>
         <Col xl={9} class="me-5 d-none d-lg-block">
           <span>Theo dõi HDKMart thông qua các mạng xã hội</span>
         </Col>
@@ -23,7 +23,7 @@ const Footer = () => {
           </a>
         </Col>
       </Row>
-      <Row>
+      <Row className='mx-0'>
         <Col>
           <h4 className="py-3">
             HDKMart
@@ -77,13 +77,13 @@ const Footer = () => {
           <p><i class="fas fa-print me-3 text-secondary"></i> + 84 933 671 222</p>
         </Col>
       </Row>
-      <Row>
+      <Row className='mx-0'>
         <Col className='d-flex justify-content-center py-3'>
           © 2022 Copyright:
           <a style={{ textDecoration: 'none', marginLeft: '5px', color: 'green' }} href="/"> HDKMart</a>
         </Col>
       </Row>
-    </Container>
+    </div>
   )
 }
 

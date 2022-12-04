@@ -71,9 +71,15 @@ const ProductScreen = () => {
                   <i style={{ fontSize: '16px', color: '#f2f2f2', marginRight: '3%' }} class="fas fa-bars"></i>
                   <h6 className='text-light my-2'>Danh mục sản phẩm</h6>
                 </ListGroup.Item>
-                <ListGroup.Item style={{ fontSize: '14px' }} className='hoverCate' onClick={showAllProduct} >Tất cả sản phẩm</ListGroup.Item>
+                <ListGroup.Item style={{ fontSize: '14px' }} className='hoverCate' onClick={showAllProduct} >
+                  <i className="fas fa-arrow-circle-right me-2"></i>
+                  Tất cả sản phẩm
+                </ListGroup.Item>
                 {categories.map(category => (
-                  <ListGroup.Item style={{ fontSize: '14px' }} className='hoverCate' key={category._id} onClick={getCategoryId(category._id)} as="li">{category.name}</ListGroup.Item>
+                  <ListGroup.Item style={{ fontSize: '14px' }} className='hoverCate' key={category._id} onClick={getCategoryId(category._id)} as="li">
+                    <i className="fas fa-arrow-circle-right me-2"></i>
+                    {category.name}
+                  </ListGroup.Item>
                 ))}
               </ListGroup>
             </Col>
@@ -81,7 +87,7 @@ const ProductScreen = () => {
               <Slider />
               <Row style={{ border: 'solid 2px #dddddd', borderRadius: '5px', width: '100%', margin: '0 auto' }} className='py-4'>
                 <Introduce />
-              </Row>  
+              </Row>
             </Col>
           </Row>
           <Row id='productlist'>

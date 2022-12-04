@@ -25,13 +25,8 @@ function Menu() {
                             <Nav.Link className='px-4' href="/contact">Liên hệ</Nav.Link>
                         </Nav>
                         <Nav className='d-flex align-items-center justify-content-center'>
-                            <i style={{ fontSize: '34px' }} className='fas fa-mobile-alt text-success me-2'></i>
-                            <div className='d-flex flex-column text-success'>
-                                <strong style={
-                                    { fontSize: '11px' }}> Hotline đặt hàng
-                                </strong>
-                                <strong>0939.816.290</strong>
-                            </div>
+                            <i className='fas fa-phone text-success me-2'></i>
+                            <strong className='text-success'>Hotline: 0939 816 390</strong>
                         </Nav>
                     </Navbar.Collapse>
                 </Container>
