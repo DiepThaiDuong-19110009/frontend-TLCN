@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { LinkContainer } from 'react-router-bootstrap'
 import ReactTooltip from 'react-tooltip'
-import { Container, Navbar, Nav, NavDropdown, Row, Modal, Button } from 'react-bootstrap'
+import { Container, Navbar, Nav, NavDropdown, Row, Modal, Button, Col, Accordion } from 'react-bootstrap'
 import { getOrder, updateOrder } from '../actions/orderActions'
 import { logout } from '../actions/userActions'
 
@@ -13,9 +13,11 @@ const HeaderAdmin = () => {
     const dispatch = useDispatch()
 
     const { orders } = useSelector(state => state.orderList)
+    console.log('===', orders);
 
-    const userLogin = useSelector(state => state.userLogin)
-    const { userInfo } = userLogin
+    const { userInfo } = useSelector(state => state.userLogin)
+
+    const { success } = useSelector(state => state.orderUpdate)
 
     const logoutHandler = () => {
         dispatch(logout())
@@ -32,7 +34,7 @@ const HeaderAdmin = () => {
     const getNotification = () => {
         orders.forEach(order => {
             if (order.status === 'PROCESSING') {
-                arrNotification.push({id: order._id, name: order?.user?.name})
+                arrNotification.push(order)
             }
         })
     }
@@ -40,7 +42,7 @@ const HeaderAdmin = () => {
 
     useEffect(() => {
         dispatch(getOrder())
-    }, [dispatch])
+    }, [dispatch, success])
 
     // confirm All Order
     const statusAll = 'CONFIRMED'
@@ -50,18 +52,15 @@ const HeaderAdmin = () => {
                 dispatch(updateOrder(order._id, statusAll))
             }
         })
-        window.location.reload(false)
     }
 
     const status = 'CONFIRMED'
     const confirmOrder = (idOrder) => {
         dispatch(updateOrder(idOrder, status))
-        window.location.reload(false)
-
     }
 
     return (
-        <Navbar style={{ height: '100%', background: '#ffffff' }} variant='dark' expand="lg" collapseOnSelect> 
+        <Navbar style={{ height: '100%', background: '#ffffff' }} variant='dark' expand="lg" collapseOnSelect>
             <Row className='py-0 px-4 d-flex' style={{ width: 'auto' }}>
                 <i data-tip data-for="tip5" onClick={loadpage} style={{ cursor: 'pointer', fontSize: '18px' }} className="fas fa-redo-alt"></i>
             </Row>
@@ -83,7 +82,7 @@ const HeaderAdmin = () => {
                             }
                         </Row>
                         <Modal
-                            size="lg"
+                            size="xl"
                             show={lgShow}
                             onHide={() => setLgShow(false)}
                             aria-labelledby="example-modal-sizes-title-lg"
@@ -103,10 +102,40 @@ const HeaderAdmin = () => {
                                 </Row>
                                 {
                                     arrNotification.length !== 0 ?
-                                        arrNotification.reverse().map(order => (
+                                        arrNotification.reverse().map((order, index) => (
                                             <Row className='d-flex justify-content-between align-items-center px-2 mb-3'>
-                                                <h6 className='mx-0' style={{ width: 'auto' }}>Đơn hàng của {order.name} yêu cầu xác nhận</h6>
-                                                <Button variant="outline-primary" onClick={() => confirmOrder(order.id)} style={{ width: 'auto' }}>Xác nhận</Button>
+                                                <Col xl={3}>
+                                                    {index + 1}. Đơn hàng của {order?.user?.name}
+                                                </Col>
+                                                <Col xl={7}>
+                                                    <Accordion>
+                                                        <Accordion.Item eventKey="0">
+                                                            <Accordion.Header style={{ fontSize: '13px' }}>ID: {order._id}</Accordion.Header>
+                                                            <Accordion.Body>
+                                                                <strong>Thông tin đơn hàng</strong>
+                                                                <p className='mt-3'>- Ngày đặt hàng: {order.createdAt}</p>
+                                                                <p>- Số lượng sản phẩm: {order.amount}</p>
+                                                                <p>- Phương thức thanh toán: {order.method}</p>
+                                                                <p>- Tổng thanh toán: <span style={{ fontWeight: 'bold', color: 'red' }}>{order.total?.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</span></p>
+                                                                <strong>Thông tin người nhận</strong>
+                                                                <p className='mt-3'>- Tên người nhận: {order?.user?.name}</p>
+                                                                <p className='mt-3'>- Email: {order?.user?.email}</p>
+                                                                <strong>Chi tiết đơn hàng</strong>
+                                                                {
+                                                                    order?.products?.map(item => (
+                                                                        <Row>
+                                                                            <Col className='mt-3'>{item.name}</Col>
+                                                                            <Col className='mt-3'>{(item.price / item.count)?.toLocaleString('vi', { style: 'currency', currency: 'VND' })} x {item.count}</Col>
+                                                                        </Row>
+                                                                    ))
+                                                                }
+                                                            </Accordion.Body>
+                                                        </Accordion.Item>
+                                                    </Accordion>
+                                                </Col>
+                                                <Col xl={2} className='d-flex justify-content-end'>
+                                                    <Button variant="outline-primary" onClick={() => confirmOrder(order?.id)} style={{ width: 'auto' }}>Xác nhận</Button>
+                                                </Col>
                                             </Row>
                                         )) :
                                         <p style={{ textAlign: 'center' }}>Không có thông báo</p>

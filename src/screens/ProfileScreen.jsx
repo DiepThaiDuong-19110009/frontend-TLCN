@@ -66,10 +66,10 @@ const ProfileScreen = () => {
                         <Form.Label>Tên người dùng</Form.Label>
                         <Form.Control type='name' placeholder='Nhập tên người dùng' value={name} onChange={(e) => setName(e.target.value)}></Form.Control>
                     </Form.Group>
-                    <Form.Group className='pb-3' controlId='email'>
+                    {/* <Form.Group className='pb-3' controlId='email'>
                         <Form.Label>Email</Form.Label>
                         <Form.Control disabled type='email' placeholder='Nhập email' value={email} onChange={(e) => setEmail(e.target.value)}></Form.Control>
-                    </Form.Group>
+                    </Form.Group> */}
                     <Form.Group className='pb-3' controlId='password'>
                         <Form.Label>Số điện thoại</Form.Label>
                         <Form.Control type='number' placeholder='Nhập số điện thoại' value={phone} onChange={(e) => setPhone(e.target.value)}></Form.Control>

@@ -15,11 +15,10 @@ const ChangePassword = () => {
     const navigate = useNavigate();
 
     const userChangePassword = useSelector(state => state.userChangePassword)
-    const { loading, userChangePass } = userChangePassword
+    const { error, loading, userChangePass } = userChangePassword
 
     const userLogin = useSelector(state => state.userLogin)
     const { userInfo } = userLogin
-    console.log('===', userInfo)
 
     const [passwordShown, setPasswordShown] = useState(false);
     const togglePasswordVisiblity = () => {
@@ -27,7 +26,7 @@ const ChangePassword = () => {
     };
 
     useEffect(() => {
-        
+
         if (userChangePass) {
             navigate('/')
         }
@@ -62,6 +61,8 @@ const ChangePassword = () => {
             setMessage('Vui lòng điền đủ thông tin')
         } else if (newPassword === oldPassword) {
             setMessage('Mật khẩu mới không được trùng mật khẩu cũ')
+        } else if (error) {
+            setMessage('Vui lòng kiểm tra lại mật khẩu cũ')
         }
     }
 
@@ -93,12 +94,12 @@ const ChangePassword = () => {
                         </Form>
                     </Form.Group>
                     <Form.Group className='pt-3'>
-                            <p style={{fontSize: '12px'}}><i style={{ color: (newPassword.length < 8 || newPassword.length > 20 ? 'red' : 'green'), fontSize: "15px" }} class="fa fa-check-circle" aria-hidden="true"></i> Lớn hơn 8 và nhỏ hơn 20 ký tự</p>
-                            <p style={{fontSize: '12px'}}><i style={{ color: (!newPassword.match(/[A-Z]/) ? 'red' : 'green'), fontSize: "15px" }} class="fa fa-check-circle" aria-hidden="true"></i> Ít nhất 1 ký tự viết HOA</p>
-                            <p style={{fontSize: '12px'}}><i style={{ color: (!newPassword.match(/[a-z]/) ? 'red' : 'green'), fontSize: "15px" }} class="fa fa-check-circle" aria-hidden="true"></i> Ít nhất 1 ký tự viết THƯỜNG</p>
-                            <p style={{fontSize: '12px'}}><i style={{ color: (!newPassword.match(/[\`~!@#$%\^&*()+=|;:'",.<>\/?\\\-]/) ? 'red' : 'green'), fontSize: "15px" }} class="fa fa-check-circle" aria-hidden="true"></i> Ít nhất 1 ký tự đặc biệt</p>
-                            <p style={{fontSize: '12px'}}><i style={{ color: (!newPassword.match(/[\d]/) ? 'red' : 'green'), fontSize: "15px" }} class="fa fa-check-circle" aria-hidden="true"></i> Ít nhất 1 ký tự số</p>
-                        </Form.Group>
+                        <p style={{ fontSize: '12px' }}><i style={{ color: (newPassword.length < 8 || newPassword.length > 20 ? 'red' : 'green'), fontSize: "15px" }} class="fa fa-check-circle" aria-hidden="true"></i> Lớn hơn 8 và nhỏ hơn 20 ký tự</p>
+                        <p style={{ fontSize: '12px' }}><i style={{ color: (!newPassword.match(/[A-Z]/) ? 'red' : 'green'), fontSize: "15px" }} class="fa fa-check-circle" aria-hidden="true"></i> Ít nhất 1 ký tự viết HOA</p>
+                        <p style={{ fontSize: '12px' }}><i style={{ color: (!newPassword.match(/[a-z]/) ? 'red' : 'green'), fontSize: "15px" }} class="fa fa-check-circle" aria-hidden="true"></i> Ít nhất 1 ký tự viết THƯỜNG</p>
+                        <p style={{ fontSize: '12px' }}><i style={{ color: (!newPassword.match(/[\`~!@#$%\^&*()+=|;:'",.<>\/?\\\-]/) ? 'red' : 'green'), fontSize: "15px" }} class="fa fa-check-circle" aria-hidden="true"></i> Ít nhất 1 ký tự đặc biệt</p>
+                        <p style={{ fontSize: '12px' }}><i style={{ color: (!newPassword.match(/[\d]/) ? 'red' : 'green'), fontSize: "15px" }} class="fa fa-check-circle" aria-hidden="true"></i> Ít nhất 1 ký tự số</p>
+                    </Form.Group>
                     <Form.Group className='d-flex justify-content-between pb-5 pt-2' >
                         <Button disabled={((newPassword.length < 8 || newPassword.length > 20) || !newPassword.match(/[A-Z]/) || !newPassword.match(/[a-z]/) || !newPassword.match(/[\`~!@#$%\^&*()+=|;:'",.<>\/?\\\-]/) || !newPassword.match(/[\d]/)) ? 'true' : ''} style={{ width: '100%' }} type='submit' variant='success'>Đổi mật khẩu</Button>
                     </Form.Group>

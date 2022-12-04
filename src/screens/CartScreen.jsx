@@ -86,7 +86,7 @@ const CartScreen = () => {
               </Row>
               {cartItems.map(item => (
                 <ListGroup.Item key={item.product}>
-                  <Row style={{ background: 'white'}}>
+                  <Row style={{ background: 'white' }}>
                     <Col md={1} className='d-flex align-items-center justify-content-center'>
                       <Button type='button' variant='danger' onClick={() => handleDeleteProduct(item.product)}>
                         <i className='fas fa-minus'></i>
@@ -116,18 +116,21 @@ const CartScreen = () => {
               ))}
             </ListGroup>
           }
-          <Link to='/product' style={{ color: 'green', textDecoration: 'none' }}>
-            <Button variant="outline-success" style={{ width: 'auto' }} className='my-3'>
-              <i className="fas fa-arrow-left me-2"></i>
-              Tiếp tục mua hàng
-            </Button>
-          </Link>
+          {
+            cartItems.length !== 0 &&
+            <Link to='/product' style={{ color: 'green', textDecoration: 'none' }}>
+              <Button variant="outline-success" style={{ width: 'auto' }} className='my-3'>
+                <i className="fas fa-arrow-left me-2"></i>
+                Tiếp tục mua hàng
+              </Button>
+            </Link>
+          }
         </Col>
         <Col md={4}>
           <Card style={{ border: 'none', borderRadius: '0px' }}>
             <ListGroup variant='flush'>
               <ListGroup.Item>
-              <div style={{ background: 'white', borderBottom: '4px solid #f5f5f5' }} className='d-flex align-items-center py-1 my-0'><strong>TỔNG GIỎ HÀNG</strong></div>
+                <div style={{ background: 'white', borderBottom: '4px solid #f5f5f5' }} className='d-flex align-items-center py-1 my-0'><strong>TỔNG GIỎ HÀNG</strong></div>
                 <h6 className='py-3'>Tổng sản phẩm: ({cartItems.reduce((acc, item) => acc + item.count, 0)}) Sản phẩm</h6>
                 Tổng tiền: <strong style={{ color: 'red', fontSize: '20px' }}>{cartItems.reduce((acc, item) => acc + item.count * item.price, 0).toLocaleString('vi', { style: 'currency', currency: 'VND' })}</strong>
               </ListGroup.Item>
