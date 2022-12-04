@@ -6,6 +6,7 @@ import Loader from '../components/Loader'
 import Message from '../components/Message'
 import { listProducts, listCategory } from '../actions/productActions'
 import Slider from '../components/Slider'
+import Introduce from '../components/Introduce'
 
 
 const ProductScreen = () => {
@@ -60,24 +61,27 @@ const ProductScreen = () => {
   }
 
   return (
-    <div style={{background: '#f5f5f5'}}>
+    <div style={{ background: '#f5f5f5' }}>
       {loading ? <Loader /> : error ? <Message variant='danger'>{error}</Message> :
-        <Container className='pt-3' style={{background: '#f5f5f5'}}>
+        <Container className='pt-3' style={{ background: '#f5f5f5' }}>
           <Row>
-            <Col>
-              <ListGroup as="ul" style={{borderRadius: '0px'}}>
-                <ListGroup.Item style={{ background: 'green', display: 'flex', alignItems: 'center'}}>
+            <Col xl={3}>
+              <ListGroup as="ul" style={{ borderRadius: '0px' }}>
+                <ListGroup.Item style={{ background: 'green', display: 'flex', alignItems: 'center' }}>
                   <i style={{ fontSize: '16px', color: '#f2f2f2', marginRight: '3%' }} class="fas fa-bars"></i>
                   <h6 className='text-light my-2'>Danh mục sản phẩm</h6>
                 </ListGroup.Item>
-                <ListGroup.Item style={{fontSize: '14px'}} className='hoverCate' onClick={showAllProduct} >Tất cả sản phẩm</ListGroup.Item>
+                <ListGroup.Item style={{ fontSize: '14px' }} className='hoverCate' onClick={showAllProduct} >Tất cả sản phẩm</ListGroup.Item>
                 {categories.map(category => (
-                  <ListGroup.Item style={{fontSize: '14px'}} className='hoverCate' key={category._id} onClick={getCategoryId(category._id)} as="li">{category.name}</ListGroup.Item>
+                  <ListGroup.Item style={{ fontSize: '14px' }} className='hoverCate' key={category._id} onClick={getCategoryId(category._id)} as="li">{category.name}</ListGroup.Item>
                 ))}
               </ListGroup>
             </Col>
-            <Col className='h-100' md={9} >
+            <Col className='d-flex flex-column justify-content-between' xl={9} >
               <Slider />
+              <Row style={{ border: 'solid 2px #dddddd', borderRadius: '5px', width: '100%', margin: '0 auto' }} className='py-4'>
+                <Introduce />
+              </Row>  
             </Col>
           </Row>
           <Row id='productlist'>

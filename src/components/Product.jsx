@@ -19,11 +19,11 @@ const Product = ({ product }) => {
                         <Card.Text as='h7' className='d-flex justify-content-between align-items-center' style={{ width: 'auto' }} >
                             <p className='my-0' style={{ color: 'red', fontSize: '18px' }}>{product.price?.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</p>
                         </Card.Text>
-                        {/* <Link style={{ color: 'black', textDecoration: 'none', width: 'auto', margin: '0 auto' }} to={`/product/${product._id}`}>
+                        <Link style={{ color: 'black', textDecoration: 'none', width: 'auto', margin: '0 auto' }} to={`/product/${product._id}`}>
                             <Card.Title as='p' style={{ width: 'auto', color: 'green' }} className='my-0 py-0'>
-                                Xem chi tiết
+                                Chi tiết
                             </Card.Title>
-                        </Link> */}
+                        </Link>
                     </Row>
                 </Card.Body>
             </Card >

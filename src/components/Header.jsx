@@ -24,6 +24,7 @@ const Header = () => {
     const cart = useSelector(state => state.cart)
     const { cartItems } = cart
 
+    console.log('===', cartItems);
 
     // Scroll page
     const [sticky, setSticky] = useState("");
@@ -64,7 +65,7 @@ const Header = () => {
                             <div className='d-flex flex-column'>
                                 <strong>Giỏ hàng</strong>
                                 <strong style={
-                                    { fontSize: '11px' }}>
+                                    { fontSize: '12px' }}>
                                     {
                                         cartItems.length > 0 && `(${cartItems.length} sản phẩm)`
                                     }
@@ -87,7 +88,10 @@ const Header = () => {
                                 <LinkContainer to='/changepassword'>
                                     <NavDropdown.Item>Đổi mật khẩu</NavDropdown.Item>
                                 </LinkContainer>
-                                <NavDropdown.Item onClick={logoutHandler}>Đăng xuất</NavDropdown.Item>
+                                <NavDropdown.Item onClick={logoutHandler}>
+                                    <i className="fas fa-sign-out-alt me-2"></i>
+                                    Đăng xuất
+                                </NavDropdown.Item>
                             </NavDropdown>
                         </div>
                     ) :

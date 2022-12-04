@@ -6,7 +6,7 @@ const Introduce = () => {
         <>
             <Col style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', borderRight: 'solid 2px #dddddd' }}>
                 <i style={{ fontSize: '30px' }} class="fas fa-shipping-fast"></i>
-                <p className='my-0 mx-3'>Giao hàng nhanh chóng</p>
+                <p className='my-0 mx-3'>Nhanh chóng</p>
             </Col>
             <Col style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', borderRight: 'solid 2px #dddddd' }}>
                 <i style={{ fontSize: '30px' }} class="fas fa-money-bill-wave"></i>
@@ -14,7 +14,7 @@ const Introduce = () => {
             </Col>
             <Col style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', borderRight: 'solid 2px #dddddd' }}>
                 <i style={{ fontSize: '30px' }} class="fas fa-money-check-alt"></i>
-                <p className='my-0 mx-3'>Thanh toán an toàn</p>
+                <p className='my-0 mx-3'>An toàn</p>
             </Col>
             <Col style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                 <i style={{ fontSize: '30px' }} class="fas fa-headset"></i>
