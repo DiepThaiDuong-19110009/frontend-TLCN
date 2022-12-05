@@ -23,7 +23,6 @@ const ShippingScreen = () => {
 
     const submitHandler = (e) => {
         e.preventDefault()
-        console.log('===', address, city, country, phone)
         if (address.trim().length === 0 || city.trim().length === 0 || country.trim().length === 0 || phone.trim().length === 0) {
             setMessage('Cung cấp đầy đủ thông tin')
         } else {
