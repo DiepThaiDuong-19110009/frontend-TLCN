@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 import { getUserDetails, updateUserProfile } from '../actions/userActions'
+import Input from 'react-phone-number-input/input'
 
 const ProfileScreen = () => {
     const [name, setName] = useState('')
@@ -71,8 +72,13 @@ const ProfileScreen = () => {
                         <Form.Control disabled type='email' placeholder='Nhập email' value={email} onChange={(e) => setEmail(e.target.value)}></Form.Control>
                     </Form.Group> */}
                     <Form.Group className='pb-3' controlId='password'>
-                        <Form.Label>Số điện thoại</Form.Label>
-                        <Form.Control type='number' placeholder='Nhập số điện thoại' value={phone} onChange={(e) => setPhone(e.target.value)}></Form.Control>
+                        <Form.Label>Số điện thoại</Form.Label><br />
+                        {/* <Form.Control type='text' placeholder='Nhập số điện thoại' value={phone} onChange={(e) => setPhone(e.target.value)}></Form.Control> */}
+                        <Input style={{ width: '100%', border: '1px solid #dcdcdc' }} className='rounded p-2'
+                            placeholder='Nhập số điện thoại'
+                            defaultCountry="VN"
+                            value={phone}
+                            onChange={setPhone} />
                     </Form.Group>
                     <Form.Group className='pb-3' controlId='confirmPassword'>
                         <Form.Label>Địa chỉ</Form.Label>

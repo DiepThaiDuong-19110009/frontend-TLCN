@@ -24,14 +24,11 @@ const HomeScreen = () => {
         </div>
       </div>
       <Row className='mx-0 mb-3'>
-        <Col xl={12}>
+        <Col xl={12} className='px-0'>
           <Slider />
         </Col>
-        {/* <Col xl={4} >
-          <Banner />
-        </Col> */}
       </Row>
-      <Row className='mx-0'>
+      <Row className='mx-0 px-0'>
         <Banner />
       </Row>
       <Row style={{ background: '#f5f5f5' }}>
