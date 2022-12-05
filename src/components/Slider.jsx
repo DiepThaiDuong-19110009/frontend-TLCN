@@ -1,29 +1,36 @@
 import React from 'react'
+import { Button } from 'react-bootstrap';
 import Carousel from 'react-bootstrap/Carousel';
+import { Link } from 'react-router-dom';
 
 const Slider = () => {
     return (
         <Carousel>
             <Carousel.Item>
-                <img
-                    className="d-block w-100"
-                    src="https://res.cloudinary.com/disyupqea/image/upload/v1669380530/samples/314080531_650185179927291_7635782716441580856_n_iky47m.jpg?fbclid=IwAR0RlAuP4-NsmUeM2Pbk6k-tQzYCkJ4F23ZAoWB6tOTeihVDnSszDXZHO7g"
-                    alt="slider 1"
-                />
-                {/* <Carousel.Caption style={{ background: 'white', width: '200px', margin: '0 auto' }}>
-                    <Link to='/product' style={{ color: ' black', textDecoration: 'none' }}>Mua ngay</Link>
-                </Carousel.Caption> */}
+                <Link style={{ textDecoration: 'none' }} to='/product/634252c659b54cdfd8e514a1'>
+                    <img
+                        className="d-block w-100"
+                        src="https://res.cloudinary.com/dkzuyi8fq/image/upload/v1670245610/Untitled-3_qepqos.jpg"
+                        alt="slider 1"
+                    />
+                    <Carousel.Caption style={{ marginBottom: '1%', width: '30%', margin: '0 auto' }}>
+                        <h1 style={{ color: '#2f3394', background: 'linear-gradient(to right, #fa9a46, #d4ead3, #cbfaf1)', borderRadius: '20px' }}>Hải sản tươi sống</h1>
+                        <h2 style={{ color: '#2f3394' }}>Tôm hùm Alaska</h2>
+                        <h5 style={{ color: 'red' }}>Giá chỉ từ 1.199.000 VNĐ / con</h5><br />
+                        <Button style={{ background: '#f7cc00', textDecoration: 'none', color: '#2f3394', padding: '1% 2%', borderRadius: '20px', border: '2px solid #2f3394' }} to='/product/634252c659b54cdfd8e514a1'>Mua ngay</Button>
+                    </Carousel.Caption>
+                </Link>
             </Carousel.Item>
-            <Carousel.Item>
+            {/* <Carousel.Item>
                 <img
                     className="d-block w-100"
-                    src="https://res.cloudinary.com/disyupqea/image/upload/v1669380520/samples/312603814_439453235046097_7890864319024743328_n_frvp39.jpg?fbclid=IwAR0zifybEciGEv90STWNSZTk1de7BiLLF_3SGKjwDTGIRgBDHrk2p6LU8Ew"
+                    src="https://res.cloudinary.com/dkzuyi8fq/image/upload/v1670243151/Untitled-3_qoewb5.jpg"
                     alt="slide 2"
                 />
-                {/* <Carousel.Caption style={{ background: 'white', width: '200px', margin: '0 auto' }}>
+                <Carousel.Caption style={{ background: 'white', width: '200px', margin: '0 auto' }}>
                     <Link style={{ color: ' black', textDecoration: 'none' }}>Mua ngay</Link>
-                </Carousel.Caption> */}
-            </Carousel.Item>
+                </Carousel.Caption>
+            </Carousel.Item> */}
             {/* <Carousel.Item>
                 <img
                     className="d-block w-100"
