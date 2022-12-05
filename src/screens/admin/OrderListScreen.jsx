@@ -50,7 +50,7 @@ const OrderListScreen = () => {
   }
 
   FilterStatus(filter)
-  
+
   // const [idDelete, setIdDelete] = useState('')
   // const [show, setShow] = useState(false);
   // const handleClose = () => setShow(false);
@@ -68,7 +68,7 @@ const OrderListScreen = () => {
           </Col>
         </Row>
         <Col>
-          <h6>Tổng số lượng: {arrFilterOrder.length} đơn hàng ({filter})</h6>
+          <h6>Tổng số lượng: {arrFilterOrder.length} đơn hàng</h6>
         </Col>
         {/* <Col>
           <RangeDatePicker
@@ -79,12 +79,12 @@ const OrderListScreen = () => {
         <Col className='d-flex justify-content-end align-items-center'>
           <p className='my-0 mx-3'>Lọc đơn hàng</p>
           <select style={{ border: '2px solid gray', borderRadius: '5px' }} value={filter} onChange={(e) => setFilter(e.target.value)}>
-            <option>ALL</option>
-            <option>PROCESSING</option>
-            <option>CONFIRMED</option>
-            <option>DELIVERING</option>
-            <option>DONE</option>
-            <option>CANCEL</option>
+            <option value={'ALL'}>Tất cả</option>
+            <option value={'PROCESSING'}>Chờ xác nhận</option>
+            <option value={'CONFIRMED'}>Đã xác nhận</option>
+            <option value={'DELIVERING'}>Đang vận chuyển</option>
+            <option value={'DONE'}>Giao thành công</option>
+            <option value={'CANCEL'}>Đã hủy</option>
           </select>
         </Col>
       </Row>
@@ -112,7 +112,25 @@ const OrderListScreen = () => {
                   {/* {
                     order.status === 'PROCESSING' ? <td className='text-center'>Chờ xác nhận</td> : <td className='text-center'>{order.status}</td>
                   } */}
-                  <td className='text-center'>{order.status}</td>
+                  <td className='text-center'>{
+                    (order.status === 'PROCESSING') ?
+                      <div className='d-flex justify-content-center align-items-center'>
+                        <p style={{ background: '#fec107', color: '#e7fff8', borderRadius: '5px' }} className='my-0 mx-3 py-1 px-2'>Chờ xác nhận</p>
+                      </div> : (order.status === 'CONFIRMED') ?
+                        <div className='d-flex justify-content-center align-items-center'>
+                          <p style={{ background: '#03a9f3', color: '#e7fff8', borderRadius: '5px' }} className='my-0 mx-3 py-1 px-2'>Đã xác nhận</p>
+                        </div> : (order.status === 'DELIVERING') ?
+                          <div className='d-flex justify-content-center align-items-center'>
+                            <p style={{ background: 'green', color: '#e7fff8', borderRadius: '5px' }} className='my-0 mx-3 py-1 px-2'>Đang giao hàng</p>
+                          </div> : (order.status === 'DONE') ?
+                            <div className='d-flex justify-content-center align-items-center'>
+                              <p style={{ background: '#00c292', color: '#e7fff8', borderRadius: '5px' }} className='my-0 mx-3 py-1 px-2'>Giao thành công</p>
+                            </div> :
+                            <div className='d-flex justify-content-center align-items-center'>
+                              <p style={{ background: '#ee5261', color: '#e7fff8', borderRadius: '5px' }} className='my-0 mx-3 py-1 px-2'>Đã hủy đơn hàng</p>
+                            </div>
+                  }
+                  </td>
                   <td className='text-center'>{order.total?.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</td>
                   <td className='d-flex justify-content-center'>
                     <Link data-tip data-for="tip1" to={`/admin/order/${order._id}/detail`}>

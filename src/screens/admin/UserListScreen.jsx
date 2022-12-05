@@ -52,8 +52,8 @@ const UserListScreen = () => {
     }
 
     FilterUser(filter)
-  
-  const deleteHandler = (userId) => {
+
+    const deleteHandler = (userId) => {
         dispatch(updateUser({ _id: userId, status: 0 }))
         setShow(false)
     }
@@ -108,7 +108,7 @@ const UserListScreen = () => {
                                 <th>Email</th>
                                 <th className='text-end'>Số điện thoại</th>
                                 <th>Địa chỉ</th>
-                                <th className='text-center'>Admin</th>
+                                <th className='text-center'>Vai trò</th>
                                 <th className='text-center'>Trạng thái</th>
                                 <th className='text-center'>Thao tác</th>
                             </tr>
@@ -131,9 +131,9 @@ const UserListScreen = () => {
                                     }
                                     <td className='text-center'>
                                         {user.isAdmin ? (
-                                            <i className='fas fa-check' style={{ color: 'green' }}></i>
+                                            <p className='my-0 rounded p-1' style={{ background: '#ee5261', color: 'white' }}>Quản trị viên</p>
                                         ) : (
-                                            <i className='fas fa-times' style={{ color: 'red' }}></i>
+                                            <p className='my-0 rounded p-1' style={{ background: '#00c292', color: 'white' }}>Người dùng</p>
                                         )}
                                     </td>
                                     <td className='text-center'>
