@@ -60,7 +60,7 @@ const CartScreen = () => {
   }
 
   return (
-    <Container style={{ background: '#f5f5f5', height: '100vh' }}>
+    <Container style={{ background: '#f5f5f5' }}>
       <Row className='mx-0 mt-3'>
         <Col md={8} className='px-0'>
           {/* <Link to='/product'>
@@ -102,14 +102,14 @@ const CartScreen = () => {
                     <Col md={2} className='d-flex align-items-center justify-content-center'>
                       <Row className="d-flex justify-content-between">
                         <Form.Group className="d-flex justify-content-between" >
-                          <Button className='py-0' variant="outline-success" style={{ width: '40px', height: '40px', fontSize: '20px' }} onClick={() => decreaseQty(item.product, item.count)}>-</Button>
+                          <Button disabled={item.count === 1 ? 'true' : ''} className='py-0' variant="outline-success" style={{ width: '40px', height: '40px', fontSize: '20px' }} onClick={() => decreaseQty(item.product, item.count)}>-</Button>
                           <input style={{ width: '50px', height: '40px' }} type='text' inputmode="decimal" className="form-control text-center mx-1" value={item.count} readOnly></input>
-                          <Button className='py-0' variant="outline-success" style={{ width: '40px', height: '40px', fontSize: '20px' }} onClick={() => increaseQty(item.product, item.count, item.quantity)}>+</Button>
+                          <Button disabled={item.count === item.quantity ? 'true' : ''} className='py-0' variant="outline-success" style={{ width: '40px', height: '40px', fontSize: '20px' }} onClick={() => increaseQty(item.product, item.count, item.quantity)}>+</Button>
                         </Form.Group>
                       </Row>
                     </Col>
                     <Col md={3} className='d-flex align-items-center justify-content-center'>
-                      <Link style={{ textDecoration: 'none', color: 'black' }}>{(item.count * item.price).toLocaleString('vi', { style: 'currency', currency: 'VND' })}</Link>
+                      {(item.count * item.price).toLocaleString('vi', { style: 'currency', currency: 'VND' })}
                     </Col>
                   </Row>
                 </ListGroup.Item>
@@ -142,9 +142,9 @@ const CartScreen = () => {
             </ListGroup>
           </Card>
         </Col>
-      </Row>
+      </Row >
       {/* Unlock user */}
-      <Modal
+      < Modal
         show={showAlert}
         onHide={handleCloseAlert}
         backdrop="static"
@@ -162,8 +162,8 @@ const CartScreen = () => {
           </Button>
           <Button variant="danger" onClick={() => removeFromCartHandler(idProduct)}>Đồng ý</Button>
         </Modal.Footer>
-      </Modal>
-    </Container>
+      </Modal >
+    </Container >
   )
 }
 

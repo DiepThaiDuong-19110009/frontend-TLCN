@@ -13,7 +13,6 @@ const HeaderAdmin = () => {
     const dispatch = useDispatch()
 
     const { orders } = useSelector(state => state.orderList)
-    console.log('===', orders);
 
     const { userInfo } = useSelector(state => state.userLogin)
 

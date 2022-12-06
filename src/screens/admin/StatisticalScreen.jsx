@@ -1,11 +1,12 @@
 import { React, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { ResponsiveContainer, LineChart, Line, BarChart, Bar, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from 'recharts';
+import { ResponsiveContainer, LineChart, Line, BarChart, Bar, CartesianGrid, XAxis, YAxis, Tooltip, Legend, PieChart, Pie } from 'recharts';
 import { getIncome } from '../../actions/statisticalActions';
-import { listCategory, listProducts } from '../../actions/productActions';
+import { featureProduct, listCategory, listProducts, unsoldProduct } from '../../actions/productActions';
 import { listUsers } from '../../actions/userActions'
 import { listSupplier } from '../../actions/supplierActions';
 import { getOrder } from '../../actions/orderActions'
+import { Table } from 'react-bootstrap';
 
 const StatisticScreen = () => {
     const dispatch = useDispatch()
@@ -14,6 +15,9 @@ const StatisticScreen = () => {
     const { suppliers } = useSelector(state => state.supplierList)
     const { categories } = useSelector(state => state.categoryList)
     const { products } = useSelector(state => state.productList)
+    const { unsold } = useSelector(state => state.productUnsold)
+    const { feature } = useSelector(state => state.productFeature)
+
     const { users } = useSelector(state => state.userList)
     const { orders } = useSelector(state => state.orderList)
 
@@ -23,6 +27,8 @@ const StatisticScreen = () => {
         dispatch(listCategory())
         dispatch(listProducts())
         dispatch(listUsers())
+        dispatch(unsoldProduct())
+        dispatch(featureProduct())
         dispatch(getOrder())
         //eslint-disable-next-line 
     }, [dispatch, getIncome])
@@ -105,6 +111,58 @@ const StatisticScreen = () => {
                 </div>
             </div>
 
+            <div className="section">
+                <h5 className="section-title mb-4">Sản phẩm tồn kho</h5>
+                <p style={{fontSize: '18px'}}>Tổng loại sản phẩm tồn kho là <strong>{unsold?.count}</strong> trên tổng <strong>{unsold?.total}</strong> loại sản phẩm</p>
+                <p style={{fontSize: '18px'}}>Tỉ lệ: <span style={{color: 'red'}}>{unsold?.rate} %</span></p>
+                <Table bordered responsive>
+                    <thead>
+                        <tr>
+                            <th className='text-center'>#</th>
+                            <th className='text-center'>Hình ảnh</th>
+                            <th>Tên sản phẩm</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {unsold?.product?.map((product, index) => (
+                            <tr key={product._id}>
+                                <td className='text-center'>
+                                    <strong>{index + 1}</strong>
+                                </td>
+                                <td className='text-center'><img style={{ width: '50px' }} src={product.photo} alt={product.name} /></td>
+                                <td>{product.name}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </Table>
+            </div>
+
+            <div className="section">
+                <h5 className="section-title mb-3">Sản phẩm bán chạy</h5>
+                <p style={{fontSize: '18px'}}>Tổng loại sản phẩm bán chạy là <strong>{feature?.count}</strong> trên tổng <strong>{unsold?.total}</strong> loại sản phẩm</p>
+                <p style={{fontSize: '18px'}}>Tỉ lệ: <span style={{color: 'green'}}>{feature?.rate} %</span></p>
+                <Table bordered responsive>
+                    <thead>
+                        <tr>
+                            <th className='text-center'>#</th>
+                            <th className='text-center'>Hình ảnh</th>
+                            <th>Tên sản phẩm</th>
+                            <th className='text-end'>Đã bán</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {feature?.product?.map((product, index) => (
+                            <tr key={product._id}>
+                                <td className='text-center'>
+                                    <strong>{index + 1}</strong>
+                                </td>
+                                <td className='text-center'><img style={{ width: '50px' }} src={product.photo} alt={product.name} /></td>
+                                <td>{product.name}</td><td className='text-end'>{product.sold}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </Table>
+            </div>
         </div>
     );
 }

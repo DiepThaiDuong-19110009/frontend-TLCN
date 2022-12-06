@@ -9,17 +9,20 @@ const Product = ({ product }) => {
             <Card style={{ border: 'none', borderRadius: '0px' }}>
                 <Card.Img src={product.photo} alt={product.name} variant='top' style={{ width: '80%', margin: '0 auto' }} />
                 <Card.Body>
-                    <Card.Text as='p'>
-                        <Rating value={product.rating} text={`(${product.reviews?.length} đánh giá)`} />
-                    </Card.Text>
-                    <Card.Title as='h6' style={{ minHeight: '50px' }}>
+                    <Card.Title as='h6' style={{ minHeight: '40px' }}>
                         <p className='my-3'>{product.name}</p>
                     </Card.Title>
+                    {
+                        product.reviews?.length !== undefined &&
+                        <Card.Text as='p'>
+                            <Rating value={product.rating} text={`(${product.reviews?.length} đánh giá)`} />
+                        </Card.Text>
+                    }
                     <Row className='d-flex justify-content-between'>
                         <Card.Text as='h7' className='d-flex justify-content-between align-items-center' style={{ width: 'auto' }} >
                             <p className='my-0' style={{ color: 'red', fontSize: '18px' }}>{product.price?.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</p>
                         </Card.Text>
-                        <Link style={{ color: 'black', textDecoration: 'none', width: 'auto', margin: '0 auto' }} to={`/product/${product._id}`}>
+                        <Link className='mx-0' style={{ color: 'black', textDecoration: 'none', width: 'auto', margin: '0 auto' }} to={`/product/${product._id}`}>
                             <Card.Title as='p' style={{ width: 'auto', color: 'green' }} className='my-0 py-0'>
                                 Chi tiết
                             </Card.Title>
