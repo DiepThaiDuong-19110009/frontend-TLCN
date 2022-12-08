@@ -160,17 +160,15 @@ export const unsoldProduct = () => async (dispatch, getState) => {
     }
 }
 
-export const featureProduct = () => async (dispatch, getState) => {
+export const featureProduct = () => async (dispatch) => {
     try {
         dispatch({
             type: PRODUCT_FEATURE_REQUEST
         })
 
-        const { userLogin: { userInfo } } = getState()
-
         const config = {
             headers: {
-                Authorization: `Bearer ${userInfo.token}`
+                'Content-Type': 'application/json',
             }
         }
 

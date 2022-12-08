@@ -19,7 +19,7 @@ const TopProduct = () => {
     const arrVegetable = []
     const filterVegetable = () => {
         products?.forEach(item => {
-            if(item?.category?._id === '6340fd68642d3366418d8d67'){
+            if (item?.category?._id === '6340fd68642d3366418d8d67') {
                 arrVegetable.push(item)
             }
         });
@@ -28,7 +28,7 @@ const TopProduct = () => {
 
     return (
         <div>
-            <h4 className="pt-5 pb-3">Rau, củ Đà Lạt <span style={{color: 'red'}}>NỔI BẬT</span></h4>
+            <h4 className="pt-5 pb-3">Rau, củ Đà Lạt <span style={{ color: 'red' }}>NỔI BẬT</span></h4>
             <Row id='productlist' style={{ border: 'solid 2px #f5f5f5', borderRadius: '10px' }}>
                 {arrVegetable?.slice(0, 6).map(product => (
                     <Col key={product.id} sm={0} md={0} lg={4} xl={2} className='px-1 pb-2'>
@@ -36,16 +36,20 @@ const TopProduct = () => {
                     </Col>
                 ))}
             </Row>
-            <h4 className="pt-5 pb-3">Sản phẩm bán chạy <i style={{color: 'red'}} className='fab fa-hotjar'></i></h4>
-            <Row id='productlist' style={{ border: 'solid 2px #f5f5f5', borderRadius: '10px' }}>
-                {feature?.product?.map(product => (
-                    <Col key={product.id} sm={0} md={0} lg={4} xl={2} className='px-1 pb-2'>
-                        <Product product={product} />
-                        <p style={{background: '#ff3030', color: '#f5f5f5', borderRadius: '5px'}} className='text-center my-2 mx-0 px-0 py-2'>Đã bán {product.sold}</p>
-                    </Col>
-                ))}
-            </Row>
-            <h4 className="pt-5 pb-3">Sản phẩm <span style={{color: 'red'}}>MỚI</span></h4>
+            {feature?.product?.length > 0 &&
+                <div>
+                    <h4 className="pt-5 pb-3">Sản phẩm bán chạy <i style={{ color: 'red' }} className='fab fa-hotjar'></i></h4>
+                    <Row id='productlist' style={{ border: 'solid 2px #f5f5f5', borderRadius: '10px' }}>
+                        {feature?.product?.map(product => (
+                            <Col key={product.id} sm={0} md={0} lg={4} xl={2} className='px-1 pb-2'>
+                                <Product product={product} />
+                                <p style={{ background: '#ff3030', color: '#f5f5f5', borderRadius: '5px' }} className='text-center my-2 mx-0 px-0 py-2'>Đã bán {product.sold}</p>
+                            </Col>
+                        ))}
+                    </Row>
+                </div>
+            }
+            <h4 className="pt-5 pb-3">Sản phẩm <span style={{ color: 'red' }}>MỚI</span></h4>
             <Row id='productlist' style={{ border: 'solid 2px #f5f5f5', borderRadius: '10px' }}>
                 {products?.reverse()?.slice(0, 12)?.map(product => (
                     <Col key={product.id} sm={0} md={0} lg={4} xl={2} className='px-1 pb-2'>

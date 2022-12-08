@@ -5,7 +5,7 @@ import ReactTooltip from 'react-tooltip'
 import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../../components/Loader'
 import Message from '../../components/Message'
-import { listProducts, createProduct } from '../../actions/productActions'
+import { listProducts, createProduct, listCategory } from '../../actions/productActions'
 import { PRODUCT_CREATE_RESET } from '../../constants/productConstants'
 
 const ProductListScreen = () => {
@@ -36,6 +36,7 @@ const ProductListScreen = () => {
         }
         else {
             dispatch(listProducts())
+            dispatch(listCategory())
         }
     }, [dispatch, navigate, userInfo, successDelete, successCreate, createdProduct])
 

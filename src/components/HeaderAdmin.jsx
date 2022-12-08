@@ -133,7 +133,7 @@ const HeaderAdmin = () => {
                                                     </Accordion>
                                                 </Col>
                                                 <Col xl={2} className='d-flex justify-content-end'>
-                                                    <Button variant="outline-primary" onClick={() => confirmOrder(order?.id)} style={{ width: 'auto' }}>Xác nhận</Button>
+                                                    <Button variant="outline-primary" onClick={() => confirmOrder(order?._id)} style={{ width: 'auto' }}>Xác nhận</Button>
                                                 </Col>
                                             </Row>
                                         )) :

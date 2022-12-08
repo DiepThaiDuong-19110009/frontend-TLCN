@@ -67,11 +67,12 @@ const OrderEditScreen = () => {
                                         <Form.Group controlId='productname'>
                                             <Form.Label>Trạng thái đơn hàng</Form.Label>
                                             <Form.Select className='mb-3' size="sm" value={status} onChange={(e) => setStatus(e.target.value)}>
-                                                <option>PROCESSING</option>
-                                                <option>CONFIRMED</option>
-                                                <option>DELIVERING</option>
-                                                <option>DONE</option>
-                                                <option>CANCEL</option>
+                                                <option value={'ALL'}>Tất cả</option>
+                                                <option value={'PROCESSING'}>Chờ xác nhận</option>
+                                                <option value={'CONFIRMED'}>Đã xác nhận</option>
+                                                <option value={'DELIVERING'}>Đang vận chuyển</option>
+                                                <option value={'DONE'}>Giao thành công</option>
+                                                <option value={'CANCEL'}>Đã hủy</option>
                                             </Form.Select>
                                         </Form.Group>
                                         <Form.Group className='d-flex justify-content-center py-3'>
