@@ -123,7 +123,10 @@ const ProductScreen = () => {
                 (loadMore >= ((showAll === false) ? data.length : products.length))
                   ?
                   <Col className='d-flex justify-content-center'>
-                    <Button className='w-25' variant="outline-primary" onClick={collapseOnClick}>Thu gọn</Button>
+                    {
+                      data.length > 6 &&
+                      <Button className='w-25' variant="outline-primary" onClick={collapseOnClick}>Thu gọn</Button>
+                    }
                   </Col>
                   :
                   <Col className='d-flex justify-content-center'>

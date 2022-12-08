@@ -166,11 +166,9 @@ const ProductDetailScreen = () => {
                                     </Col>
                                     <Col xl={4} className='d-flex justify-content-center align-items-center mt-3'>
                                         <Row className="d-flex justify-content-between">
-                                            <Button className='py-0' variant="outline-success" style={{ width: '40px', height: '40px', fontSize: '20px' }} onClick={decreaseQty}>-</Button>
-
+                                            <Button disabled={quantity === 1 ? 'true' : ''} className='py-0' variant="outline-success" style={{ width: '40px', height: '40px', fontSize: '20px' }} onClick={decreaseQty}>-</Button>
                                             <input style={{ width: '80px', height: '40px' }} type="number" className="form-control count text-center mx-2" value={quantity} readOnly />
-
-                                            <Button className='py-0' variant="outline-success" style={{ width: '40px', height: '40px', fontSize: '20px' }} onClick={increaseQty}>+</Button>
+                                            <Button disabled={quantity === product.quantity ? 'true' : ''} className='py-0' variant="outline-success" style={{ width: '40px', height: '40px', fontSize: '20px' }} onClick={increaseQty}>+</Button>
                                         </Row>
                                     </Col>
                                     <Col xl={6} className='d-flex justify-content-center align-items-center mt-3'>
