@@ -1,4 +1,4 @@
-# HDK-GreenMarket
+# Project HDK-GreenMarket: phần Front-end
 Trường Đại học Sư phạm Kỹ thuật Thành phố Hồ Chí Minh </br>
 Tiểu luận chuyên ngành </br>
 GVHD: Hoàng Văn Dũng </br>
